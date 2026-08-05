@@ -211,26 +211,182 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ---- Contact Form ----
+  // ---- Project Category Filters ----
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+
+      projectCards.forEach(card => {
+        const categories = card.dataset.category ? card.dataset.category.split(' ') : [];
+        if (filter === 'all' || categories.includes(filter)) {
+          card.classList.remove('filtered-out');
+        } else {
+          card.classList.add('filtered-out');
+        }
+      });
+    });
+  });
+
+  // ---- Quick Specs Modal Logic ----
+  const modalData = {
+    billmate: {
+      tag: "POS System // Architecture Specs",
+      title: "BillMate — POS & Retail Management",
+      description: "BillMate was architected to solve stock sync anomalies and offline transaction issues for small retail merchants.",
+      highlights: [
+        "PostgreSQL Stored Procedures (RPCs): Atomic inventory deduct + sale record creation to eliminate race conditions.",
+        "Supabase Auth & RLS: Strict row-level isolation ensuring multi-tenant store privacy.",
+        "Offline PWA Capability: Service workers cache static assets & offline queue syncs data on reconnection.",
+        "Module Breakdown: Sales Terminal, Item Catalog, Supplier Ledger, Expense Tracker, & Customer Credit Logs."
+      ],
+      specs: [
+        { label: "Frontend", val: "React 18 + Vite" },
+        { label: "Database", val: "PostgreSQL 15" },
+        { label: "Backend BaaS", val: "Supabase" },
+        { label: "Architecture", val: "Relational RPC" }
+      ]
+    },
+    turf: {
+      tag: "Mobile App // Architecture Specs",
+      title: "Turf — Sports Event Coordination",
+      description: "Turf addresses local community sports organization through real-time game hosting, player discovery, and venue booking.",
+      highlights: [
+        "Cross-Platform Native UI: Built using React Native & Expo for smooth 60fps performance on iOS & Android.",
+        "Real-Time Chat Engine: Supabase Realtime Channels for group messaging and event updates.",
+        "Geolocation & Search: Location-filtered match finding and venue availability.",
+        "Payment & Cost Splitting: Automated per-player calculation for turf rentals."
+      ],
+      specs: [
+        { label: "Framework", val: "React Native + Expo" },
+        { label: "Language", val: "TypeScript" },
+        { label: "Realtime DB", val: "Supabase Subscriptions" },
+        { label: "Target", val: "iOS & Android" }
+      ]
+    }
+  };
+
+  const projectModal = document.getElementById('project-modal');
+  const modalClose = document.getElementById('modal-close');
+  const modalBody = document.getElementById('modal-body-content');
+
+  function openModal(projectKey) {
+    const data = modalData[projectKey];
+    if (!data || !projectModal || !modalBody) return;
+
+    modalBody.innerHTML = `
+      <div class="modal-header">
+        <span class="modal-tag">${data.tag}</span>
+        <h3 class="modal-title">${data.title}</h3>
+      </div>
+      <p style="color: var(--text-secondary); line-height: 1.7; font-size: 0.98rem;">${data.description}</p>
+      
+      <div class="modal-section">
+        <h4>⚡ Technical Highlights & System Architecture</h4>
+        <ul>
+          ${data.highlights.map(h => `<li style="margin-bottom: 8px;">${h}</li>`).join('')}
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h4>🛠️ Core Tech Stack</h4>
+        <div class="modal-specs-grid">
+          ${data.specs.map(s => `
+            <div class="spec-box">
+              <div class="label">${s.label}</div>
+              <div class="val">${s.val}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
+    projectModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    if (!projectModal) return;
+    projectModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.open-modal-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const modalKey = btn.dataset.modal;
+      openModal(modalKey);
+    });
+  });
+
+  if (modalClose) modalClose.addEventListener('click', closeModal);
+  if (projectModal) {
+    projectModal.addEventListener('click', (e) => {
+      if (e.target === projectModal) closeModal();
+    });
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && projectModal && projectModal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  // ---- Contact Form (Web3Forms API + Mailto Fallback) ----
   const contactForm = document.getElementById('contact-form');
   const formStatus = document.getElementById('form-status');
 
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const name = contactForm.querySelector('#contact-name').value.trim();
       const email = contactForm.querySelector('#contact-email').value.trim();
       const message = contactForm.querySelector('#contact-message').value.trim();
+      const submitBtn = contactForm.querySelector('.form-submit');
 
       if (!name || !email || !message) {
-        showFormStatus('Please fill in all fields.', 'error');
+        showFormStatus('Please fill in all required fields.', 'error');
         return;
       }
 
-      const mailto = `mailto:kousthubeswar@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
-      window.open(mailto, '_blank');
-      showFormStatus('Opening email client... Thanks for reaching out! 🚀', 'success');
-      contactForm.reset();
+      showFormStatus('Sending message...', 'info');
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        // Submit via Web3Forms free API
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            access_key: 'YOUR_WEB3FORMS_ACCESS_KEY', // Fallbacks to mailto if key is placeholder
+            name: name,
+            email: email,
+            message: message,
+            subject: `Portfolio Contact from ${name}`
+          })
+        });
+
+        const result = await response.json();
+
+        if (response.status === 200 && result.success) {
+          showFormStatus('Message sent successfully! Thanks for reaching out. 🚀', 'success');
+          contactForm.reset();
+        } else {
+          // Fallback to mailto if API key is unconfigured or failed
+          throw new Error('Fallback to mailto');
+        }
+      } catch (err) {
+        const mailto = `mailto:kousthubeswar@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+        window.open(mailto, '_blank');
+        showFormStatus('Opening email client... Thanks for reaching out! 🚀', 'success');
+        contactForm.reset();
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
     });
   }
 
@@ -238,7 +394,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!formStatus) return;
     formStatus.textContent = msg;
     formStatus.className = `form-status ${type}`;
-    setTimeout(() => { formStatus.className = 'form-status'; }, 5000);
+    if (type !== 'info') {
+      setTimeout(() => { formStatus.className = 'form-status'; }, 6000);
+    }
   }
 
   // ---- Counter Animation ----
@@ -305,3 +463,4 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
