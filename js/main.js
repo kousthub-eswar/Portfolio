@@ -460,6 +460,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       ticking = true;
     }
+  });
+
   // ---- Theme Accent Switcher ----
   const themeDots = document.querySelectorAll('.theme-dot');
   const savedTheme = localStorage.getItem('kg-theme') || 'indigo';
@@ -488,6 +490,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
 
 
 
