@@ -462,34 +462,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // ---- Theme Accent Switcher ----
-  const themeDots = document.querySelectorAll('.theme-dot');
-  const savedTheme = localStorage.getItem('kg-theme') || 'indigo';
-
-  function applyTheme(themeName) {
-    if (themeName === 'indigo') {
-      document.documentElement.removeAttribute('data-theme');
-    } else {
-      document.documentElement.setAttribute('data-theme', themeName);
-    }
-
-    themeDots.forEach(dot => {
-      dot.classList.toggle('active', dot.dataset.theme === themeName);
-    });
-
-    localStorage.setItem('kg-theme', themeName);
-  }
-
-  applyTheme(savedTheme);
-
-  themeDots.forEach(dot => {
-    dot.addEventListener('click', () => {
-      const theme = dot.dataset.theme;
-      applyTheme(theme);
-    });
-  });
-
 });
+
 
 
 
