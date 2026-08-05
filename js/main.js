@@ -462,46 +462,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // ---- Hero Terminal Widget Logic ----
-  const terminalBody = document.getElementById('terminal-body');
-  const termTabs = document.querySelectorAll('.term-tab');
-
-  const termContents = {
-    status: `
-      <div class="term-line"><span class="term-prompt">$</span> <span>java -version</span></div>
-      <div class="term-line"><span class="term-success">✔</span> <span>openjdk 21.0.2 2026-01-20 LTS</span></div>
-      <div class="term-line"><span class="term-prompt">$</span> <span>./check_system_health.sh</span></div>
-      <div class="term-line"><span class="term-comment">// Querying PostgreSQL RPC Database...</span></div>
-      <div class="term-line"><span class="term-success">✔</span> <span>DB Transaction Isolation: READ COMMITTED</span></div>
-      <div class="term-line"><span class="term-success">✔</span> <span>Academia: B.Tech CSE @ VIT Vellore (CGPA: 8.48)</span></div>
-      <div class="term-line"><span class="term-success">✔</span> <span>Status: Open for SDE & Analyst Roles (2027)</span></div>
-    `,
-    code: `
-      <div class="term-line"><span class="term-keyword">public class</span> <span class="term-prompt">Developer</span> {</div>
-      <div class="term-line" style="padding-left: 16px;"><span class="term-keyword">private String</span> name = <span class="term-string">"Kousthub Gadikota"</span>;</div>
-      <div class="term-line" style="padding-left: 16px;"><span class="term-keyword">private String[]</span> stack = {<span class="term-string">"Java"</span>, <span class="term-string">"PostgreSQL"</span>, <span class="term-string">"Spring Boot"</span>};</div>
-      <div class="term-line" style="padding-left: 16px;"><span class="term-keyword">public void</span> <span class="term-prompt">buildScalableSystems</span>() {</div>
-      <div class="term-line" style="padding-left: 32px;"><span class="term-prompt">System.out.println</span>(<span class="term-string">"Production ready code!"</span>);</div>
-      <div class="term-line" style="padding-left: 16px;">}</div>
-      <div class="term-line">}</div>
-    `
-  };
-
-  if (terminalBody) {
-    terminalBody.innerHTML = termContents.status;
-
-    termTabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        termTabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        const key = tab.dataset.term;
-        if (termContents[key]) {
-          terminalBody.innerHTML = termContents[key];
-        }
-      });
-    });
-  }
-
 });
 
 
