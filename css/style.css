@@ -1954,4 +1954,65 @@ kbd {
   gap: 12px;
 }
 
+/* ============================================
+   THEME ACCENT SWITCHER
+   ============================================ */
+[data-theme="cyan"] {
+  --accent-1: #06b6d4;
+  --accent-2: #0284c7;
+  --accent-3: #3b82f6;
+  --gradient-hero: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%);
+  --border-glow: rgba(6, 182, 212, 0.4);
+  --shadow-glow: 0 0 40px rgba(6, 182, 212, 0.2);
+}
+
+[data-theme="emerald"] {
+  --accent-1: #10b981;
+  --accent-2: #059669;
+  --accent-3: #06b6d4;
+  --gradient-hero: linear-gradient(135deg, #10b981 0%, #06b6d4 50%, #6366f1 100%);
+  --border-glow: rgba(16, 185, 129, 0.4);
+  --shadow-glow: 0 0 40px rgba(16, 185, 129, 0.2);
+}
+
+[data-theme="rose"] {
+  --accent-1: #f43f5e;
+  --accent-2: #e11d48;
+  --accent-3: #a855f7;
+  --gradient-hero: linear-gradient(135deg, #f43f5e 0%, #a855f7 50%, #6366f1 100%);
+  --border-glow: rgba(244, 63, 94, 0.4);
+  --shadow-glow: 0 0 40px rgba(244, 63, 94, 0.2);
+}
+
+.theme-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  padding: 4px 8px;
+  border-radius: var(--radius-full);
+  margin-left: 6px;
+}
+
+.theme-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.theme-dot:hover {
+  transform: scale(1.25);
+}
+
+.theme-dot.active {
+  border-color: #ffffff;
+  transform: scale(1.15);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+
 
