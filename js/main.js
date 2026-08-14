@@ -243,13 +243,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    let foundActive = false;
     navLinks.forEach(link => {
       const isActive = link.getAttribute('href') === `#${current}`;
       link.classList.toggle('active', isActive);
-      if (isActive && navPill && !navLinksContainer.matches(':hover')) {
-        moveNavPill(link);
+      if (isActive) {
+        foundActive = true;
+        if (navPill && !navLinksContainer.matches(':hover')) {
+          moveNavPill(link);
+        }
       }
     });
+
+    if (!foundActive && navPill && !navLinksContainer.matches(':hover')) {
+      navPill.style.opacity = '0';
+    }
   }
 
   window.addEventListener('scroll', handleNavScroll);
