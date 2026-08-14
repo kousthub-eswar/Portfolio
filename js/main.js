@@ -446,66 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ============================================================
-  // 9. TEXT SCRAMBLE ON SECTION TITLES
-  // ============================================================
-  if (!prefersReducedMotion) {
-    class TextScramble {
-      constructor(el) {
-        this.el = el;
-        this.chars = '!<>-_\\/[]{}—=+*^?#01';
-        this.originalHTML = el.innerHTML;
-        this.triggered = false;
-      }
-
-      scramble() {
-        if (this.triggered) return;
-        this.triggered = true;
-
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = this.originalHTML;
-        const textContent = tempDiv.textContent || tempDiv.innerText;
-        const length = textContent.length;
-        let iteration = 0;
-        const maxIterations = length * 2.2;
-
-        const interval = setInterval(() => {
-          let result = '';
-          for (let i = 0; i < textContent.length; i++) {
-            const char = textContent[i];
-            if (char === ' ' || char === '\n') {
-              result += char;
-            } else if (i < iteration / 2.2) {
-              result += textContent[i];
-            } else {
-              result += this.chars[Math.floor(Math.random() * this.chars.length)];
-            }
-          }
-          this.el.textContent = result;
-          iteration++;
-
-          if (iteration >= maxIterations) {
-            clearInterval(interval);
-            this.el.innerHTML = this.originalHTML;
-          }
-        }, 22);
-      }
-    }
-
-    const scrambleTargets = document.querySelectorAll('.section-title');
-    const scrambleObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          new TextScramble(entry.target).scramble();
-          scrambleObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.35 });
-
-    scrambleTargets.forEach(el => scrambleObserver.observe(el));
-  }
-
-  // ============================================================
-  // 11. SCROLL REVEAL (Staggered Children)
+  // 9. SCROLL REVEAL (Staggered Children & Title Entrance)
   // ============================================================
   const revealElements = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver((entries) => {
