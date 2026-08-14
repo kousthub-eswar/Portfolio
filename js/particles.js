@@ -96,6 +96,34 @@ class ParticleNetwork {
       this.mouse.x = null;
       this.mouse.y = null;
     });
+
+    // Click burst — spawn particles at click location
+    this.canvas.addEventListener('click', (e) => {
+      const rect = this.canvas.getBoundingClientRect();
+      const cx = e.clientX - rect.left;
+      const cy = e.clientY - rect.top;
+      const burstCount = 12;
+
+      for (let i = 0; i < burstCount; i++) {
+        const angle = (Math.PI * 2 / burstCount) * i;
+        const speed = 1.5 + Math.random() * 2;
+        const color = this.config.colors[Math.floor(Math.random() * this.config.colors.length)];
+
+        this.particles.push({
+          x: cx,
+          y: cy,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          radius: Math.random() * 2 + 1.5,
+          color: color,
+          opacity: 0.8,
+          pulseSpeed: 0.02,
+          pulseOffset: Math.random() * Math.PI * 2,
+          life: 1.0,       // burst particles fade out
+          isBurst: true,
+        });
+      }
+    });
   }
 
   drawParticle(p, time) {
@@ -165,9 +193,22 @@ class ParticleNetwork {
   }
 
   updateParticles() {
-    for (const p of this.particles) {
+    for (let i = this.particles.length - 1; i >= 0; i--) {
+      const p = this.particles[i];
       p.x += p.vx;
       p.y += p.vy;
+
+      // Burst particles fade out and get removed
+      if (p.isBurst) {
+        p.life -= 0.012;
+        p.opacity = p.life * 0.8;
+        p.vx *= 0.98;  // slow down
+        p.vy *= 0.98;
+        if (p.life <= 0) {
+          this.particles.splice(i, 1);
+          continue;
+        }
+      }
 
       if (p.x < 0 || p.x > this.displayWidth) p.vx *= -1;
       if (p.y < 0 || p.y > this.displayHeight) p.vy *= -1;
@@ -186,7 +227,7 @@ class ParticleNetwork {
 
       const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
       const maxSpeed = this.config.particleSpeed * 2.5;
-      if (speed > maxSpeed) {
+      if (speed > maxSpeed && !p.isBurst) {
         p.vx = (p.vx / speed) * maxSpeed;
         p.vy = (p.vy / speed) * maxSpeed;
       }

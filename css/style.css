@@ -1230,6 +1230,13 @@ ol {
   width: 2px;
   background: linear-gradient(to bottom, var(--accent-1), var(--accent-2), var(--accent-4), transparent);
   border-radius: var(--radius-full);
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.timeline.timeline-animate::before {
+  transform: scaleY(1);
 }
 
 .timeline-item {
@@ -1574,8 +1581,13 @@ ol {
 .form-group input:focus,
 .form-group textarea:focus {
   border-color: var(--accent-1);
-  box-shadow: 0 0 25px rgba(99, 102, 241, 0.12);
+  box-shadow: 0 0 25px rgba(99, 102, 241, 0.12), 0 0 0 4px rgba(99, 102, 241, 0.06);
   background: rgba(99, 102, 241, 0.03);
+}
+
+.form-group.focused label {
+  color: var(--accent-1);
+  transition: color 0.3s;
 }
 
 .form-group input::placeholder,
@@ -1660,8 +1672,8 @@ ol {
    ============================================ */
 .reveal {
   opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+  transform: translateY(40px);
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
 }
 
 .reveal.revealed {
@@ -1683,6 +1695,19 @@ ol {
 
 .reveal-delay-4 {
   transition-delay: 0.35s;
+}
+
+/* Stagger children animation */
+.stagger-in {
+  opacity: 0;
+  transform: translateY(20px) scale(0.97);
+  transition: opacity 0.5s var(--ease-out-expo),
+              transform 0.5s var(--ease-spring) !important;
+}
+
+.revealed .stagger-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 /* ============================================
@@ -2404,4 +2429,305 @@ kbd {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+/* ============================================
+   V3 INTERACTION LAYER
+   Custom Cursor, Loading Curtain, Nav Pill,
+   Ripple, Shimmer, Stagger, Reduced Motion
+   ============================================ */
+
+/* ---- Custom Cursor ---- */
+.custom-cursor,
+.custom-cursor a,
+.custom-cursor button,
+.custom-cursor input,
+.custom-cursor textarea,
+.custom-cursor select,
+.custom-cursor [role="button"] {
+  cursor: none !important;
+}
+
+.cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  margin-top: -4px;
+  background: #fff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  will-change: left, top;
+  transition: width 0.25s var(--ease-spring),
+              height 0.25s var(--ease-spring),
+              margin 0.25s var(--ease-spring),
+              background 0.25s;
+}
+
+.cursor-dot.hover {
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  margin-top: -3px;
+  background: var(--accent-1);
+}
+
+.cursor-dot.click {
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  margin-top: -2px;
+}
+
+.cursor-ring {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  will-change: left, top;
+  transition: width 0.35s var(--ease-spring),
+              height 0.35s var(--ease-spring),
+              margin 0.35s var(--ease-spring),
+              border-color 0.3s,
+              background 0.3s;
+}
+
+.cursor-ring.hover {
+  width: 60px;
+  height: 60px;
+  margin-left: -30px;
+  margin-top: -30px;
+  border-color: rgba(99, 102, 241, 0.6);
+  background: rgba(99, 102, 241, 0.06);
+}
+
+.cursor-ring.click {
+  width: 32px;
+  height: 32px;
+  margin-left: -16px;
+  margin-top: -16px;
+  border-color: var(--accent-5);
+}
+
+.cursor-ring.text {
+  width: 80px;
+  height: 80px;
+  margin-left: -40px;
+  margin-top: -40px;
+  background: rgba(255, 255, 255, 0.03);
+  mix-blend-mode: difference;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ---- Loading Curtain ---- */
+.loading-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.loading-curtain .loader-brand {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 900;
+  background: var(--gradient-hero);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% auto;
+  animation: loaderShimmer 1.5s ease-in-out infinite;
+}
+
+.loading-curtain .loader-bar {
+  width: 120px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.loading-curtain .loader-bar-inner {
+  width: 40%;
+  height: 100%;
+  background: var(--gradient-accent);
+  border-radius: var(--radius-full);
+  animation: loaderSlide 1s ease-in-out infinite;
+}
+
+.loading-curtain.loaded {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@keyframes loaderShimmer {
+  0%, 100% { background-position: 0% center; opacity: 0.6; }
+  50% { background-position: 100% center; opacity: 1; }
+}
+
+@keyframes loaderSlide {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(200%); }
+  100% { transform: translateX(400%); }
+}
+
+/* ---- Nav Sliding Pill ---- */
+.nav-pill {
+  position: absolute;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  border-radius: var(--radius-sm);
+  transition: all 0.35s var(--ease-out-expo);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 0;
+}
+
+/* ---- Ripple Effect ---- */
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  animation: rippleExpand 0.6s ease-out forwards;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes rippleExpand {
+  from {
+    transform: scale(0);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* ---- Shimmer Sweep on Hover ---- */
+.shimmer-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-hover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
+  );
+  transition: none;
+  pointer-events: none;
+}
+
+.shimmer-hover:hover::after {
+  animation: shimmerSweep 0.6s ease-out forwards;
+}
+
+@keyframes shimmerSweep {
+  from { left: -100%; }
+  to { left: 100%; }
+}
+
+/* ---- Interactive Card Border Glow ---- */
+.glass-card {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+
+.glass-card::before {
+  background: radial-gradient(
+    350px circle at var(--mouse-x) var(--mouse-y),
+    rgba(99, 102, 241, 0.25),
+    transparent 40%,
+    transparent 60%,
+    rgba(6, 182, 212, 0.15)
+  );
+}
+
+/* ---- Project filter transition ---- */
+.project-card {
+  transition: opacity 0.4s var(--ease-out-expo),
+              transform 0.4s var(--ease-out-expo);
+}
+
+.project-card.filtered-out {
+  opacity: 0;
+  transform: scale(0.95) translateY(10px);
+  pointer-events: none;
+  position: absolute;
+  visibility: hidden;
+}
+
+/* ---- Buttons overflow for ripple ---- */
+.btn,
+.filter-btn,
+.hero-social-link,
+.btn-icon,
+.nav-resume-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ---- Prefers Reduced Motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .stagger-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  .loading-curtain {
+    display: none !important;
+  }
+}
+
+/* ---- Hide custom cursor on mobile ---- */
+@media (max-width: 768px) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+
+  body {
+    cursor: auto !important;
+  }
+
+  .nav-pill {
+    display: none;
+  }
 }
