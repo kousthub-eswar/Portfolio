@@ -835,6 +835,23 @@ document.addEventListener('DOMContentLoaded', () => {
         { label: "Realtime DB", val: "Supabase Subscriptions" },
         { label: "Target", val: "iOS & Android" }
       ]
+    },
+    taskflow: {
+      tag: "Distributed Systems // Architecture Specs",
+      title: "TaskFlow — Distributed Job Queue & Telemetry",
+      description: "TaskFlow is a high-throughput asynchronous job execution and telemetry engine built to process intensive distributed workloads with rate limiting and fault tolerance.",
+      highlights: [
+        "Priority Queue Scheduling: Dynamic multi-tier prioritization with dead-letter queue (DLQ) and exponential backoff retry algorithms.",
+        "Token-Bucket Rate Limiter: Redis-backed atomic Lua scripts enforcing strict per-tenant concurrency quotas.",
+        "Worker Telemetry & Health: Real-time worker node heartbeats and distributed lock management via Redis Redlock.",
+        "REST API Metrics: High-performance telemetry endpoints delivering <5ms P99 dispatch latency under high load."
+      ],
+      specs: [
+        { label: "Core Runtime", val: "Java 21 (LTS)" },
+        { label: "Framework", val: "Spring Boot 3" },
+        { label: "Queue / Cache", val: "Redis & Redlock" },
+        { label: "Database", val: "PostgreSQL 15" }
+      ]
     }
   };
 
@@ -914,7 +931,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const target = parseFloat(el.dataset.count);
         const suffix = el.dataset.suffix || '';
         const isDecimal = target % 1 !== 0;
-        const duration = 1600;
+        const duration = 1400;
         const startTime = performance.now();
 
         function updateCount(now) {
@@ -930,7 +947,7 @@ document.addEventListener('DOMContentLoaded', () => {
         counterObserver.unobserve(el);
       }
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.25 });
   statNumbers.forEach(el => counterObserver.observe(el));
 
   // ============================================================
@@ -981,33 +998,15 @@ document.addEventListener('DOMContentLoaded', () => {
       showFormStatus('Transmitting message across network...', 'info');
       if (submitBtn) submitBtn.disabled = true;
 
+      // Direct fallback to prefilled email for 100% reliability
       try {
-        const response = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({
-            access_key: 'YOUR_WEB3FORMS_ACCESS_KEY',
-            name: name,
-            email: email,
-            message: message,
-            subject: `Portfolio Contact from ${name}`
-          })
-        });
-
-        const result = await response.json();
-        if (response.status === 200 && result.success) {
-          showFormStatus('Message transmitted successfully! 🚀', 'success');
-          sound.playSuccess();
-          contactForm.reset();
-        } else {
-          throw new Error('Fallback to mailto');
-        }
-      } catch (err) {
-        const mailto = `mailto:kousthubeswar@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
-        window.open(mailto, '_blank');
-        showFormStatus('Opening email client... Thanks for connecting! 🚀', 'success');
+        const mailto = `mailto:kousthubeswar@gmail.com?subject=Portfolio Inquiry from ${encodeURIComponent(name)}&body=${encodeURIComponent(`Hi Kousthub,\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+        window.location.href = mailto;
+        showFormStatus('Message prepared! Opening your mail client to send to kousthubeswar@gmail.com 🚀', 'success');
         sound.playSuccess();
         contactForm.reset();
+      } catch (err) {
+        showFormStatus('Could not open mail client automatically. Please email kousthubeswar@gmail.com directly.', 'error');
       } finally {
         if (submitBtn) submitBtn.disabled = false;
       }
@@ -1019,7 +1018,7 @@ document.addEventListener('DOMContentLoaded', () => {
     formStatus.textContent = msg;
     formStatus.className = `form-status ${type}`;
     if (type !== 'info') {
-      setTimeout(() => { formStatus.className = 'form-status'; }, 6000);
+      setTimeout(() => { formStatus.className = 'form-status'; }, 7000);
     }
   }
 

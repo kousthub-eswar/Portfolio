@@ -1323,6 +1323,7 @@ ol {
 
 .project-links {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
