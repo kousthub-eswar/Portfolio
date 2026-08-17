@@ -95,6 +95,103 @@ document.addEventListener('DOMContentLoaded', () => {
     playKey() {
       this.playTone(1200 + Math.random() * 400, 'sine', 0.03, 0.015);
     }
+
+    /* ---- Ambient Generative Drone Soundscape ---- */
+    startAmbient() {
+      if (!this.enabled || this.ambientActive) return;
+      this.init();
+      if (!this.ctx) return;
+
+      try {
+        this.ambientActive = true;
+
+        // Sub bass pad
+        this.ambOsc1 = this.ctx.createOscillator();
+        this.ambOsc1.type = 'sine';
+        this.ambOsc1.frequency.setValueAtTime(55, this.ctx.currentTime); // A1
+
+        // Harmonic overtone
+        this.ambOsc2 = this.ctx.createOscillator();
+        this.ambOsc2.type = 'sine';
+        this.ambOsc2.frequency.setValueAtTime(110, this.ctx.currentTime); // A2
+
+        // LFO for gentle amplitude modulation
+        this.ambLFO = this.ctx.createOscillator();
+        this.ambLFO.type = 'sine';
+        this.ambLFO.frequency.setValueAtTime(0.15, this.ctx.currentTime);
+
+        this.ambLFOGain = this.ctx.createGain();
+        this.ambLFOGain.gain.setValueAtTime(0.004, this.ctx.currentTime);
+
+        // Biquad filter for scroll-reactive warmth
+        this.ambFilter = this.ctx.createBiquadFilter();
+        this.ambFilter.type = 'lowpass';
+        this.ambFilter.frequency.setValueAtTime(400, this.ctx.currentTime);
+        this.ambFilter.Q.setValueAtTime(1.5, this.ctx.currentTime);
+
+        // Stereo panner for mouse-reactive spatialization
+        this.ambPanner = this.ctx.createStereoPanner();
+        this.ambPanner.pan.setValueAtTime(0, this.ctx.currentTime);
+
+        // Master gain (very quiet)
+        this.ambGain1 = this.ctx.createGain();
+        this.ambGain1.gain.setValueAtTime(0, this.ctx.currentTime);
+        this.ambGain1.gain.linearRampToValueAtTime(0.012, this.ctx.currentTime + 3);
+
+        this.ambGain2 = this.ctx.createGain();
+        this.ambGain2.gain.setValueAtTime(0, this.ctx.currentTime);
+        this.ambGain2.gain.linearRampToValueAtTime(0.006, this.ctx.currentTime + 4);
+
+        // Wire it up
+        this.ambLFO.connect(this.ambLFOGain);
+        this.ambLFOGain.connect(this.ambGain1.gain);
+
+        this.ambOsc1.connect(this.ambGain1);
+        this.ambOsc2.connect(this.ambGain2);
+
+        this.ambGain1.connect(this.ambFilter);
+        this.ambGain2.connect(this.ambFilter);
+
+        this.ambFilter.connect(this.ambPanner);
+        this.ambPanner.connect(this.ctx.destination);
+
+        this.ambOsc1.start();
+        this.ambOsc2.start();
+        this.ambLFO.start();
+      } catch (e) {}
+    }
+
+    stopAmbient() {
+      if (!this.ambientActive) return;
+      try {
+        const now = this.ctx.currentTime;
+        this.ambGain1.gain.linearRampToValueAtTime(0, now + 2);
+        this.ambGain2.gain.linearRampToValueAtTime(0, now + 2);
+        setTimeout(() => {
+          try {
+            this.ambOsc1.stop();
+            this.ambOsc2.stop();
+            this.ambLFO.stop();
+          } catch (e) {}
+          this.ambientActive = false;
+        }, 2500);
+      } catch (e) {
+        this.ambientActive = false;
+      }
+    }
+
+    /** Update ambient filter/pan based on scroll and mouse position */
+    updateAmbient(scrollProgress, mouseXNorm) {
+      if (!this.ambientActive || !this.ambFilter) return;
+      try {
+        const now = this.ctx.currentTime;
+        // Scroll down = warmer (lower cutoff): 600 → 200
+        const cutoff = 600 - scrollProgress * 400;
+        this.ambFilter.frequency.linearRampToValueAtTime(Math.max(cutoff, 100), now + 0.1);
+        // Mouse X panning: -1 (left) to 1 (right)
+        this.ambPanner.pan.linearRampToValueAtTime(mouseXNorm * 0.5, now + 0.1);
+      } catch (e) {}
+    }
   }
 
   const sound = new SoundEngine();
@@ -122,9 +219,24 @@ document.addEventListener('DOMContentLoaded', () => {
       if (sound.enabled) {
         sound.init();
         sound.playSuccess();
+        sound.startAmbient();
+      } else {
+        sound.stopAmbient();
       }
       updateSoundButton();
     });
+
+    // Start ambient if sound was previously enabled
+    if (sound.enabled) {
+      // Defer to first user interaction
+      const startAmbientOnce = () => {
+        sound.startAmbient();
+        document.removeEventListener('click', startAmbientOnce);
+        document.removeEventListener('scroll', startAmbientOnce);
+      };
+      document.addEventListener('click', startAmbientOnce);
+      document.addEventListener('scroll', startAmbientOnce);
+    }
   }
 
   // Attach sound triggers to interactive elements
@@ -231,6 +343,46 @@ document.addEventListener('DOMContentLoaded', () => {
     navPill.style.top = (rect.top - parentRect.top) + 'px';
     navPill.style.opacity = '1';
   }
+
+  // ============================================================
+  // 4A. SCROLL VELOCITY TRACKER
+  //     Drives: chromatic aberration, nav pill stretch, ambient audio
+  // ============================================================
+  let lastScrollY = window.scrollY;
+  let lastScrollTime = performance.now();
+  let scrollVelocity = 0;
+  let scrollVelocitySmooth = 0;
+
+  function trackScrollVelocity() {
+    const now = performance.now();
+    const dt = now - lastScrollTime;
+    if (dt > 0) {
+      const rawVelocity = Math.abs(window.scrollY - lastScrollY) / (dt / 16);
+      scrollVelocity = Math.min(rawVelocity, 30);
+      scrollVelocitySmooth += (scrollVelocity - scrollVelocitySmooth) * 0.15;
+
+      // Drive chromatic aberration via CSS custom property
+      document.documentElement.style.setProperty('--scroll-velocity', scrollVelocitySmooth.toFixed(2));
+
+      // Drive nav pill elastic stretch
+      if (navPill) {
+        const stretchX = 1 + scrollVelocitySmooth * 0.008;
+        const stretchY = 1 - scrollVelocitySmooth * 0.003;
+        navPill.style.transform = `scaleX(${stretchX.toFixed(3)}) scaleY(${stretchY.toFixed(3)})`;
+      }
+
+      // Drive ambient audio modulation
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollProgress = docHeight > 0 ? window.scrollY / docHeight : 0;
+      const mouseXNorm = (globalMouseX / window.innerWidth) * 2 - 1;
+      sound.updateAmbient(scrollProgress, mouseXNorm);
+
+      lastScrollY = window.scrollY;
+      lastScrollTime = now;
+    }
+    requestAnimationFrame(trackScrollVelocity);
+  }
+  requestAnimationFrame(trackScrollVelocity);
 
   function handleNavScroll() {
     navbar.classList.toggle('scrolled', window.scrollY > 50);
@@ -468,6 +620,79 @@ document.addEventListener('DOMContentLoaded', () => {
   revealElements.forEach(el => revealObserver.observe(el));
 
   // ============================================================
+  // 9A. CINEMATIC TEXT-SPLIT CHARACTER ANIMATION
+  // ============================================================
+  if (!prefersReducedMotion) {
+    const splitTargets = document.querySelectorAll('.section-title');
+    splitTargets.forEach(title => {
+      // Don't re-split if already split
+      if (title.querySelector('.char-split')) return;
+
+      const html = title.innerHTML;
+      // Handle the gradient-text span preservation
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = html;
+
+      function splitTextNode(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const text = node.textContent;
+          const fragment = document.createDocumentFragment();
+          let charIndex = 0;
+          for (const char of text) {
+            const span = document.createElement('span');
+            span.className = char === ' ' ? 'char-split space' : 'char-split';
+            span.textContent = char === ' ' ? '\u00A0' : char;
+            span.style.transitionDelay = `${charIndex * 30}ms`;
+            fragment.appendChild(span);
+            charIndex++;
+          }
+          node.parentNode.replaceChild(fragment, node);
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          // Process children of elements like <span class="gradient-text">
+          const children = Array.from(node.childNodes);
+          children.forEach(child => splitTextNode(child));
+        }
+      }
+
+      const children = Array.from(tempDiv.childNodes);
+      title.innerHTML = '';
+      children.forEach(child => {
+        if (child.nodeType === Node.TEXT_NODE) {
+          splitTextNode(child);
+          const spans = document.createDocumentFragment();
+          // Already processed, but since we replace, re-process from tempDiv
+        } else {
+          title.appendChild(child);
+        }
+      });
+
+      // Simpler approach: directly work on title
+      title.innerHTML = html; // Reset
+      const walker = document.createTreeWalker(title, NodeFilter.SHOW_TEXT, null, false);
+      const textNodes = [];
+      let node;
+      while (node = walker.nextNode()) {
+        textNodes.push(node);
+      }
+
+      let globalCharIdx = 0;
+      textNodes.forEach(textNode => {
+        const text = textNode.textContent;
+        const frag = document.createDocumentFragment();
+        for (const char of text) {
+          const span = document.createElement('span');
+          span.className = char.trim() === '' ? 'char-split space' : 'char-split';
+          span.textContent = char.trim() === '' ? '\u00A0' : char;
+          span.style.transitionDelay = `${globalCharIdx * 28}ms`;
+          frag.appendChild(span);
+          globalCharIdx++;
+        }
+        textNode.parentNode.replaceChild(frag, textNode);
+      });
+    });
+  }
+
+  // ============================================================
   // 12. PARALLAX MOUSE DEPTH LAYERS
   // ============================================================
   if (!isTouchDevice && !prefersReducedMotion) {
@@ -500,6 +725,56 @@ document.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(animateParallax);
     }
     animateParallax();
+  }
+
+  // ============================================================
+  // 12A. CURSOR GLOW TRAIL (Comet Tail Effect)
+  // ============================================================
+  if (!isTouchDevice && !prefersReducedMotion) {
+    const trailColors = [
+      'rgba(0, 240, 255, 0.7)',
+      'rgba(0, 255, 159, 0.7)',
+      'rgba(121, 40, 202, 0.7)',
+      'rgba(56, 239, 125, 0.7)',
+      'rgba(0, 229, 255, 0.7)',
+    ];
+    let lastTrailTime = 0;
+    let trailMouseX = 0, trailMouseY = 0;
+    let prevTrailX = 0, prevTrailY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      trailMouseX = e.clientX;
+      trailMouseY = e.clientY;
+    });
+
+    function spawnTrailDot() {
+      const now = performance.now();
+      const dx = trailMouseX - prevTrailX;
+      const dy = trailMouseY - prevTrailY;
+      const speed = Math.sqrt(dx * dx + dy * dy);
+
+      if (speed > 3 && now - lastTrailTime > 30) {
+        const dot = document.createElement('div');
+        dot.className = 'cursor-trail-dot';
+        const color = trailColors[Math.floor(Math.random() * trailColors.length)];
+        const size = 4 + Math.min(speed * 0.15, 8);
+        dot.style.left = (trailMouseX - size / 2) + 'px';
+        dot.style.top = (trailMouseY - size / 2) + 'px';
+        dot.style.width = size + 'px';
+        dot.style.height = size + 'px';
+        dot.style.background = `radial-gradient(circle, ${color}, transparent)`;
+        dot.style.boxShadow = `0 0 ${size * 2}px ${color}`;
+        document.body.appendChild(dot);
+
+        dot.addEventListener('animationend', () => dot.remove());
+        lastTrailTime = now;
+      }
+
+      prevTrailX = trailMouseX;
+      prevTrailY = trailMouseY;
+      requestAnimationFrame(spawnTrailDot);
+    }
+    requestAnimationFrame(spawnTrailDot);
   }
 
   // ============================================================
