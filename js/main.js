@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         osc.start();
         osc.stop(this.ctx.currentTime + duration);
-      } catch (e) {}
+      } catch (e) { }
     }
 
     playHover() {
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gain.connect(this.ctx.destination);
         osc.start();
         osc.stop(this.ctx.currentTime + 0.08);
-      } catch (e) {}
+      } catch (e) { }
     }
 
     playSuccess() {
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         this.ambOsc1.start();
         this.ambOsc2.start();
         this.ambLFO.start();
-      } catch (e) {}
+      } catch (e) { }
     }
 
     stopAmbient() {
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.ambOsc1.stop();
             this.ambOsc2.stop();
             this.ambLFO.stop();
-          } catch (e) {}
+          } catch (e) { }
           this.ambientActive = false;
         }, 2500);
       } catch (e) {
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
         this.ambFilter.frequency.linearRampToValueAtTime(Math.max(cutoff, 100), now + 0.1);
         // Mouse X panning: -1 (left) to 1 (right)
         this.ambPanner.pan.linearRampToValueAtTime(mouseXNorm * 0.5, now + 0.1);
-      } catch (e) {}
+      } catch (e) { }
     }
   }
 
@@ -453,7 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Backend Developer',
       'Java & Spring Boot Engineer',
       'Database Architect (PostgreSQL)',
-      'Distributed Systems Builder',
+      'Full-Stack Product Builder',
       'CS Student @ VIT Vellore',
     ];
     let stringIndex = 0, charIndex = 0, isDeleting = false, speed = 75;
@@ -819,6 +819,23 @@ document.addEventListener('DOMContentLoaded', () => {
         { label: "Architecture", val: "Relational RPC" }
       ]
     },
+    clubhub: {
+      tag: "Web App // Architecture Specs",
+      title: "Campus ClubHub — Student Club & Event Portal",
+      description: "Campus ClubHub is a role-segregated event platform that streamlines club event management with digital passes, real-time dashboards, and institutional auth flows.",
+      highlights: [
+        "Role-Based Authentication: Separate student and organizer flows based on institutional email domains.",
+        "Digital Event Passes: Real-time SVG QR code generation for instant pass creation and verification.",
+        "Calendar Integration: Google Calendar and .ics sync for seamless door verification workflows.",
+        "Organizer Console: Live occupancy/registration KPIs, real-time attendee rosters, and CSV data export."
+      ],
+      specs: [
+        { label: "Frontend", val: "React 19 + TypeScript" },
+        { label: "Build Tool", val: "Vite" },
+        { label: "Styling", val: "Tailwind CSS" },
+        { label: "Architecture", val: "Role-Segregated SPA" }
+      ]
+    },
     turf: {
       tag: "Mobile App // Architecture Specs",
       title: "Turf — Sports Event Coordination",
@@ -834,23 +851,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { label: "Language", val: "TypeScript" },
         { label: "Realtime DB", val: "Supabase Subscriptions" },
         { label: "Target", val: "iOS & Android" }
-      ]
-    },
-    taskflow: {
-      tag: "Distributed Systems // Architecture Specs",
-      title: "TaskFlow — Distributed Job Queue & Telemetry",
-      description: "TaskFlow is a high-throughput asynchronous job execution and telemetry engine built to process intensive distributed workloads with rate limiting and fault tolerance.",
-      highlights: [
-        "Priority Queue Scheduling: Dynamic multi-tier prioritization with dead-letter queue (DLQ) and exponential backoff retry algorithms.",
-        "Token-Bucket Rate Limiter: Redis-backed atomic Lua scripts enforcing strict per-tenant concurrency quotas.",
-        "Worker Telemetry & Health: Real-time worker node heartbeats and distributed lock management via Redis Redlock.",
-        "REST API Metrics: High-performance telemetry endpoints delivering <5ms P99 dispatch latency under high load."
-      ],
-      specs: [
-        { label: "Core Runtime", val: "Java 21 (LTS)" },
-        { label: "Framework", val: "Spring Boot 3" },
-        { label: "Queue / Cache", val: "Redis & Redlock" },
-        { label: "Database", val: "PostgreSQL 15" }
       ]
     }
   };
@@ -931,7 +931,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const target = parseFloat(el.dataset.count);
         const suffix = el.dataset.suffix || '';
         const isDecimal = target % 1 !== 0;
-        const duration = 1400;
+        const duration = 1600;
         const startTime = performance.now();
 
         function updateCount(now) {
@@ -947,7 +947,7 @@ document.addEventListener('DOMContentLoaded', () => {
         counterObserver.unobserve(el);
       }
     });
-  }, { threshold: 0.25 });
+  }, { threshold: 0.5 });
   statNumbers.forEach(el => counterObserver.observe(el));
 
   // ============================================================
@@ -998,15 +998,33 @@ document.addEventListener('DOMContentLoaded', () => {
       showFormStatus('Transmitting message across network...', 'info');
       if (submitBtn) submitBtn.disabled = true;
 
-      // Direct fallback to prefilled email for 100% reliability
       try {
-        const mailto = `mailto:kousthubeswar@gmail.com?subject=Portfolio Inquiry from ${encodeURIComponent(name)}&body=${encodeURIComponent(`Hi Kousthub,\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
-        window.location.href = mailto;
-        showFormStatus('Message prepared! Opening your mail client to send to kousthubeswar@gmail.com 🚀', 'success');
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            access_key: 'YOUR_WEB3FORMS_ACCESS_KEY',
+            name: name,
+            email: email,
+            message: message,
+            subject: `Portfolio Contact from ${name}`
+          })
+        });
+
+        const result = await response.json();
+        if (response.status === 200 && result.success) {
+          showFormStatus('Message transmitted successfully! 🚀', 'success');
+          sound.playSuccess();
+          contactForm.reset();
+        } else {
+          throw new Error('Fallback to mailto');
+        }
+      } catch (err) {
+        const mailto = `mailto:kousthubeswar@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+        window.open(mailto, '_blank');
+        showFormStatus('Opening email client... Thanks for connecting! 🚀', 'success');
         sound.playSuccess();
         contactForm.reset();
-      } catch (err) {
-        showFormStatus('Could not open mail client automatically. Please email kousthubeswar@gmail.com directly.', 'error');
       } finally {
         if (submitBtn) submitBtn.disabled = false;
       }
@@ -1018,7 +1036,11 @@ document.addEventListener('DOMContentLoaded', () => {
     formStatus.textContent = msg;
     formStatus.className = `form-status ${type}`;
     if (type !== 'info') {
-      setTimeout(() => { formStatus.className = 'form-status'; }, 7000);
+      setTimeout(() => { formStatus.className = 'form-status'; }, 6000);
+    }
+  }
+
+});
     }
   }
 

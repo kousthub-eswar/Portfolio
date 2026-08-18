@@ -12,7 +12,7 @@
   <meta name="theme-color" content="#030014" />
 
   <meta property="og:title" content="Kousthub Gadikota — Backend Developer" />
-  <meta property="og:description" content="4th year CSE student at VIT Vellore building robust backend systems." />
+  <meta property="og:description" content="CS undergraduate at VIT Vellore building robust backend systems. Seeking SDE / Analyst / Product roles for 2027." />
   <meta property="og:type" content="website" />
 
   <title>Kousthub Gadikota | Backend Developer</title>
@@ -29,7 +29,9 @@
   <!-- ========== LOADING CURTAIN ========== -->
   <div class="loading-curtain" id="loading-curtain">
     <div class="loader-brand">&lt;KG /&gt;</div>
-    <div class="loader-bar"><div class="loader-bar-inner"></div></div>
+    <div class="loader-bar">
+      <div class="loader-bar-inner"></div>
+    </div>
   </div>
 
   <!-- ========== NAVIGATION ========== -->
@@ -50,7 +52,8 @@
         <a href="#education" class="nav-link">Education</a>
         <a href="#contact" class="nav-link">Contact</a>
         <a href="assets/resume.pdf" class="nav-resume-btn" id="nav-resume" download="Kousthub_Resume.pdf">Resume ↓</a>
-        <button class="sound-toggle-btn muted" id="sound-toggle" title="Toggle Futuristic Sound FX" aria-label="Toggle Sound Effects">
+        <button class="sound-toggle-btn muted" id="sound-toggle" title="Toggle Futuristic Sound FX"
+          aria-label="Toggle Sound Effects">
           <span>🔇 Audio OFF</span>
         </button>
       </div>
@@ -202,20 +205,20 @@
           </p>
           <p>
             Currently sharpening my skills in Data Structures & Algorithms, System Design, and Backend Engineering.
-            Seeking SDE / Analyst roles for 2027.
+            Seeking full-time SDE / Analyst / Product roles for 2027.
           </p>
 
           <div class="about-stats">
             <div class="stat-card glass-card">
-              <div class="stat-number" data-count="3" data-suffix="+">3+</div>
+              <div class="stat-number" data-count="3" data-suffix="+">0+</div>
               <div class="stat-label">Projects Deployed</div>
             </div>
             <div class="stat-card glass-card">
-              <div class="stat-number" data-count="8.48">8.48</div>
+              <div class="stat-number" data-count="8.48">0</div>
               <div class="stat-label">CGPA</div>
             </div>
             <div class="stat-card glass-card">
-              <div class="stat-number" data-count="2027">2027</div>
+              <div class="stat-number" data-count="2027">0</div>
               <div class="stat-label">Grad Year</div>
             </div>
           </div>
@@ -249,6 +252,9 @@
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/java/java-original.svg" alt="Java" />
               Java</div>
             <div class="skill-item"><img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/python/python-original.svg"
+                alt="Python" /> Python</div>
+            <div class="skill-item"><img
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/javascript/javascript-original.svg"
                 alt="JS" /> JavaScript</div>
             <div class="skill-item"><img
@@ -273,6 +279,9 @@
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/spring/spring-original.svg"
                 alt="Spring Boot" /> Spring Boot</div>
             <div class="skill-item">📱 Expo</div>
+            <div class="skill-item"><img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind" />
+              Tailwind CSS</div>
             <div class="skill-item"><img
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/html5/html5-original.svg" alt="HTML" />
               HTML5</div>
@@ -373,6 +382,7 @@
         <button class="filter-btn active" data-filter="all">All Projects</button>
         <button class="filter-btn" data-filter="backend">Backend & DB</button>
         <button class="filter-btn" data-filter="fullstack">Full-Stack</button>
+        <button class="filter-btn" data-filter="frontend">Frontend</button>
         <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
       </div>
 
@@ -414,16 +424,6 @@
                   </svg>
                   Source Code
                 </a>
-                <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer"
-                  class="btn btn-secondary">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>
-                  Live Demo
-                </a>
                 <button class="btn btn-primary open-modal-btn" data-modal="billmate">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -441,11 +441,64 @@
           </div>
         </div>
 
+        <!-- Campus ClubHub -->
+        <div class="project-card glass-card reveal" data-category="fullstack frontend">
+          <div class="project-content">
+            <div class="project-info">
+              <span class="project-number">// 02</span>
+              <h3 class="project-title">Campus ClubHub</h3>
+              <p class="project-subtitle">Student Club & Event Portal</p>
+              <p class="project-description">
+                A role-segregated event platform with separate student and organizer
+                authentication flows, digital event passes, and real-time management dashboards.
+              </p>
+              <ul class="project-features">
+                <li>Role-based auth with institutional email domain segregation</li>
+                <li>Digital event passes with real-time SVG QR code generation</li>
+                <li>Google Calendar / .ics sync for fast door verification</li>
+                <li>Organizer console with live occupancy/registration KPIs & CSV export</li>
+              </ul>
+              <div class="project-metrics">
+                <span class="metric-badge">🎫 Digital Pass System</span>
+                <span class="metric-badge">📊 Live KPI Dashboard</span>
+              </div>
+              <div class="project-tech-stack">
+                <span class="tech-badge">React 19</span>
+                <span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">Vite</span>
+                <span class="tech-badge">Tailwind CSS</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer"
+                  class="btn btn-secondary">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                      d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                  </svg>
+                  Source Code
+                </a>
+                <button class="btn btn-primary open-modal-btn" data-modal="clubhub">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="16" x2="12" y2="12" />
+                    <line x1="12" y1="8" x2="12.01" y2="8" />
+                  </svg>
+                  Quick Specs
+                </button>
+              </div>
+            </div>
+            <div class="project-visual">
+              <img src="assets/images/clubhub-mockup.png" alt="Campus ClubHub Dashboard" loading="lazy" />
+            </div>
+          </div>
+        </div>
+
         <!-- Turf -->
         <div class="project-card glass-card reveal" data-category="mobile fullstack">
           <div class="project-content">
             <div class="project-info">
-              <span class="project-number">// 02</span>
+              <span class="project-number">// 03</span>
               <h3 class="project-title">Turf</h3>
               <p class="project-subtitle">Sports Event Coordination App</p>
               <p class="project-description">
@@ -477,16 +530,6 @@
                   </svg>
                   Source Code
                 </a>
-                <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer"
-                  class="btn btn-secondary">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>
-                  Live Demo
-                </a>
                 <button class="btn btn-primary open-modal-btn" data-modal="turf">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -500,69 +543,6 @@
             </div>
             <div class="project-visual">
               <img src="assets/images/turf-mockup.png" alt="Turf Mobile App" loading="lazy" />
-            </div>
-          </div>
-        </div>
-
-        <!-- TaskFlow -->
-        <div class="project-card glass-card reveal" data-category="backend fullstack">
-          <div class="project-content">
-            <div class="project-info">
-              <span class="project-number">// 03</span>
-              <h3 class="project-title">TaskFlow</h3>
-              <p class="project-subtitle">Distributed Task Queue & Telemetry Engine</p>
-              <p class="project-description">
-                A high-throughput distributed job scheduling and background worker system built to handle asynchronous jobs with dynamic rate-limiting.
-              </p>
-              <ul class="project-features">
-                <li>Priority task queueing with exponential backoff retries & dead-letter queue</li>
-                <li>Token-bucket rate limiter backed by Redis for multi-tenant throughput</li>
-                <li>Worker node heartbeat & distributed lock management</li>
-                <li>REST API telemetry dashboard with sub-5ms P99 dispatch latency</li>
-              </ul>
-              <div class="project-metrics">
-                <span class="metric-badge">⚡ 10k+ Tasks/sec</span>
-                <span class="metric-badge">⏱️ &lt;5ms P99 Latency</span>
-              </div>
-              <div class="project-tech-stack">
-                <span class="tech-badge">Java 21</span>
-                <span class="tech-badge">Spring Boot</span>
-                <span class="tech-badge">PostgreSQL</span>
-                <span class="tech-badge">Redis</span>
-                <span class="tech-badge">Docker</span>
-              </div>
-              <div class="project-links">
-                <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer"
-                  class="btn btn-secondary">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                  </svg>
-                  Source Code
-                </a>
-                <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer"
-                  class="btn btn-secondary">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>
-                  Live Demo
-                </a>
-                <button class="btn btn-primary open-modal-btn" data-modal="taskflow">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <line x1="12" y1="16" x2="12" y2="12" />
-                    <line x1="12" y1="8" x2="12.01" y2="8" />
-                  </svg>
-                  Quick Specs
-                </button>
-              </div>
-            </div>
-            <div class="project-visual">
-              <img src="assets/images/taskflow-mockup.png" alt="TaskFlow Distributed Job Queue" loading="lazy" />
             </div>
           </div>
         </div>
@@ -583,7 +563,20 @@
         <div class="timeline-item">
           <div class="timeline-dot active"></div>
           <div class="timeline-card glass-card">
-            <span class="timeline-date">2024 — Present</span>
+            <span class="timeline-date">May 2025 — June 2025</span>
+            <h3 class="timeline-title">Marketing Intern</h3>
+            <p class="timeline-company">Edvensoft Solutions</p>
+            <p class="timeline-description">
+              • Conducted market and competitor analysis across 10+ companies to support campaign strategy.<br />
+              • Organized and analyzed customer data and campaign performance metrics.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card glass-card">
+            <span class="timeline-date">Jan 2025 — Jan 2026</span>
             <h3 class="timeline-title">Co-Secretary</h3>
             <p class="timeline-company">Matrix — The Multimedia Club, VIT Vellore</p>
             <p class="timeline-description">
@@ -597,7 +590,7 @@
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-card glass-card">
-            <span class="timeline-date">2023 — Present</span>
+            <span class="timeline-date">Sep 2024 — Present</span>
             <h3 class="timeline-title">Organizing Committee Member</h3>
             <p class="timeline-company">Riviera / GraVITas — VIT Flagship Fests</p>
             <p class="timeline-description">
@@ -607,22 +600,9 @@
           </div>
         </div>
 
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-card glass-card">
-            <span class="timeline-date">May 2025 — June 2025</span>
-            <h3 class="timeline-title">Marketing Intern</h3>
-            <p class="timeline-company">Edvensoft Solutions</p>
-            <p class="timeline-description">
-              • Conducted market and competitor analysis across 10+ companies to support campaign strategy.<br />
-              • Organized and analyzed customer data and campaign performance metrics.
-            </p>
-          </div>
-        </div>
-
         <div class="timeline-cta glass-card reveal">
           <p>🚀 <span class="highlight">Currently seeking opportunities</span></p>
-          <p>Open to SDE / Analyst roles & internships for 2027.</p>
+          <p>Open to full-time SDE / Analyst / Product roles for 2027.</p>
         </div>
       </div>
     </div>
