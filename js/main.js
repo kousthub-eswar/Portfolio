@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ============================================================
-  // 2. CUSTOM ANIMATED DUAL-RING CURSOR
+  // 2. CUSTOM ANIMATED DUAL-RING CURSOR (GPU-Accelerated, Zero-Lag)
   // ============================================================
   if (!isTouchDevice && !prefersReducedMotion) {
     const cursorDot = document.createElement('div');
@@ -258,19 +258,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(cursorRing);
     document.body.classList.add('custom-cursor');
 
-    let dotX = globalMouseX, dotY = globalMouseY;
     let ringX = globalMouseX, ringY = globalMouseY;
 
     function animateCursor() {
-      dotX += (globalMouseX - dotX) * 0.28;
-      dotY += (globalMouseY - dotY) * 0.28;
-      cursorDot.style.left = dotX + 'px';
-      cursorDot.style.top = dotY + 'px';
+      // Instant 1:1 hardware tracking for dot via GPU transform (zero layout reflow)
+      cursorDot.style.transform = `translate3d(${globalMouseX}px, ${globalMouseY}px, 0)`;
 
-      ringX += (globalMouseX - ringX) * 0.12;
-      ringY += (globalMouseY - ringY) * 0.12;
-      cursorRing.style.left = ringX + 'px';
-      cursorRing.style.top = ringY + 'px';
+      // Smooth, responsive trailing ring
+      ringX += (globalMouseX - ringX) * 0.35;
+      ringY += (globalMouseY - ringY) * 0.35;
+      cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
 
       requestAnimationFrame(animateCursor);
     }
@@ -484,15 +481,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================================================
-  // 6. 3D HOLOGRAPHIC FOIL & CARD TILT
+  // 6. 3D HOLOGRAPHIC FOIL & CARD TILT (Optimized)
   // ============================================================
   function initHolographicCards(selector, intensity = 8) {
     if (isTouchDevice || prefersReducedMotion) return;
     const cards = document.querySelectorAll(selector);
 
     cards.forEach(card => {
+      let rect = null;
+
+      card.addEventListener('mouseenter', () => {
+        rect = card.getBoundingClientRect();
+      });
+
       card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
+        if (!rect) rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         const centerX = rect.width / 2;
@@ -509,9 +512,10 @@ document.addEventListener('DOMContentLoaded', () => {
         card.style.setProperty('--mouse-y', y + 'px');
         card.style.setProperty('--holo-angle', angle + 'deg');
         card.style.transition = 'transform 0.08s ease';
-      });
+      }, { passive: true });
 
       card.addEventListener('mouseleave', () => {
+        rect = null;
         card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
         card.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
       });
@@ -526,7 +530,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHolographicCards('.timeline-card', 5);
 
   // ============================================================
-  // 7. ELASTIC MAGNETIC PULL PHYSICS
+  // 7. ELASTIC MAGNETIC PULL PHYSICS (Optimized)
   // ============================================================
   if (!isTouchDevice && !prefersReducedMotion) {
     const magneticElements = document.querySelectorAll(
@@ -537,13 +541,14 @@ document.addEventListener('DOMContentLoaded', () => {
       let currentX = 0, currentY = 0;
       let targetX = 0, targetY = 0;
       let isAnimating = false;
+      let rect = null;
 
       function animate() {
         const dx = targetX - currentX;
         const dy = targetY - currentY;
-        currentX += dx * 0.18;
-        currentY += dy * 0.18;
-        el.style.transform = `translate(${currentX}px, ${currentY}px)`;
+        currentX += dx * 0.22;
+        currentY += dy * 0.22;
+        el.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
 
         if (Math.abs(dx) > 0.01 || Math.abs(dy) > 0.01) {
           requestAnimationFrame(animate);
@@ -553,17 +558,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
+      el.addEventListener('mouseenter', () => {
+        rect = el.getBoundingClientRect();
+      });
+
       el.addEventListener('mousemove', (e) => {
-        const rect = el.getBoundingClientRect();
-        targetX = (e.clientX - rect.left - rect.width / 2) * 0.35;
-        targetY = (e.clientY - rect.top - rect.height / 2) * 0.35;
+        if (!rect) rect = el.getBoundingClientRect();
+        targetX = (e.clientX - rect.left - rect.width / 2) * 0.3;
+        targetY = (e.clientY - rect.top - rect.height / 2) * 0.3;
         if (!isAnimating) {
           isAnimating = true;
           animate();
         }
-      });
+      }, { passive: true });
 
       el.addEventListener('mouseleave', () => {
+        rect = null;
         targetX = 0;
         targetY = 0;
         if (!isAnimating) {
@@ -725,56 +735,6 @@ document.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(animateParallax);
     }
     animateParallax();
-  }
-
-  // ============================================================
-  // 12A. CURSOR GLOW TRAIL (Comet Tail Effect)
-  // ============================================================
-  if (!isTouchDevice && !prefersReducedMotion) {
-    const trailColors = [
-      'rgba(0, 240, 255, 0.7)',
-      'rgba(0, 255, 159, 0.7)',
-      'rgba(121, 40, 202, 0.7)',
-      'rgba(56, 239, 125, 0.7)',
-      'rgba(0, 229, 255, 0.7)',
-    ];
-    let lastTrailTime = 0;
-    let trailMouseX = 0, trailMouseY = 0;
-    let prevTrailX = 0, prevTrailY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-      trailMouseX = e.clientX;
-      trailMouseY = e.clientY;
-    });
-
-    function spawnTrailDot() {
-      const now = performance.now();
-      const dx = trailMouseX - prevTrailX;
-      const dy = trailMouseY - prevTrailY;
-      const speed = Math.sqrt(dx * dx + dy * dy);
-
-      if (speed > 3 && now - lastTrailTime > 30) {
-        const dot = document.createElement('div');
-        dot.className = 'cursor-trail-dot';
-        const color = trailColors[Math.floor(Math.random() * trailColors.length)];
-        const size = 4 + Math.min(speed * 0.15, 8);
-        dot.style.left = (trailMouseX - size / 2) + 'px';
-        dot.style.top = (trailMouseY - size / 2) + 'px';
-        dot.style.width = size + 'px';
-        dot.style.height = size + 'px';
-        dot.style.background = `radial-gradient(circle, ${color}, transparent)`;
-        dot.style.boxShadow = `0 0 ${size * 2}px ${color}`;
-        document.body.appendChild(dot);
-
-        dot.addEventListener('animationend', () => dot.remove());
-        lastTrailTime = now;
-      }
-
-      prevTrailX = trailMouseX;
-      prevTrailY = trailMouseY;
-      requestAnimationFrame(spawnTrailDot);
-    }
-    requestAnimationFrame(spawnTrailDot);
   }
 
   // ============================================================

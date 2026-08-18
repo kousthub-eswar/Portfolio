@@ -84,18 +84,26 @@ class ParticleNetwork {
 
   addEventListeners() {
     let resizeTimeout;
+    let canvasRect = this.canvas.getBoundingClientRect();
+
+    const updateRect = () => {
+      canvasRect = this.canvas.getBoundingClientRect();
+    };
+
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
         this.resize();
         this.createParticles();
+        updateRect();
       }, 200);
     });
 
+    window.addEventListener('scroll', updateRect, { passive: true });
+
     window.addEventListener('mousemove', (e) => {
-      const rect = this.canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+      const x = e.clientX - canvasRect.left;
+      const y = e.clientY - canvasRect.top;
 
       if (this.mouse.prevX !== null) {
         this.mouse.vx = x - this.mouse.prevX;
@@ -106,7 +114,7 @@ class ParticleNetwork {
       this.mouse.prevY = this.mouse.y;
       this.mouse.x = x;
       this.mouse.y = y;
-    });
+    }, { passive: true });
 
     this.canvas.addEventListener('mouseleave', () => {
       this.mouse.x = null;
@@ -223,10 +231,7 @@ class ParticleNetwork {
           this.ctx.lineTo(this.mouse.x, this.mouse.y);
           this.ctx.strokeStyle = `rgba(${c.r}, ${c.g}, ${c.b}, ${opacity * 1.2})`;
           this.ctx.lineWidth = 1.2;
-          this.ctx.shadowBlur = 8;
-          this.ctx.shadowColor = `rgba(${c.r}, ${c.g}, ${c.b}, 0.5)`;
           this.ctx.stroke();
-          this.ctx.shadowBlur = 0;
         }
       }
     }
