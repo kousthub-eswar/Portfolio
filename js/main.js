@@ -1041,7 +1041,3 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
-    }
-  }
-
-});
