@@ -25,6 +25,24 @@
 
 <body>
   <!-- ============================================================
+       0. CYBER BOOTLOADER / INITIALIZATION SCREEN
+       ============================================================ -->
+  <div id="cyber-loader" class="cyber-loader">
+    <div class="loader-content">
+      <div class="loader-hex-wrap">
+        <div class="loader-hex-ring"></div>
+        <div class="loader-core">&lt;<span>KG</span> /&gt;</div>
+      </div>
+      <div class="loader-title">INITIALIZING CYBER COCKPIT</div>
+      <div class="loader-subtitle">Kousthub Gadikota // SDE &amp; Full-Stack</div>
+      <div class="loader-bar-wrap">
+        <div class="loader-bar-fill" id="loader-bar-fill"></div>
+      </div>
+      <div class="loader-telemetry" id="loader-telemetry">CONNECTING_WEBGL_PIPELINE [100%]</div>
+    </div>
+  </div>
+
+  <!-- ============================================================
        1. FULL-SCREEN 3D WEBGL WORKSTATION CANVAS
        ============================================================ -->
   <div id="webgl-canvas-container"></div>
@@ -36,29 +54,30 @@
     <!-- Brand & Status -->
     <div class="hud-brand">
       <span class="hud-logo">&lt;<span>KG</span> /&gt;</span>
-      <span class="hud-status-dot"></span>
+      <span class="hud-status-dot" title="Open to Software Engineering & Full-Stack roles"></span>
       <span class="hud-role-tag">Kousthub Gadikota // SDE &amp; Full-Stack</span>
+      <span class="hud-avail-pill">Open for Roles '25-'26</span>
     </div>
 
-    <!-- Center Station Navigation -->
+    <!-- Center Station Navigation with Multi-Color Thematic Badges -->
     <nav class="hud-stations-menu" id="hud-nav" aria-label="Station Navigation">
-      <button class="hud-nav-btn active" data-view="overview" title="Full Cockpit Overview">
+      <button class="hud-nav-btn active nav-station-overview" data-view="overview" title="Full Cockpit Overview">
         <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
         <span>Overview</span>
       </button>
-      <button class="hud-nav-btn" data-view="projects" title="Zoom to Curved Code Monitor">
+      <button class="hud-nav-btn nav-station-projects" data-view="projects" title="Zoom to Curved Code Monitor">
         <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
         <span>Projects</span>
       </button>
-      <button class="hud-nav-btn" data-view="skills" title="Zoom to Server Rack">
+      <button class="hud-nav-btn nav-station-skills" data-view="skills" title="Zoom to Server Rack">
         <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
         <span>Backend &amp; DB</span>
       </button>
-      <button class="hud-nav-btn" data-view="experience" title="Zoom to Vertical Screen">
+      <button class="hud-nav-btn nav-station-experience" data-view="experience" title="Zoom to Vertical Screen">
         <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
         <span>Bio &amp; VIT</span>
       </button>
-      <button class="hud-nav-btn" data-view="contact" title="Zoom to Desk Smartphone">
+      <button class="hud-nav-btn nav-station-contact" data-view="contact" title="Zoom to Desk Smartphone">
         <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
         <span>Contact / CV</span>
       </button>
@@ -66,6 +85,14 @@
 
     <!-- Right Controls -->
     <div class="hud-actions">
+      <!-- Quick Socials Directly in Header -->
+      <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="hud-icon-btn" title="GitHub Profile">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      </a>
+      <a href="https://linkedin.com/in/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="hud-icon-btn" title="LinkedIn Profile">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+
       <button class="btn-hud-reset" id="hud-reset-view" title="Reset Camera to Wide Overview (ESC)">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/></svg>
         <span>Reset View</span>
@@ -79,6 +106,12 @@
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         <span>Resume</span>
       </a>
+
+      <!-- Mobile View Mode Toggle -->
+      <button class="btn-mobile-toggle" id="btn-mobile-view-toggle" title="Toggle 3D View / Card View">
+        <span class="mobile-toggle-icon">📱</span>
+        <span class="mobile-toggle-label">Cards</span>
+      </button>
     </div>
   </header>
 
@@ -86,11 +119,12 @@
        3. BOTTOM INTERACTION HINT BAR
        ============================================================ -->
   <div class="hud-bottom-bar">
-    <span>💡 <strong>Click 3D Objects</strong> (Monitor, Server Rack, Phone) to zoom in</span>
+    <span class="hud-hint-pill">💡 <strong>Interactive Cockpit</strong></span>
+    <span>Click any 3D prop (Monitor, Server Rack, Phone) to zoom in</span>
     <span>•</span>
-    <span><strong>Drag</strong> mouse to pan view</span>
+    <span>Drag to pan</span>
     <span>•</span>
-    <span>Press <strong>ESC</strong> to return to overview</span>
+    <span>Press <kbd>ESC</kbd> to reset view</span>
   </div>
 
   <!-- ============================================================
@@ -99,7 +133,7 @@
   <!-- Projects Flyout (Triggered on Monitor Zoom) -->
   <div class="station-flyout" id="flyout-projects">
     <div class="flyout-header">
-      <span class="flyout-badge">STATION: CURVED CODE MONITOR</span>
+      <span class="flyout-badge" style="color: var(--accent-cyan); border-color: rgba(0, 240, 255, 0.35);">STATION: CURVED CODE MONITOR</span>
       <button class="flyout-close-btn" data-action="close-flyout" title="Return to Overview (ESC)">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         <span>Overview</span>
@@ -137,12 +171,15 @@
       </div>
     </div>
 
-    <div class="flyout-actions">
+    <div class="flyout-actions" id="flyout-project-actions">
       <button class="btn-flyout-primary open-spec-btn" id="flyout-project-spec-btn" data-project="billmate">
         Inspect System Specs &rarr;
       </button>
-      <a href="https://bill-mate.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 7px 14px; font-size: 0.8rem;">
+      <a href="https://bill-mate.vercel.app/" id="flyout-project-live-btn" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
         Live Demo &rarr;
+      </a>
+      <a href="https://github.com/kousthub-eswar/BillMate" id="flyout-project-github-btn" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+        GitHub &rarr;
       </a>
     </div>
   </div>
@@ -382,6 +419,287 @@
       </div>
     </div>
   </div>
+
+  <!-- ============================================================
+       7. DEDICATED RESPONSIVE MOBILE PORTFOLIO VIEW
+       Activated on mobile devices (<850px) or toggled manually
+       ============================================================ -->
+  <main class="mobile-portfolio-container" id="mobile-portfolio-container">
+    <!-- Mobile Hero Header -->
+    <header class="mobile-hero-card">
+      <div class="mobile-avatar-wrap">
+        <div class="mobile-avatar-ring"></div>
+        <div class="mobile-avatar-core">&lt;<span>KG</span> /&gt;</div>
+      </div>
+      <div class="mobile-avail-badge">
+        <span class="status-pulse-dot"></span>
+        <span>Open to SDE &amp; Full-Stack Roles '25-'26</span>
+      </div>
+      <h1 class="mobile-hero-name">Kousthub Gadikota</h1>
+      <p class="mobile-hero-tagline">
+        Full-Stack Software Engineer &amp; CSE Undergrad at <strong>VIT Vellore</strong> (CGPA: 8.48). Building production-grade systems with React 19, TypeScript, PostgreSQL, and Node.js.
+      </p>
+
+      <div class="mobile-hero-ctas">
+        <a href="assets/resume.pdf" class="btn btn-primary" download="Kousthub_Resume.pdf">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Download Resume</span>
+        </a>
+        <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          <span>GitHub</span>
+        </a>
+        <a href="https://linkedin.com/in/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          <span>LinkedIn</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Mobile Section Quick Tabs -->
+    <nav class="mobile-section-nav" aria-label="Mobile Sections">
+      <a href="#m-projects" class="m-nav-pill active">💻 Projects</a>
+      <a href="#m-skills" class="m-nav-pill">🗄️ Tech Stack</a>
+      <a href="#m-experience" class="m-nav-pill">🎓 Bio &amp; VIT</a>
+      <a href="#m-contact" class="m-nav-pill">📱 Contact</a>
+    </nav>
+
+    <!-- Section 1: Mobile Projects -->
+    <section class="m-section" id="m-projects">
+      <div class="m-section-header">
+        <span class="m-section-tag" style="color: var(--accent-cyan); border-color: rgba(0,240,255,0.3);">FEATURED PRODUCTION WORK</span>
+        <h2>Engineering Projects</h2>
+      </div>
+
+      <!-- Project 1: BillMate -->
+      <article class="m-project-card">
+        <div class="m-card-badge">REACT 19 • SUPABASE • POSTGRESQL RPCs • VITEST</div>
+        <h3>BillMate — POS &amp; Retail Management System</h3>
+        <p class="m-card-desc">
+          A mobile-first PWA covering billing with camera barcode scanning, inventory, customer credit ledger, supplier and expense tracking, with offline caching.
+        </p>
+        <div class="m-metrics-row">
+          <div class="m-metric-tag"><strong>Atomic PostgreSQL RPCs</strong> Data Integrity</div>
+          <div class="m-metric-tag"><strong>Camera &amp; 80mm ESC/POS</strong> Hardware Scanning</div>
+          <div class="m-metric-tag"><strong>Supabase Auth &amp; RLS</strong> Multi-User</div>
+          <div class="m-metric-tag"><strong>Vitest Tests</strong> 100% Core Logic</div>
+        </div>
+        <div class="m-card-actions">
+          <button class="btn btn-primary open-spec-btn" data-project="billmate">System Specs &rarr;</button>
+          <a href="https://bill-mate.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Live Demo &rarr;</a>
+          <a href="https://github.com/kousthub-eswar/BillMate" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub</a>
+        </div>
+      </article>
+
+      <!-- Project 2: TuneSense -->
+      <article class="m-project-card">
+        <div class="m-card-badge" style="color: var(--accent-purple); border-color: rgba(168,85,247,0.3);">6 STRATEGIES • 11 MONGOOSE SCHEMAS • EVALUATION SUITE</div>
+        <h3>TuneSense — Explainable Music Recommendation System</h3>
+        <p class="m-card-desc">
+          An explainable music recommendation REST API with six composable algorithmic strategies returning human-readable reasons, backed by 11 Mongoose schemas and offline evaluation suites (NDCG, Precision@K).
+        </p>
+        <div class="m-metrics-row">
+          <div class="m-metric-tag"><strong>6 Composable Strategies</strong> Recommendation Engine</div>
+          <div class="m-metric-tag"><strong>11 Mongoose Schemas</strong> Cosine Similarity Matching</div>
+          <div class="m-metric-tag"><strong>JWT + Zod</strong> HttpOnly Cookies</div>
+          <div class="m-metric-tag"><strong>NDCG &amp; Precision@K</strong> Evaluation Framework</div>
+        </div>
+        <div class="m-card-actions">
+          <button class="btn btn-primary open-spec-btn" data-project="tunesense">System Specs &rarr;</button>
+          <a href="https://github.com/kousthub-eswar/TuneSense" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub Source &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Project 3: Campus ClubHub -->
+      <article class="m-project-card">
+        <div class="m-card-badge" style="color: var(--accent-green); border-color: rgba(0,255,159,0.3);">REACT 19 • TYPESCRIPT • VITE • TAILWIND CSS</div>
+        <h3>Campus ClubHub — Student Club &amp; Event Portal</h3>
+        <p class="m-card-desc">
+          Role-segregated institutional student and organizer authentication portal with digital event passes using real-time SVG QR codes, Google Calendar sync, and organizer KPI dashboards.
+        </p>
+        <div class="m-metrics-row">
+          <div class="m-metric-tag"><strong>Domain Auth</strong> Segregated Roles</div>
+          <div class="m-metric-tag"><strong>Real-Time SVG QRs</strong> Digital Passes</div>
+          <div class="m-metric-tag"><strong>Live KPI Console</strong> CSV Attendee Export</div>
+        </div>
+        <div class="m-card-actions">
+          <button class="btn btn-primary open-spec-btn" data-project="clubhub">System Specs &rarr;</button>
+          <a href="https://github.com/kousthub-eswar/Campus-ClubHub" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub Source &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Project 4: Audit Analytics -->
+      <article class="m-project-card">
+        <div class="m-card-badge" style="color: var(--accent-amber); border-color: rgba(255,184,0,0.3);">8,000 TXNS • $13.7M VOLUME • BENFORD'S LAW</div>
+        <h3>Audit Analytics &amp; Anomaly Detection System</h3>
+        <p class="m-card-desc">
+          Forensic financial data analytics platform analyzing 8,000 ledger transactions ($13.7M) with Benford's Law, Chi-Square goodness-of-fit, and threshold avoidance tests to catch fraud.
+        </p>
+        <div class="m-metrics-row">
+          <div class="m-metric-tag"><strong>$13.7M Audited</strong> 8,000 Transactions</div>
+          <div class="m-metric-tag"><strong>206 Flags</strong> Threshold Avoidance</div>
+          <div class="m-metric-tag"><strong>168 Duplicates</strong> Zero False-Negatives</div>
+        </div>
+        <div class="m-card-actions">
+          <button class="btn btn-primary open-spec-btn" data-project="auditanalytics">System Specs &rarr;</button>
+          <a href="https://github.com/kousthub-eswar/Audit-Analytics-System" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub Source &rarr;</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- Section 2: Mobile Skills & Tech Stack -->
+    <section class="m-section" id="m-skills">
+      <div class="m-section-header">
+        <span class="m-section-tag" style="color: var(--accent-purple); border-color: rgba(168,85,247,0.3);">TECHNICAL PROFICIENCY</span>
+        <h2>Skills &amp; Architecture</h2>
+      </div>
+
+      <div class="m-skill-block">
+        <h4 style="color: var(--accent-cyan);">Languages &amp; Core Computer Science</h4>
+        <div class="skills-pills-wrap">
+          <span class="skill-tag">☕ Java</span>
+          <span class="skill-tag">🔷 TypeScript</span>
+          <span class="skill-tag">🟨 JavaScript</span>
+          <span class="skill-tag">⚡ C++</span>
+          <span class="skill-tag">🗄️ SQL</span>
+          <span class="skill-tag">🐍 Python (basic)</span>
+          <span class="skill-tag">🧱 OOP &amp; DSA</span>
+        </div>
+      </div>
+
+      <div class="m-skill-block">
+        <h4 style="color: var(--accent-purple);">Backend &amp; Databases</h4>
+        <div class="skills-pills-wrap">
+          <span class="skill-tag">🟢 Node.js</span>
+          <span class="skill-tag">🚂 Express.js</span>
+          <span class="skill-tag">🍃 MongoDB (Mongoose)</span>
+          <span class="skill-tag">🐘 PostgreSQL</span>
+          <span class="skill-tag">⚡ Supabase (Atomic RPCs, RLS)</span>
+          <span class="skill-tag">🗃️ SQLite</span>
+          <span class="skill-tag">🔒 JWT Auth &amp; Zod</span>
+          <span class="skill-tag">🌐 RESTful APIs</span>
+        </div>
+      </div>
+
+      <div class="m-skill-block">
+        <h4 style="color: var(--accent-green);">Frontend, Testing &amp; Cloud DevOps</h4>
+        <div class="skills-pills-wrap">
+          <span class="skill-tag">⚛️ React 19</span>
+          <span class="skill-tag">⚡ Vite</span>
+          <span class="skill-tag">🎨 Tailwind CSS</span>
+          <span class="skill-tag">📱 PWA (Service Workers)</span>
+          <span class="skill-tag">🧪 Vitest Unit Testing</span>
+          <span class="skill-tag">🐙 Git &amp; GitHub</span>
+          <span class="skill-tag">▲ Vercel</span>
+          <span class="skill-tag">🚀 Render</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Experience, Leadership & Education -->
+    <section class="m-section" id="m-experience">
+      <div class="m-section-header">
+        <span class="m-section-tag" style="color: var(--accent-amber); border-color: rgba(255,184,0,0.3);">BACKGROUND &amp; CREDENTIALS</span>
+        <h2>Experience &amp; Education</h2>
+      </div>
+
+      <div class="m-timeline">
+        <div class="m-timeline-item">
+          <div class="m-timeline-dot" style="background: var(--accent-cyan);"></div>
+          <div class="m-timeline-content">
+            <span class="m-timeline-date">May 2025 – June 2025</span>
+            <h4>Marketing Intern • Edvensoft Solutions</h4>
+            <p>Analyzed 10+ competitors and marketing performance data to support data-driven strategy and campaign execution.</p>
+          </div>
+        </div>
+
+        <div class="m-timeline-item">
+          <div class="m-timeline-dot" style="background: var(--accent-purple);"></div>
+          <div class="m-timeline-content">
+            <span class="m-timeline-date">Jan 2025 – Jan 2026</span>
+            <h4>Co-Secretary • Matrix — The Multimedia Club</h4>
+            <p>Led 10+ members across 10+ technical and creative workshops reaching 100+ active student participants.</p>
+          </div>
+        </div>
+
+        <div class="m-timeline-item">
+          <div class="m-timeline-dot" style="background: var(--accent-green);"></div>
+          <div class="m-timeline-content">
+            <span class="m-timeline-date">Sep 2024 – Present</span>
+            <h4>Organizing Committee Member • Riviera &amp; GraVITas, VIT</h4>
+            <p>Coordinated logistics, stage tech operations, and cross-team coordination for university-wide international fests.</p>
+          </div>
+        </div>
+
+        <div class="m-timeline-item">
+          <div class="m-timeline-dot" style="background: var(--accent-amber);"></div>
+          <div class="m-timeline-content">
+            <span class="m-timeline-date">2023 – 2027</span>
+            <h4>Vellore Institute of Technology, Vellore</h4>
+            <p><strong>B.Tech, Computer Science and Engineering</strong></p>
+            <p style="color: var(--accent-amber); font-weight: 700; margin-top: 4px;">CGPA: 8.48 / 10.0</p>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">Narayana CO Campus, Bangalore — Class XII (Karnataka State Board), 88% (2023)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Direct Contact -->
+    <section class="m-section" id="m-contact">
+      <div class="m-section-header">
+        <span class="m-section-tag" style="color: var(--accent-green); border-color: rgba(0,255,159,0.3);">LET'S CONNECT</span>
+        <h2>Contact &amp; Inquiries</h2>
+      </div>
+
+      <div class="contact-links-list">
+        <a href="mailto:kousthubeswar@gmail.com" class="contact-link-row">
+          <span>✉️</span>
+          <div>
+            <strong>Email</strong>
+            <div style="font-size: 0.8rem; color: var(--accent-cyan);">kousthubeswar@gmail.com</div>
+          </div>
+        </a>
+        <a href="tel:+917204048727" class="contact-link-row">
+          <span>📞</span>
+          <div>
+            <strong>Phone / WhatsApp</strong>
+            <div style="font-size: 0.8rem; color: var(--accent-cyan);">+91 7204048727</div>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="contact-link-row">
+          <span>💼</span>
+          <div>
+            <strong>LinkedIn</strong>
+            <div style="font-size: 0.8rem; color: var(--accent-cyan);">linkedin.com/in/kousthub-eswar</div>
+          </div>
+        </a>
+        <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="contact-link-row">
+          <span>🐙</span>
+          <div>
+            <strong>GitHub</strong>
+            <div style="font-size: 0.8rem; color: var(--accent-cyan);">github.com/kousthub-eswar</div>
+          </div>
+        </a>
+      </div>
+
+      <div style="margin-top: 24px; text-align: center;">
+        <a href="assets/resume.pdf" class="btn btn-primary" download="Kousthub_Resume.pdf" style="width: 100%; justify-content: center; padding: 14px;">
+          Download Verified Resume (PDF) &rarr;
+        </a>
+      </div>
+    </section>
+
+    <!-- Mobile Footer -->
+    <footer class="m-footer">
+      <p>&copy; 2026 Kousthub Gadikota • Built with WebGL Three.js &amp; Modern Vanilla CSS</p>
+    </footer>
+  </main>
+
+  <!-- Floating Switch to 3D View Button (Visible on mobile when in card mode) -->
+  <button class="m-float-3d-btn" id="m-float-3d-btn" title="Switch to 3D Cyber Cockpit">
+    <span>🌐</span>
+    <span>Enter 3D Cockpit</span>
+  </button>
 
   <!-- CDN Scripts: GSAP & Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>

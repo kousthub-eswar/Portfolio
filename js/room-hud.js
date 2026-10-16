@@ -195,10 +195,27 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `).join('');
     }
-    if (projectActionBtn) {
-      projectActionBtn.dataset.project = key;
+    const liveBtn = document.getElementById('flyout-project-live-btn');
+    const githubBtn = document.getElementById('flyout-project-github-btn');
+    if (liveBtn) {
+      const demoLink = data.links.find(l => l.text.toLowerCase().includes('demo') || l.primary);
+      if (demoLink) {
+        liveBtn.href = demoLink.url;
+        liveBtn.style.display = 'inline-flex';
+        liveBtn.textContent = demoLink.text + ' \u2192';
+      } else {
+        liveBtn.style.display = 'none';
+      }
+    }
+    if (githubBtn) {
+      const ghLink = data.links.find(l => l.text.toLowerCase().includes('github')) || { url: 'https://github.com/kousthub-eswar' };
+      githubBtn.href = ghLink.url;
+      githubBtn.style.display = 'inline-flex';
     }
   }
+
+  // Initialize first project tab
+  displayProjectInFlyout('billmate');
 
   projectTabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -350,6 +367,87 @@ document.addEventListener('DOMContentLoaded', () => {
           a.download = 'Kousthub_Resume.pdf';
           a.click();
         }
+      });
+    });
+  }
+
+  // ==========================================
+  // 6. Cyber Bootloader Progress & Fade
+  // ==========================================
+  const loader = document.getElementById('cyber-loader');
+  const loaderBar = document.getElementById('loader-bar-fill');
+  const loaderTelemetry = document.getElementById('loader-telemetry');
+  
+  if (loader && loaderBar) {
+    let progress = 25;
+    const interval = setInterval(() => {
+      progress += Math.floor(Math.random() * 25) + 20;
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+        if (loaderBar) loaderBar.style.width = '100%';
+        if (loaderTelemetry) loaderTelemetry.textContent = 'SYSTEM_READY // ALL_CHANNELS_ACTIVE [100%]';
+        setTimeout(() => {
+          loader.classList.add('loaded');
+        }, 320);
+      } else {
+        if (loaderBar) loaderBar.style.width = progress + '%';
+        if (loaderTelemetry) loaderTelemetry.textContent = `ALLOCATING_SHADERS [${progress}%]`;
+      }
+    }, 80);
+  }
+
+  // ==========================================
+  // 7. Mobile View Mode Toggle (Cards <-> 3D Cockpit)
+  // ==========================================
+  const mobileToggleBtn = document.getElementById('btn-mobile-view-toggle');
+  const float3dBtn = document.getElementById('m-float-3d-btn');
+
+  function toggleMobile3D(active) {
+    if (active) {
+      document.body.classList.add('mobile-3d-mode');
+      if (mobileToggleBtn) {
+        const icon = mobileToggleBtn.querySelector('.mobile-toggle-icon');
+        const label = mobileToggleBtn.querySelector('.mobile-toggle-label');
+        if (icon) icon.textContent = '📄';
+        if (label) label.textContent = 'Cards';
+      }
+      if (float3dBtn) float3dBtn.style.display = 'none';
+      if (window.cyberRoom) window.cyberRoom.transitionTo('overview');
+    } else {
+      document.body.classList.remove('mobile-3d-mode');
+      if (mobileToggleBtn) {
+        const icon = mobileToggleBtn.querySelector('.mobile-toggle-icon');
+        const label = mobileToggleBtn.querySelector('.mobile-toggle-label');
+        if (icon) icon.textContent = '🌐';
+        if (label) label.textContent = '3D';
+      }
+      if (float3dBtn) float3dBtn.style.display = 'inline-flex';
+    }
+  }
+
+  if (mobileToggleBtn) {
+    mobileToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const is3D = document.body.classList.contains('mobile-3d-mode');
+      toggleMobile3D(!is3D);
+    });
+  }
+
+  if (float3dBtn) {
+    float3dBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMobile3D(true);
+    });
+  }
+
+  // Mobile Nav Pills Active Highlighter on Scroll
+  const mobilePills = document.querySelectorAll('.m-nav-pill');
+  if (mobilePills.length > 0) {
+    mobilePills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        mobilePills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
       });
     });
   }

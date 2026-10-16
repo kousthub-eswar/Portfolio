@@ -204,12 +204,25 @@
   deskMat.position.set(0, 0.845, 0.15);
   roomGroup.add(deskMat);
 
+  // RGB Cyber Edge Trim around Desk Top
+  const deskTrim = new THREE.Mesh(
+    new THREE.BoxGeometry(4.44, 0.015, 1.84),
+    glowingCyanMat
+  );
+  deskTrim.position.set(0, 0.76, 0);
+  roomGroup.add(deskTrim);
+
   // ==========================================
   // 1. MAIN CURVED ULTRA-WIDE CODE MONITOR (PROJECTS)
   // ==========================================
   const monitorGroup = new THREE.Group();
   monitorGroup.name = 'projects';
   monitorGroup.userData = { section: 'projects', label: 'Featured Projects' };
+
+  // Back-monitor Ambilight casting onto back wall
+  const ambilight = new THREE.PointLight(0x00f0ff, 2.0, 3.8);
+  ambilight.position.set(0, 1.45, -0.6);
+  monitorGroup.add(ambilight);
 
   // Monitor Stand
   const standBaseGeo = new THREE.CylinderGeometry(0.24, 0.28, 0.03, 24);
@@ -398,6 +411,84 @@
   rackDoor.userData = { section: 'skills', group: serverRackGroup };
 
   // ==========================================
+  // RIGHT WALL TECH CONSOLE & QUANTUM AI CORE (Fills Empty Space)
+  // ==========================================
+  const rightTechGroup = new THREE.Group();
+  rightTechGroup.position.set(3.0, 1.8, -0.6);
+
+  // Floating Cyber Shelves (2 tiers)
+  const shelfGeo = new THREE.BoxGeometry(1.6, 0.04, 0.45);
+  const shelf1 = new THREE.Mesh(shelfGeo, darkMetalMat);
+  shelf1.position.set(0, 0, 0);
+  rightTechGroup.add(shelf1);
+
+  const shelf2 = new THREE.Mesh(shelfGeo, darkMetalMat);
+  shelf2.position.set(0, 0.65, 0);
+  rightTechGroup.add(shelf2);
+
+  // Shelf LED neon glow strips under shelves
+  const shelfGlow1 = new THREE.Mesh(new THREE.BoxGeometry(1.62, 0.015, 0.46), glowingPurpleMat);
+  shelfGlow1.position.set(0, -0.02, 0);
+  rightTechGroup.add(shelfGlow1);
+
+  const shelfGlow2 = new THREE.Mesh(new THREE.BoxGeometry(1.62, 0.015, 0.46), glowingCyanMat);
+  shelfGlow2.position.set(0, 0.63, 0);
+  rightTechGroup.add(shelfGlow2);
+
+  // Quantum AI Compute Core (Rotating Holographic Geometric Icosahedron)
+  const coreIcoGeo = new THREE.IcosahedronGeometry(0.2, 1);
+  const coreIcoMat = new THREE.MeshStandardMaterial({
+    color: 0xa855f7,
+    emissive: 0x9333ea,
+    emissiveIntensity: 0.9,
+    wireframe: true
+  });
+  const quantumCoreMesh = new THREE.Mesh(coreIcoGeo, coreIcoMat);
+  quantumCoreMesh.position.set(-0.35, 0.26, 0);
+  rightTechGroup.add(quantumCoreMesh);
+
+  const innerOrb = new THREE.Mesh(
+    new THREE.SphereGeometry(0.08, 16, 16),
+    new THREE.MeshBasicMaterial({ color: 0x00f0ff })
+  );
+  innerOrb.position.set(-0.35, 0.26, 0);
+  rightTechGroup.add(innerOrb);
+
+  // Holographic Status Panel on Shelf 1
+  const panelCanvas = document.createElement('canvas');
+  panelCanvas.width = 320;
+  panelCanvas.height = 130;
+  const pctx2 = panelCanvas.getContext('2d');
+  pctx2.fillStyle = '#060a14';
+  pctx2.fillRect(0, 0, 320, 130);
+  pctx2.strokeStyle = '#a855f7';
+  pctx2.lineWidth = 3;
+  pctx2.strokeRect(3, 3, 314, 124);
+  pctx2.fillStyle = '#a855f7';
+  pctx2.font = 'bold 18px Space Grotesk';
+  pctx2.fillText('VIT DEPLOYMENT HUB', 20, 34);
+  pctx2.fillStyle = '#00ff9f';
+  pctx2.font = '13px JetBrains Mono';
+  pctx2.fillText('● CLUSTER: ACTIVE', 20, 68);
+  pctx2.fillStyle = '#ffb800';
+  pctx2.fillText('POSTGRESQL // 99.98% OK', 20, 96);
+
+  const panelTex = new THREE.CanvasTexture(panelCanvas);
+  const statusPanel = new THREE.Mesh(
+    new THREE.PlaneGeometry(0.72, 0.3),
+    new THREE.MeshBasicMaterial({ map: panelTex, transparent: true })
+  );
+  statusPanel.position.set(0.32, 0.24, 0.1);
+  rightTechGroup.add(statusPanel);
+
+  // Soft Purple/Warm fill light on right wall
+  const rightWallLight = new THREE.PointLight(0xa855f7, 2.2, 5.0);
+  rightWallLight.position.set(0, 0.3, 0.5);
+  rightTechGroup.add(rightWallLight);
+
+  roomGroup.add(rightTechGroup);
+
+  // ==========================================
   // 3. VERTICAL SECONDARY CODE MONITOR (EXPERIENCE & ABOUT)
   // ==========================================
   const verticalMonGroup = new THREE.Group();
@@ -540,13 +631,15 @@
   roomGroup.add(coffee);
 
   // Floating 3D Navigation Pins / Holograms (High-DPI Cyber Badges)
+  const pinsByStation = {};
+
   function createHologramPin(text, pos, color, sectionKey) {
     const pinGroup = new THREE.Group();
     pinGroup.position.copy(pos);
 
     const canvas = document.createElement('canvas');
     canvas.width = 460;
-    canvas.height = 110;
+    canvas.height = 120;
     const pctx = canvas.getContext('2d');
 
     // Outer cyber container
@@ -554,16 +647,16 @@
     pctx.strokeStyle = color;
     pctx.lineWidth = 4;
     pctx.beginPath();
-    pctx.roundRect(6, 6, 448, 98, 22);
+    pctx.roundRect(6, 6, 448, 108, 22);
     pctx.fill();
     pctx.stroke();
 
     // Glowing status indicator dot
     pctx.fillStyle = color;
     pctx.shadowColor = color;
-    pctx.shadowBlur = 12;
+    pctx.shadowBlur = 14;
     pctx.beginPath();
-    pctx.arc(42, 55, 11, 0, Math.PI * 2);
+    pctx.arc(42, 60, 11, 0, Math.PI * 2);
     pctx.fill();
     pctx.shadowBlur = 0; // reset
 
@@ -571,8 +664,12 @@
     pctx.fillStyle = '#f8fafc';
     pctx.font = '700 28px "Space Grotesk", sans-serif';
     pctx.textAlign = 'left';
-    pctx.textBaseline = 'middle';
-    pctx.fillText(text, 70, 55);
+    pctx.fillText(text, 70, 52);
+
+    // Click To Zoom Monospace Subtitle
+    pctx.fillStyle = color;
+    pctx.font = '600 13px "JetBrains Mono", monospace';
+    pctx.fillText('✦ CLICK TO ZOOM', 70, 88);
 
     const texture = new THREE.CanvasTexture(canvas);
     texture.minFilter = THREE.LinearFilter;
@@ -583,19 +680,20 @@
       depthWrite: false
     });
     const sprite = new THREE.Sprite(spriteMat);
-    sprite.scale.set(1.0, 0.24, 1);
-    sprite.userData = { section: sectionKey };
+    sprite.scale.set(1.0, 0.26, 1);
+    sprite.userData = { section: sectionKey, baseScale: 1.0 };
     interactiveObjects.push(sprite);
     pinGroup.add(sprite);
 
+    pinsByStation[sectionKey] = sprite;
     roomGroup.add(pinGroup);
     return pinGroup;
   }
 
   const pinProjects = createHologramPin('PROJECTS', new THREE.Vector3(0, 2.25, -0.2), '#00f0ff', 'projects');
   const pinSkills = createHologramPin('BACKEND & DB', new THREE.Vector3(2.1, 2.3, 0.1), '#a855f7', 'skills');
-  const pinExp = createHologramPin('BIO & VIT', new THREE.Vector3(-2.0, 2.25, 0.1), '#00ff9f', 'experience');
-  const pinContact = createHologramPin('CONTACT / CV', new THREE.Vector3(0.5, 1.35, 0.45), '#ffb800', 'contact');
+  const pinExp = createHologramPin('BIO & VIT', new THREE.Vector3(-2.0, 2.25, 0.1), '#ffb800', 'experience');
+  const pinContact = createHologramPin('CONTACT / CV', new THREE.Vector3(0.5, 1.35, 0.45), '#00ff9f', 'contact');
 
   // ==========================================
   // CAMERA ANIMATION & INTERACTION SYSTEM
@@ -619,6 +717,16 @@
     const resetBtn = document.getElementById('hud-reset-view');
     if (resetBtn) {
       resetBtn.style.display = stationKey === 'overview' ? 'none' : 'inline-flex';
+    }
+
+    // Adjust light intensities to prevent text washout on flyouts
+    if (stationKey === 'overview') {
+      monitorLight.intensity = 2.8;
+      serverLight.intensity = 2.5;
+    } else if (stationKey === 'skills') {
+      serverLight.intensity = 1.3;
+    } else if (stationKey === 'contact') {
+      monitorLight.intensity = 1.5;
     }
 
     // Immediately signal flyouts to hide while camera moves
@@ -731,8 +839,28 @@
 
     if (intersects.length > 0) {
       document.body.style.cursor = 'pointer';
+      let hoveredSection = null;
+      for (let i = 0; i < intersects.length; i++) {
+        if (intersects[i].object.userData && intersects[i].object.userData.section) {
+          hoveredSection = intersects[i].object.userData.section;
+          break;
+        }
+      }
+      Object.keys(pinsByStation).forEach(k => {
+        const sprite = pinsByStation[k];
+        if (sprite) {
+          if (k === hoveredSection) {
+            sprite.scale.set(1.16, 0.3, 1);
+          } else {
+            sprite.scale.set(1.0, 0.26, 1);
+          }
+        }
+      });
     } else {
       document.body.style.cursor = 'default';
+      Object.values(pinsByStation).forEach(sprite => {
+        if (sprite) sprite.scale.set(1.0, 0.26, 1);
+      });
     }
 
     // Subtle parallax when in overview mode
@@ -769,6 +897,12 @@
     requestAnimationFrame(animate);
 
     const time = clock.getElapsedTime();
+
+    // Rotate Quantum AI Core on right shelf
+    if (typeof quantumCoreMesh !== 'undefined' && quantumCoreMesh) {
+      quantumCoreMesh.rotation.x = time * 0.5;
+      quantumCoreMesh.rotation.y = time * 0.75;
+    }
 
     // Blinking Server LEDs
     ledMeshes.forEach((led, idx) => {
