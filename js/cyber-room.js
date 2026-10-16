@@ -253,37 +253,38 @@
       },
       tunesense: {
         title: 'FEATURED: TuneSense — Music Recommender',
-        tags: '[MERN Stack] [6 Engines] [11 Mongoose Schemas] [JWT/Zod]',
+        tags: '[React] [TypeScript] [Node.js/Express] [MongoDB] [Zod] [Tailwind]',
         lines: [
-          '// Cosine Similarity Matrix Pipeline on 11 Mongoose Schemas',
+          '// 6 Composable Strategies: Popularity, Content, Behavioral, Context, Hybrid, Collab',
+          '// 11 Mongoose Schemas: Materialized Views, Event Logs, Cosine Similarity Vectors',
           'export const computeAcousticDistance = (songA, songB) => {',
           '  const vA = [songA.energy, songA.valence, songA.danceability, songA.acousticness];',
           '  const vB = [songB.energy, songB.valence, songB.danceability, songB.acousticness];',
           '  return dotProduct(vA, vB) / (magnitude(vA) * magnitude(vB));',
           '};',
           '',
-          '>> Radar Chart Feature Extraction: Active • Zod Validated',
+          '>> Offline Evaluation Suite: Precision@K • Recall@K • NDCG active',
           '>> CLICK TO INSPECT RECOMMENDATION PIPELINE SPECS &rarr;'
         ]
       },
       clubhub: {
         title: 'FEATURED: Campus ClubHub — Event Platform',
-        tags: '[MERN] [Role-Based Access Control] [Cryptographic SVG QRs]',
+        tags: '[React 19] [TypeScript] [Vite] [Tailwind CSS] [Real-Time SVG QRs]',
         lines: [
-          '// Cryptographic SVG QR Pass Generation with SHA-256 Signature',
+          '// Domain-Segregated Institutional Auth with Real-Time SVG QR Event Passes',
           'const generateSecureTicketPass = async (ticketId, attendeeId, eventId) => {',
           '  const payload = `${ticketId}:${attendeeId}:${eventId}:${SECRET_KEY}`;',
           '  const signature = crypto.createHash(\'sha256\').update(payload).digest(\'hex\');',
           '  return await qrcode.toDataURL(JSON.stringify({ ticketId, signature }));',
           '};',
           '',
-          '>> Validation: Sub-second gate verification • Admin Dashboard Ready',
+          '>> Organizer Console: Live Registration KPIs • Attendee Rosters • CSV Export',
           '>> CLICK TO INSPECT EVENT ARCHITECTURE SPECS &rarr;'
         ]
       },
       auditanalytics: {
         title: 'FEATURED: Audit Analytics — Anomaly Engine',
-        tags: '[Python] [Pandas] [Benford\'s Law] [8,000 Transactions / $13.7M]',
+        tags: '[Python] [SQL (SQLite)] [Streamlit] [8,000 Txns / $13.7M Volume]',
         lines: [
           '# Forensic First-Digit Benford Distribution & Chi-Square Test',
           'def benford_goodness_of_fit(transactions_df):',
@@ -293,7 +294,7 @@
           '  chi_sq, p_val = scipy.stats.chisquare(f_obs=observed, f_exp=expected)',
           '  return {\'chi_square\': chi_sq, \'p_value\': p_val, \'fraud_flag\': p_val < 0.05}',
           '',
-          '>> Audited: 8,000 Txns ($13.7M Volume) • Threshold Split Alert: Active'
+          '>> Audited: 8,000 Txns ($13.7M) • 206 Threshold Flags • 168 Duplicates'
         ]
       }
     };
@@ -418,11 +419,11 @@
   vctx.fillRect(0, 0, 400, 700);
   vctx.fillStyle = '#00ff9f';
   vctx.font = 'bold 22px Space Grotesk, sans-serif';
-  vctx.fillText('CODECHEF VIT', 25, 45);
+  vctx.fillText('LEADERSHIP & EXP', 25, 45);
   vctx.fillStyle = '#94a3b8';
   vctx.font = '14px JetBrains Mono, monospace';
-  vctx.fillText('Senior Core Member', 25, 75);
-  vctx.fillText('Nov 2023 – Present', 25, 100);
+  vctx.fillText('Matrix Club • Co-Secretary', 25, 75);
+  vctx.fillText('Jan 2025 – Jan 2026', 25, 100);
 
   vctx.fillStyle = '#00f0ff';
   vctx.fillRect(25, 120, 350, 2);
@@ -430,17 +431,20 @@
   vctx.fillStyle = '#e2e8f0';
   vctx.font = '13px Inter, sans-serif';
   const expLines = [
-    '• Organized multi-track hackathons',
-    '  engaging 1,500+ participants.',
-    '• Mentored 200+ students in Java',
-    '  Data Structures & MERN stack.',
+    '• Co-Secretary — Matrix Club',
+    '  Led 10+ members across 10+ events',
+    '  reaching 100+ participants.',
+    '• Riviera / GraVITas Org Comm',
+    '  Coordinated fest logistics.',
+    '• Edvensoft Solutions',
+    '  Marketing Intern (May–Jun \'25)',
     '',
     'EDUCATION:',
     '• VIT Vellore — B.Tech CSE \'27',
-    '  CGPA: 8.7 / 10.0',
-    '• Core: DSA, OOP, OS, DBMS',
+    '  CGPA: 8.48 / 10.0',
+    '• Narayana CO Campus — 88%',
     '',
-    'CLICK TO INSPECT EXPERIENCE &rarr;'
+    'CLICK TO INSPECT DETAILS →'
   ];
 
   expLines.forEach((el, idx) => {
