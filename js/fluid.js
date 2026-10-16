@@ -82,7 +82,8 @@
       radius: 20 + sizeFactor * 60 + Math.random() * 20,
       maxRadius: 40 + sizeFactor * 100,
       color: color,
-      opacity: 0.12 + sizeFactor * 0.18,
+      initialOpacity: 0.15 + sizeFactor * 0.2,
+      opacity: 0.15 + sizeFactor * 0.2,
       life: 1.0,
       decay: 0.008 + Math.random() * 0.006,
       growth: 1.0 + sizeFactor * 0.8,
@@ -110,7 +111,7 @@
       b.radius += b.growth;
       b.growth *= 0.97;
       b.life -= b.decay;
-      b.opacity = Math.max(0, b.life * b.opacity);
+      b.opacity = Math.max(0, b.initialOpacity * b.life);
 
       if (b.life <= 0 || b.opacity < 0.001) {
         blobs.splice(i, 1);
@@ -123,14 +124,14 @@
 
     // Render each blob as a radial gradient circle
     for (const b of blobs) {
-      const { r, g, bb } = b.color;
-      const alpha = b.opacity * b.life;
+      const { r, g, b: blue } = b.color;
+      const alpha = b.opacity;
       if (alpha < 0.002) continue;
 
       const grad = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.radius);
-      grad.addColorStop(0, `rgba(${b.color.r}, ${b.color.g}, ${b.color.b}, ${alpha})`);
-      grad.addColorStop(0.4, `rgba(${b.color.r}, ${b.color.g}, ${b.color.b}, ${alpha * 0.5})`);
-      grad.addColorStop(1, `rgba(${b.color.r}, ${b.color.g}, ${b.color.b}, 0)`);
+      grad.addColorStop(0, `rgba(${r}, ${g}, ${blue}, ${alpha})`);
+      grad.addColorStop(0.4, `rgba(${r}, ${g}, ${blue}, ${alpha * 0.5})`);
+      grad.addColorStop(1, `rgba(${r}, ${g}, ${blue}, 0)`);
 
       ctx.beginPath();
       ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);

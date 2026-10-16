@@ -432,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
       navMenu.classList.toggle('open');
       document.body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : '';
     });
-    navMenu.querySelectorAll('.nav-link').forEach(link => {
+    navMenu.querySelectorAll('.nav-link, .nav-resume-btn').forEach(link => {
       link.addEventListener('click', () => {
         navToggle.classList.remove('active');
         navMenu.classList.remove('open');
@@ -447,11 +447,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const typedElement = document.getElementById('typed-text');
   if (typedElement) {
     const strings = [
-      'Backend Developer',
-      'Java & Spring Boot Engineer',
-      'Database Architect (PostgreSQL)',
-      'Full-Stack Product Builder',
-      'CS Student @ VIT Vellore',
+      'Full-Stack Developer',
+      'React & TypeScript Engineer',
+      'Node.js & MERN Architect',
+      'Database Specialist (PostgreSQL & Mongo)',
+      'Software Development Engineer',
+      'CS Undergraduate @ VIT Vellore',
     ];
     let stringIndex = 0, charIndex = 0, isDeleting = false, speed = 75;
 
@@ -635,53 +636,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!prefersReducedMotion) {
     const splitTargets = document.querySelectorAll('.section-title');
     splitTargets.forEach(title => {
-      // Don't re-split if already split
       if (title.querySelector('.char-split')) return;
 
-      const html = title.innerHTML;
-      // Handle the gradient-text span preservation
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = html;
-
-      function splitTextNode(node) {
-        if (node.nodeType === Node.TEXT_NODE) {
-          const text = node.textContent;
-          const fragment = document.createDocumentFragment();
-          let charIndex = 0;
-          for (const char of text) {
-            const span = document.createElement('span');
-            span.className = char === ' ' ? 'char-split space' : 'char-split';
-            span.textContent = char === ' ' ? '\u00A0' : char;
-            span.style.transitionDelay = `${charIndex * 30}ms`;
-            fragment.appendChild(span);
-            charIndex++;
-          }
-          node.parentNode.replaceChild(fragment, node);
-        } else if (node.nodeType === Node.ELEMENT_NODE) {
-          // Process children of elements like <span class="gradient-text">
-          const children = Array.from(node.childNodes);
-          children.forEach(child => splitTextNode(child));
-        }
-      }
-
-      const children = Array.from(tempDiv.childNodes);
-      title.innerHTML = '';
-      children.forEach(child => {
-        if (child.nodeType === Node.TEXT_NODE) {
-          splitTextNode(child);
-          const spans = document.createDocumentFragment();
-          // Already processed, but since we replace, re-process from tempDiv
-        } else {
-          title.appendChild(child);
-        }
-      });
-
-      // Simpler approach: directly work on title
-      title.innerHTML = html; // Reset
       const walker = document.createTreeWalker(title, NodeFilter.SHOW_TEXT, null, false);
       const textNodes = [];
       let node;
-      while (node = walker.nextNode()) {
+      while ((node = walker.nextNode())) {
         textNodes.push(node);
       }
 
@@ -764,30 +724,49 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalData = {
     billmate: {
       tag: "POS System // Architecture Specs",
-      title: "BillMate — POS & Retail Management",
-      description: "BillMate was architected to solve stock sync anomalies and offline transaction issues for small retail merchants.",
+      title: "BillMate — Point-of-Sale & Retail Management",
+      description: "BillMate is a mobile-first PWA built for retail vendors to manage billing, inventory, and customer credit ledger with offline caching and atomic transaction integrity.",
       highlights: [
         "PostgreSQL Stored Procedures (RPCs): Atomic inventory deduct + sale record creation to eliminate race conditions.",
-        "Supabase Auth & RLS: Strict row-level isolation ensuring multi-tenant store privacy.",
-        "Offline PWA Capability: Service workers cache static assets & offline queue syncs data on reconnection.",
-        "Module Breakdown: Sales Terminal, Item Catalog, Supplier Ledger, Expense Tracker, & Customer Credit Logs."
+        "Supabase Auth & Row-Level Security (RLS): Multi-tenant security isolation across store branches.",
+        "Offline PWA Capability: Service workers cache critical assets and queue operations for automatic background sync upon reconnection.",
+        "Camera Barcode Scanning: Instant product lookup using device cameras with low-latency client barcode decoders.",
+        "Modular Service Layer: Structured data access into reusable services covered by automated Vitest suites."
       ],
       specs: [
-        { label: "Frontend", val: "React 18 + Vite" },
+        { label: "Frontend", val: "React 19 + Vite" },
         { label: "Database", val: "PostgreSQL 15" },
         { label: "Backend BaaS", val: "Supabase" },
-        { label: "Architecture", val: "Relational RPC" }
+        { label: "Testing & CI", val: "Vitest + Vercel" }
+      ]
+    },
+    tunesense: {
+      tag: "Explainable AI // Architecture Specs",
+      title: "TuneSense — Explainable Music Recommendation System",
+      description: "A context-aware music recommendation engine combining six composable algorithms that provide human-understandable justification for every recommendation.",
+      highlights: [
+        "6 Recommendation Engines: Popularity, content-based, behavioural, contextual, hybrid mood-matching, and collaborative filtering.",
+        "11 Mongoose Schemas: Materialized views, append-only event logs, compound indexes, and aggregation pipelines for listening telemetry.",
+        "Cosine Similarity Matching: High-performance peer matching over normalized acoustic and preference vectors.",
+        "Hardened Security: JWT sessions stored in HttpOnly cookies, bcrypt password hashing, and Zod schema validation.",
+        "Evaluation Framework: Custom evaluation suite measuring Precision@K, Recall@K, and Normalized Discounted Cumulative Gain (NDCG)."
+      ],
+      specs: [
+        { label: "Stack", val: "MERN (React + Node.js)" },
+        { label: "Language", val: "TypeScript" },
+        { label: "Database", val: "MongoDB (Mongoose)" },
+        { label: "Deployment", val: "Vercel + Render" }
       ]
     },
     clubhub: {
-      tag: "Web App // Architecture Specs",
+      tag: "Web Platform // Architecture Specs",
       title: "Campus ClubHub — Student Club & Event Portal",
-      description: "Campus ClubHub is a role-segregated event platform that streamlines club event management with digital passes, real-time dashboards, and institutional auth flows.",
+      description: "Campus ClubHub is a role-segregated event management platform streamlining university club events with digital ticketing, real-time rosters, and institutional auth.",
       highlights: [
-        "Role-Based Authentication: Separate student and organizer flows based on institutional email domains.",
-        "Digital Event Passes: Real-time SVG QR code generation for instant pass creation and verification.",
-        "Calendar Integration: Google Calendar and .ics sync for seamless door verification workflows.",
-        "Organizer Console: Live occupancy/registration KPIs, real-time attendee rosters, and CSV data export."
+        "Domain-Segregated Auth: Institutional email domain validation automatically separating student and club organizer permissions.",
+        "SVG QR Code Digital Passes: Real-time dynamic vector pass generation with fast at-door check-in verification.",
+        "Calendar Integration: One-click export and synchronization with Google Calendar and .ics calendar standards.",
+        "Organizer KPI Console: Live capacity tracking, attendance rosters, registration analytics, and instant CSV export."
       ],
       specs: [
         { label: "Frontend", val: "React 19 + TypeScript" },
@@ -796,21 +775,21 @@ document.addEventListener('DOMContentLoaded', () => {
         { label: "Architecture", val: "Role-Segregated SPA" }
       ]
     },
-    turf: {
-      tag: "Mobile App // Architecture Specs",
-      title: "Turf — Sports Event Coordination",
-      description: "Turf addresses local community sports organization through real-time game hosting, player discovery, and venue booking.",
+    auditanalytics: {
+      tag: "Data Science // Architecture Specs",
+      title: "Audit Analytics & Anomaly Detection System",
+      description: "A quantitative forensic audit pipeline that processes thousands of enterprise ledger transactions to detect accounting irregularities, fraud patterns, and control bypasses.",
       highlights: [
-        "Cross-Platform Native UI: Built using React Native & Expo for smooth 60fps performance on iOS & Android.",
-        "Real-Time Chat Engine: Supabase Realtime Channels for group messaging and event updates.",
-        "Geolocation & Search: Location-filtered match finding and venue availability.",
-        "Payment & Cost Splitting: Automated per-player calculation for turf rentals."
+        "Ledger Scale: Analyzed 8,000 journal transactions totaling $13.7M in transaction volume.",
+        "Benford's Law Analysis: First-digit distribution frequency checks flagging statistical anomalies with significant divergence from expected log distributions.",
+        "Threshold Avoidance Heuristics: Clustering algorithms detecting split payments structured just below authorization limits ($10,000 threshold).",
+        "Rule-Based Engine: Uncovered 168 duplicate invoice payments, 122 off-hours weekend postings, and unusual vendor credit lines."
       ],
       specs: [
-        { label: "Framework", val: "React Native + Expo" },
-        { label: "Language", val: "TypeScript" },
-        { label: "Realtime DB", val: "Supabase Subscriptions" },
-        { label: "Target", val: "iOS & Android" }
+        { label: "Language", val: "Python 3.12" },
+        { label: "Database", val: "SQL (SQLite)" },
+        { label: "Dashboard", val: "Streamlit" },
+        { label: "Analytics", val: "Pandas + SciPy" }
       ]
     }
   };
@@ -958,12 +937,19 @@ document.addEventListener('DOMContentLoaded', () => {
       showFormStatus('Transmitting message across network...', 'info');
       if (submitBtn) submitBtn.disabled = true;
 
+      const accessKey = 'YOUR_WEB3FORMS_ACCESS_KEY';
+
       try {
+        if (!accessKey || accessKey === 'YOUR_WEB3FORMS_ACCESS_KEY') {
+          // Unconfigured placeholder key: smoothly transition directly to mailto
+          throw new Error('Web3Forms access key not configured. Using direct mailto.');
+        }
+
         const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({
-            access_key: 'YOUR_WEB3FORMS_ACCESS_KEY',
+            access_key: accessKey,
             name: name,
             email: email,
             message: message,

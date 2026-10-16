@@ -5,24 +5,45 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
-    content="Kousthub Eswar Reddy Gadikota — Backend Developer & Computer Science student at VIT Vellore. Portfolio showcasing projects, skills, and experience in Java, PostgreSQL, and full-stack development." />
+    content="Kousthub Eswar Reddy Gadikota — Software Development Engineer & CS student at VIT Vellore. Portfolio showcasing projects, skills, and experience in React, TypeScript, Node.js, Express, MongoDB, PostgreSQL, and Java." />
   <meta name="keywords"
-    content="Kousthub, Backend Developer, Java, Portfolio, VIT Vellore, Software Engineer, Systems Engineer" />
+    content="Kousthub, Software Development Engineer, Full Stack Developer, React, TypeScript, Node.js, Express, MongoDB, PostgreSQL, Java, Portfolio, VIT Vellore" />
   <meta name="author" content="Kousthub Eswar Reddy Gadikota" />
   <meta name="theme-color" content="#030014" />
 
-  <meta property="og:title" content="Kousthub Gadikota — Backend Developer" />
-  <meta property="og:description" content="CS undergraduate at VIT Vellore building robust backend systems. Seeking SDE / Analyst / Product roles for 2027." />
+  <link rel="canonical" href="https://kousthubportfolio.vercel.app/" />
+  <meta property="og:title" content="Kousthub Gadikota — Full-Stack & Software Development Engineer" />
+  <meta property="og:description"
+    content="CS undergraduate at VIT Vellore building reliable full-stack applications with React, TypeScript, Node.js, MongoDB and PostgreSQL. Seeking SDE roles for 2027." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kousthubportfolio.vercel.app/" />
+  <meta property="og:image" content="https://kousthubportfolio.vercel.app/assets/images/billmate-mockup.png" />
 
-  <title>Kousthub Gadikota | Backend Developer</title>
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kousthub Gadikota | Full-Stack & Software Development Engineer" />
+  <meta name="twitter:description"
+    content="CS undergraduate at VIT Vellore building reliable, secure full-stack apps with React, TypeScript, Node.js, MongoDB & PostgreSQL." />
+  <meta name="twitter:image" content="https://kousthubportfolio.vercel.app/assets/images/billmate-mockup.png" />
+
+  <title>Kousthub Gadikota | Full-Stack & Software Development Engineer</title>
 
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css" />
+  <!-- Google Fonts Preconnect & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" />
   <link rel="stylesheet" href="css/style.css" />
-  <!-- Vercel Web Analytics -->
-  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Vercel Web Analytics (Loads on Vercel deployment) -->
+  <script>
+    if (window.location.hostname.endsWith('vercel.app')) {
+      const s = document.createElement('script');
+      s.defer = true;
+      s.src = '/_vercel/insights/script.js';
+      document.head.appendChild(s);
+    }
+  </script>
 </head>
 
 <body>
@@ -33,6 +54,9 @@
       <div class="loader-bar-inner"></div>
     </div>
   </div>
+
+  <!-- ========== FLUID CURSOR WAKE CANVAS ========== -->
+  <canvas id="fluid-canvas"></canvas>
 
   <!-- ========== NAVIGATION ========== -->
   <nav class="navbar" id="navbar">
@@ -89,8 +113,8 @@
         </div>
 
         <p class="hero-description">
-          Building robust, scalable backend systems with clean architecture.
-          I turn complex problems into elegant, production-ready solutions.
+          Building reliable, secure full-stack applications with React, TypeScript, Node.js,
+          Express, MongoDB and PostgreSQL. Strong in Java & Object-Oriented Design.
         </p>
 
         <div class="hero-actions">
@@ -98,7 +122,7 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
               <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-              <path d="M22 3h-6a4 4 0 0 4 4v14a3 3 0 0 1 3-3h7z" />
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
             </svg>
             View My Work
           </a>
@@ -168,49 +192,50 @@
           <div class="dev-badge-card glass-card">
             <div class="dev-avatar-circle">⚡</div>
             <div class="dev-badge-name">Kousthub Gadikota</div>
-            <div class="dev-badge-role">&lt;Backend Systems Engineer /&gt;</div>
+            <div class="dev-badge-role">&lt;Full-Stack & Systems Engineer /&gt;</div>
             <div style="margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
-              <span class="cs-tag">Java 21</span>
+              <span class="cs-tag">React 19</span>
+              <span class="cs-tag">Node.js</span>
               <span class="cs-tag">PostgreSQL</span>
+              <span class="cs-tag">MongoDB</span>
+              <span class="cs-tag">Java</span>
               <span class="cs-tag">VIT '27</span>
             </div>
           </div>
 
           <div class="about-float-element about-float-1">
-            <span class="float-icon">☕</span> Java Systems
+            <span class="float-icon">⚡</span> Full-Stack MERN
           </div>
           <div class="about-float-element about-float-2">
-            <span class="float-icon">🗄️</span> DB Transactions
+            <span class="float-icon">🗄️</span> Relational & NoSQL
           </div>
           <div class="about-float-element about-float-3">
-            <span class="float-icon">⚡</span> High Scalability
+            <span class="float-icon">🎧</span> Explainable AI
           </div>
         </div>
 
         <div class="about-text reveal">
-          <h3>CS Undergraduate building <span class="gradient-text">production systems</span> & leading teams</h3>
+          <h3>CS Undergraduate building <span class="gradient-text">production full-stack apps</span> & leading teams</h3>
           <p>
-            I'm Kousthub — a Computer Science Engineering undergraduate at
+            I'm Kousthub — a Computer Science Engineering undergraduate (Class of 2027) at
             <strong style="color: var(--text-heading);">Vellore Institute of Technology, Vellore</strong> (CGPA: 8.48).
-            I build systems that solve real business problems, like <strong
-              style="color: var(--accent-4);">BillMate</strong> — a POS system
-            actively used by retail vendors where technical decisions like atomic PostgreSQL transactions were driven by
-            real constraints.
+            I build reliable, secure web applications and data systems — from <strong
+              style="color: var(--accent-4);">BillMate</strong> (a POS PWA with atomic PostgreSQL transactions and barcode scanning)
+            to <strong style="color: var(--accent-2);">TuneSense</strong> (an explainable music recommendation platform with 6 composable algorithms).
           </p>
           <p>
-            Beyond software engineering, I've coordinated cross-functional teams of 10+ members
+            Beyond engineering, I've coordinated cross-functional teams of 10+ members
             through VIT's largest college fests (Riviera / GraVITas) and served as Co-Secretary for Matrix Multimedia
-            Club,
-            translating priorities across stakeholders to deliver outcomes on schedule.
+            Club, translating priorities across stakeholders to deliver outcomes on schedule.
           </p>
           <p>
-            Currently sharpening my skills in Data Structures & Algorithms, System Design, and Backend Engineering.
-            Seeking full-time SDE / Analyst / Product roles for 2027.
+            Strong in Data Structures & Algorithms, Object-Oriented Programming, and full-stack architecture.
+            Seeking full-time Software Development Engineer (SDE) roles.
           </p>
 
           <div class="about-stats">
             <div class="stat-card glass-card">
-              <div class="stat-number" data-count="3" data-suffix="+">0+</div>
+              <div class="stat-number" data-count="4" data-suffix="+">0+</div>
               <div class="stat-label">Projects Deployed</div>
             </div>
             <div class="stat-card glass-card">
@@ -244,85 +269,88 @@
           </div>
           <div class="skill-items">
             <div class="skill-item"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/c/c-original.svg" alt="C" /> C</div>
-            <div class="skill-item"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/cplusplus/cplusplus-original.svg"
-                alt="C++" /> C++</div>
-            <div class="skill-item"><img
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/java/java-original.svg" alt="Java" />
               Java</div>
             <div class="skill-item"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/python/python-original.svg"
-                alt="Python" /> Python</div>
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/typescript/typescript-original.svg"
+                alt="TS" /> TypeScript</div>
             <div class="skill-item"><img
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/javascript/javascript-original.svg"
                 alt="JS" /> JavaScript</div>
             <div class="skill-item"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/typescript/typescript-original.svg"
-                alt="TS" /> TypeScript</div>
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/cplusplus/cplusplus-original.svg"
+                alt="C++" /> C++</div>
+            <div class="skill-item">🗄️ SQL</div>
+            <div class="skill-item"><img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/python/python-original.svg"
+                alt="Python" /> Python</div>
           </div>
         </div>
 
         <div class="skill-category glass-card reveal reveal-delay-2">
           <div class="skill-category-header">
             <div class="skill-category-icon frontend">🎨</div>
-            <h3>Frontend & Frameworks</h3>
+            <h3>Frontend & Web</h3>
           </div>
           <div class="skill-items">
             <div class="skill-item"><img
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/react/react-original.svg" alt="React" />
-              React</div>
+              React 19</div>
             <div class="skill-item"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/react/react-original.svg" alt="RN" />
-              React Native</div>
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/vite/vite-original.svg" alt="Vite" />
+              Vite</div>
             <div class="skill-item"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/spring/spring-original.svg"
-                alt="Spring Boot" /> Spring Boot</div>
-            <div class="skill-item">📱 Expo</div>
-            <div class="skill-item"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind" />
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/tailwindcss/tailwindcss-original.svg"
+                alt="Tailwind" />
               Tailwind CSS</div>
+            <div class="skill-item">📱 PWA (Offline)</div>
+            <div class="skill-item">🔄 React Router</div>
             <div class="skill-item"><img
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/html5/html5-original.svg" alt="HTML" />
-              HTML5</div>
-            <div class="skill-item"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/css3/css3-original.svg" alt="CSS" />
-              CSS3</div>
+              HTML5 / CSS3</div>
           </div>
         </div>
 
         <div class="skill-category glass-card reveal reveal-delay-3">
           <div class="skill-category-header">
             <div class="skill-category-icon backend">⚙️</div>
-            <h3>Backend & Databases</h3>
+            <h3>Backend & Architecture</h3>
           </div>
           <div class="skill-items">
+            <div class="skill-item"><img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/nodejs/nodejs-original.svg"
+                alt="Node.js" /> Node.js</div>
+            <div class="skill-item"><img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/express/express-original.svg"
+                alt="Express" /> Express.js</div>
             <div class="skill-item">🌐 REST APIs</div>
+            <div class="skill-item">🔐 JWT & Auth</div>
+            <div class="skill-item">🛡️ Zod Validation</div>
             <div class="skill-item"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/postgresql/postgresql-original.svg"
-                alt="PostgreSQL" /> PostgreSQL</div>
-            <div class="skill-item"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/supabase/supabase-original.svg"
-                alt="Supabase" /> Supabase</div>
-            <div class="skill-item">🗄️ SQL & RPCs</div>
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/spring/spring-original.svg"
+                alt="Spring" /> Spring Boot</div>
           </div>
         </div>
 
         <div class="skill-category glass-card reveal reveal-delay-4">
           <div class="skill-category-header">
             <div class="skill-category-icon tools">🔧</div>
-            <h3>Tools & CS Fundamentals</h3>
+            <h3>Databases, Testing & Tools</h3>
           </div>
           <div class="skill-items">
             <div class="skill-item"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/git/git-original.svg" alt="Git" /> Git
-            </div>
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/mongodb/mongodb-original.svg"
+                alt="MongoDB" /> MongoDB</div>
             <div class="skill-item"><img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/github/github-original.svg"
-                alt="GitHub" /> GitHub</div>
-            <div class="skill-item">⚡ Data Structures & Algorithms</div>
-            <div class="skill-item">📐 System Design basics</div>
-            <div class="skill-item">🧩 Object-Oriented Programming</div>
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/postgresql/postgresql-original.svg"
+                alt="PostgreSQL" /> PostgreSQL</div>
+            <div class="skill-item"><img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/supabase/supabase-original.svg"
+                alt="Supabase" /> Supabase</div>
+            <div class="skill-item">🧪 Vitest / Unit Testing</div>
+            <div class="skill-item"><img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/git/git-original.svg" alt="Git" /> Git & GitHub</div>
+            <div class="skill-item">🚀 Vercel & Render</div>
           </div>
         </div>
       </div>
@@ -380,10 +408,10 @@
       <!-- Project Category Filters -->
       <div class="project-filters reveal">
         <button class="filter-btn active" data-filter="all">All Projects</button>
-        <button class="filter-btn" data-filter="backend">Backend & DB</button>
         <button class="filter-btn" data-filter="fullstack">Full-Stack</button>
-        <button class="filter-btn" data-filter="frontend">Frontend</button>
-        <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+        <button class="filter-btn" data-filter="backend">Backend & DB</button>
+        <button class="filter-btn" data-filter="ai">Explainable AI</button>
+        <button class="filter-btn" data-filter="analytics">Data Analytics</button>
       </div>
 
       <div class="projects-grid">
@@ -393,27 +421,28 @@
             <div class="project-info">
               <span class="project-number">// 01</span>
               <h3 class="project-title">BillMate</h3>
-              <p class="project-subtitle">POS & Retail Management System</p>
+              <p class="project-subtitle">Point-of-Sale & Retail Management System</p>
               <p class="project-description">
-                A full-featured Point of Sale system for small retail vendors with
-                billing, inventory tracking, and customer credit management.
+                A mobile-first PWA for small retail vendors with camera barcode scanning,
+                inventory tracking, and customer credit ledger management.
               </p>
               <ul class="project-features">
-                <li>Built 5+ modules: sales, refunds, supplier mgmt, expense logging</li>
-                <li>Atomic transactions via PostgreSQL RPC — zero stock/sales desync</li>
-                <li>Supabase Auth + Row-Level Security for multi-user access</li>
-                <li>PWA functionality for mobile-first offline usage</li>
+                <li>Mobile-first PWA covering billing with camera barcode scanner & offline caching</li>
+                <li>Atomic sales & inventory updates via PostgreSQL RPCs — zero stock desync</li>
+                <li>Supabase Auth + Row-Level Security (RLS) for multi-tenant data privacy</li>
+                <li>Modular service architecture covered by automated Vitest suites; auto-deployed on Vercel</li>
               </ul>
               <div class="project-metrics">
                 <span class="metric-badge">⚡ 100% Atomic Transactions</span>
-                <span class="metric-badge">📦 5+ Retail Modules</span>
+                <span class="metric-badge">📱 Mobile-First Offline PWA</span>
               </div>
               <div class="project-tech-stack">
-                <span class="tech-badge">React</span>
+                <span class="tech-badge">React 19</span>
                 <span class="tech-badge">Vite</span>
-                <span class="tech-badge">Supabase</span>
                 <span class="tech-badge">PostgreSQL</span>
+                <span class="tech-badge">Supabase</span>
                 <span class="tech-badge">PWA</span>
+                <span class="tech-badge">Vitest</span>
               </div>
               <div class="project-links">
                 <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer"
@@ -436,7 +465,63 @@
               </div>
             </div>
             <div class="project-visual">
-              <img src="assets/images/billmate-mockup.png" alt="BillMate POS Dashboard" loading="lazy" />
+              <img src="assets/images/billmate-mockup.png" alt="BillMate POS Dashboard" width="600" height="380" loading="lazy" />
+            </div>
+          </div>
+        </div>
+
+        <!-- TuneSense -->
+        <div class="project-card glass-card reveal" data-category="fullstack backend ai">
+          <div class="project-content">
+            <div class="project-info">
+              <span class="project-number">// 02</span>
+              <h3 class="project-title">TuneSense</h3>
+              <p class="project-subtitle">Explainable Music Recommendation System</p>
+              <p class="project-description">
+                A full-stack recommendation engine combining six composable algorithms with
+                transparent, human-readable explanations for every suggested track.
+              </p>
+              <ul class="project-features">
+                <li>6 composable recommendation strategies: popularity, content, behavioral, contextual, mood, collaborative</li>
+                <li>11 Mongoose schemas with materialized views, append-only event logs & telemetry aggregation</li>
+                <li>Cosine-similarity peer matching on acoustic vectors with offline evaluation (NDCG, Precision@K)</li>
+                <li>Hardened security with JWT sessions in HttpOnly cookies, bcrypt hashing, and Zod validation</li>
+              </ul>
+              <div class="project-metrics">
+                <span class="metric-badge">🎧 6 Composable Engines</span>
+                <span class="metric-badge">🧠 11 Mongoose Schemas</span>
+              </div>
+              <div class="project-tech-stack">
+                <span class="tech-badge">React</span>
+                <span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">Node.js</span>
+                <span class="tech-badge">Express</span>
+                <span class="tech-badge">MongoDB</span>
+                <span class="tech-badge">Zod</span>
+                <span class="tech-badge">Tailwind CSS</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer"
+                  class="btn btn-secondary">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                      d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                  </svg>
+                  Source Code
+                </a>
+                <button class="btn btn-primary open-modal-btn" data-modal="tunesense">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="16" x2="12" y2="12" />
+                    <line x1="12" y1="8" x2="12.01" y2="8" />
+                  </svg>
+                  Quick Specs
+                </button>
+              </div>
+            </div>
+            <div class="project-visual">
+              <img src="assets/images/tunesense-mockup.png" alt="TuneSense Recommendation Platform" width="600" height="380" loading="lazy" />
             </div>
           </div>
         </div>
@@ -445,7 +530,7 @@
         <div class="project-card glass-card reveal" data-category="fullstack frontend">
           <div class="project-content">
             <div class="project-info">
-              <span class="project-number">// 02</span>
+              <span class="project-number">// 03</span>
               <h3 class="project-title">Campus ClubHub</h3>
               <p class="project-subtitle">Student Club & Event Portal</p>
               <p class="project-description">
@@ -489,37 +574,38 @@
               </div>
             </div>
             <div class="project-visual">
-              <img src="assets/images/clubhub-mockup.png" alt="Campus ClubHub Dashboard" loading="lazy" />
+              <img src="assets/images/clubhub-mockup.png" alt="Campus ClubHub Dashboard" width="600" height="380" loading="lazy" />
             </div>
           </div>
         </div>
 
-        <!-- Turf -->
-        <div class="project-card glass-card reveal" data-category="mobile fullstack">
+        <!-- Audit Analytics & Anomaly Detection System -->
+        <div class="project-card glass-card reveal" data-category="backend analytics">
           <div class="project-content">
             <div class="project-info">
-              <span class="project-number">// 03</span>
-              <h3 class="project-title">Turf</h3>
-              <p class="project-subtitle">Sports Event Coordination App</p>
+              <span class="project-number">// 04</span>
+              <h3 class="project-title">Audit Analytics System</h3>
+              <p class="project-subtitle">Enterprise Ledger Forensic Anomaly Detection</p>
               <p class="project-description">
-                A cross-platform mobile app for sports event discovery,
-                coordination, and community building among players.
+                A quantitative forensic audit pipeline analyzing enterprise financial ledgers
+                to detect accounting irregularities, fraud patterns, and control evasions.
               </p>
               <ul class="project-features">
-                <li>5+ features: auth, real-time chat, events, location, profiles</li>
-                <li>Participant management, game planning, and cost splitting</li>
-                <li>Real-time backend via Supabase for live updates</li>
-                <li>Cross-platform via React Native & Expo</li>
+                <li>Analyzed 8,000 ledger transactions ($13.7M volume) via SQLite schema and SQL data-quality checks</li>
+                <li>Benford's Law distribution analysis to detect non-conforming first-digit anomalies</li>
+                <li>Clustering heuristics detecting split payments structured below authorization limits</li>
+                <li>Flagged 206 threshold-avoidance transactions, 168 duplicate invoices and 122 weekend postings</li>
               </ul>
               <div class="project-metrics">
-                <span class="metric-badge">🚀 60 FPS Native Performance</span>
-                <span class="metric-badge">💬 Realtime WebSockets</span>
+                <span class="metric-badge">📊 8,000 Ledger Entries ($13.7M)</span>
+                <span class="metric-badge">🔍 Benford's Law Engine</span>
               </div>
               <div class="project-tech-stack">
-                <span class="tech-badge">React Native</span>
-                <span class="tech-badge">Expo</span>
-                <span class="tech-badge">TypeScript</span>
-                <span class="tech-badge">Supabase</span>
+                <span class="tech-badge">Python 3.12</span>
+                <span class="tech-badge">SQL (SQLite)</span>
+                <span class="tech-badge">Streamlit</span>
+                <span class="tech-badge">Pandas</span>
+                <span class="tech-badge">SciPy</span>
               </div>
               <div class="project-links">
                 <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer"
@@ -530,7 +616,7 @@
                   </svg>
                   Source Code
                 </a>
-                <button class="btn btn-primary open-modal-btn" data-modal="turf">
+                <button class="btn btn-primary open-modal-btn" data-modal="auditanalytics">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10" />
@@ -542,7 +628,7 @@
               </div>
             </div>
             <div class="project-visual">
-              <img src="assets/images/turf-mockup.png" alt="Turf Mobile App" loading="lazy" />
+              <img src="assets/images/audit-mockup.png" alt="Audit Analytics and Forensic Detection Dashboard" width="600" height="380" loading="lazy" />
             </div>
           </div>
         </div>
@@ -654,7 +740,7 @@
           <div class="education-details">
             <div class="edu-detail">
               <p class="edu-detail-label">Percentage</p>
-              <p class="edu-detail-value cgpa">89.0%</p>
+              <p class="edu-detail-value cgpa">88%</p>
             </div>
             <div class="edu-detail">
               <p class="edu-detail-label">Location</p>
@@ -741,7 +827,7 @@
               <div class="contact-detail-text">
                 <p class="label">GitHub</p>
                 <p class="value"><a href="https://github.com/kousthub-eswar"
-                    target="_blank">github.com/kousthub-eswar</a></p>
+                    target="_blank" rel="noopener noreferrer">github.com/kousthub-eswar</a></p>
               </div>
             </div>
             <div class="contact-detail-item">
@@ -754,7 +840,7 @@
               <div class="contact-detail-text">
                 <p class="label">LinkedIn</p>
                 <p class="value"><a href="https://linkedin.com/in/kousthub-eswar"
-                    target="_blank">linkedin.com/in/kousthub-eswar</a></p>
+                    target="_blank" rel="noopener noreferrer">linkedin.com/in/kousthub-eswar</a></p>
               </div>
             </div>
             <div class="contact-detail-item">
@@ -842,7 +928,9 @@
         <p>&copy; 2026 Kousthub Gadikota. All rights reserved.</p>
       </div>
     </div>
-    <!-- Quick Specs Modal -->
+  </footer>
+
+  <!-- Quick Specs Modal -->
     <div class="modal-overlay" id="project-modal">
       <div class="modal-container">
         <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
@@ -852,6 +940,7 @@
       </div>
     </div>
 
+    <script src="js/fluid.js"></script>
     <script src="js/particles.js"></script>
     <script src="js/main.js"></script>
 </body>

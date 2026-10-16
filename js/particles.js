@@ -53,7 +53,7 @@ class ParticleNetwork {
     this.canvas.height = rect.height * dpr;
     this.canvas.style.width = rect.width + 'px';
     this.canvas.style.height = rect.height + 'px';
-    this.ctx.scale(dpr, dpr);
+    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     this.displayWidth = rect.width;
     this.displayHeight = rect.height;
   }
