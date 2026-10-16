@@ -411,84 +411,6 @@
   rackDoor.userData = { section: 'skills', group: serverRackGroup };
 
   // ==========================================
-  // RIGHT WALL TECH CONSOLE & QUANTUM AI CORE (Fills Empty Space)
-  // ==========================================
-  const rightTechGroup = new THREE.Group();
-  rightTechGroup.position.set(3.0, 1.8, -0.6);
-
-  // Floating Cyber Shelves (2 tiers)
-  const shelfGeo = new THREE.BoxGeometry(1.6, 0.04, 0.45);
-  const shelf1 = new THREE.Mesh(shelfGeo, darkMetalMat);
-  shelf1.position.set(0, 0, 0);
-  rightTechGroup.add(shelf1);
-
-  const shelf2 = new THREE.Mesh(shelfGeo, darkMetalMat);
-  shelf2.position.set(0, 0.65, 0);
-  rightTechGroup.add(shelf2);
-
-  // Shelf LED neon glow strips under shelves
-  const shelfGlow1 = new THREE.Mesh(new THREE.BoxGeometry(1.62, 0.015, 0.46), glowingPurpleMat);
-  shelfGlow1.position.set(0, -0.02, 0);
-  rightTechGroup.add(shelfGlow1);
-
-  const shelfGlow2 = new THREE.Mesh(new THREE.BoxGeometry(1.62, 0.015, 0.46), glowingCyanMat);
-  shelfGlow2.position.set(0, 0.63, 0);
-  rightTechGroup.add(shelfGlow2);
-
-  // Quantum AI Compute Core (Rotating Holographic Geometric Icosahedron)
-  const coreIcoGeo = new THREE.IcosahedronGeometry(0.2, 1);
-  const coreIcoMat = new THREE.MeshStandardMaterial({
-    color: 0xa855f7,
-    emissive: 0x9333ea,
-    emissiveIntensity: 0.9,
-    wireframe: true
-  });
-  const quantumCoreMesh = new THREE.Mesh(coreIcoGeo, coreIcoMat);
-  quantumCoreMesh.position.set(-0.35, 0.26, 0);
-  rightTechGroup.add(quantumCoreMesh);
-
-  const innerOrb = new THREE.Mesh(
-    new THREE.SphereGeometry(0.08, 16, 16),
-    new THREE.MeshBasicMaterial({ color: 0x00f0ff })
-  );
-  innerOrb.position.set(-0.35, 0.26, 0);
-  rightTechGroup.add(innerOrb);
-
-  // Holographic Status Panel on Shelf 1
-  const panelCanvas = document.createElement('canvas');
-  panelCanvas.width = 320;
-  panelCanvas.height = 130;
-  const pctx2 = panelCanvas.getContext('2d');
-  pctx2.fillStyle = '#060a14';
-  pctx2.fillRect(0, 0, 320, 130);
-  pctx2.strokeStyle = '#a855f7';
-  pctx2.lineWidth = 3;
-  pctx2.strokeRect(3, 3, 314, 124);
-  pctx2.fillStyle = '#a855f7';
-  pctx2.font = 'bold 18px Space Grotesk';
-  pctx2.fillText('VIT DEPLOYMENT HUB', 20, 34);
-  pctx2.fillStyle = '#00ff9f';
-  pctx2.font = '13px JetBrains Mono';
-  pctx2.fillText('● CLUSTER: ACTIVE', 20, 68);
-  pctx2.fillStyle = '#ffb800';
-  pctx2.fillText('POSTGRESQL // 99.98% OK', 20, 96);
-
-  const panelTex = new THREE.CanvasTexture(panelCanvas);
-  const statusPanel = new THREE.Mesh(
-    new THREE.PlaneGeometry(0.72, 0.3),
-    new THREE.MeshBasicMaterial({ map: panelTex, transparent: true })
-  );
-  statusPanel.position.set(0.32, 0.24, 0.1);
-  rightTechGroup.add(statusPanel);
-
-  // Soft Purple/Warm fill light on right wall
-  const rightWallLight = new THREE.PointLight(0xa855f7, 2.2, 5.0);
-  rightWallLight.position.set(0, 0.3, 0.5);
-  rightTechGroup.add(rightWallLight);
-
-  roomGroup.add(rightTechGroup);
-
-  // ==========================================
   // 3. VERTICAL SECONDARY CODE MONITOR (EXPERIENCE & ABOUT)
   // ==========================================
   const verticalMonGroup = new THREE.Group();
@@ -897,12 +819,6 @@
     requestAnimationFrame(animate);
 
     const time = clock.getElapsedTime();
-
-    // Rotate Quantum AI Core on right shelf
-    if (typeof quantumCoreMesh !== 'undefined' && quantumCoreMesh) {
-      quantumCoreMesh.rotation.x = time * 0.5;
-      quantumCoreMesh.rotation.y = time * 0.75;
-    }
 
     // Blinking Server LEDs
     ledMeshes.forEach((led, idx) => {
