@@ -341,8 +341,8 @@
       if (screenTexture) screenTexture.needsUpdate = true;
     }
 
-    renderMonitorTexture('billmate');
   const screenTexture = new THREE.CanvasTexture(screenCanvas);
+  renderMonitorTexture('billmate');
   const screenMat = new THREE.MeshBasicMaterial({ map: screenTexture });
   const screenDisplay = new THREE.Mesh(new THREE.PlaneGeometry(2.14, 0.9), screenMat);
   screenDisplay.position.set(0, 1.45, -0.288);
@@ -535,43 +535,63 @@
   coffee.position.set(-0.85, 0.99, 0.3);
   roomGroup.add(coffee);
 
-  // Floating 3D Navigation Pins / Holograms
-  function createHologramPin(text, pos, color) {
+  // Floating 3D Navigation Pins / Holograms (High-DPI Cyber Badges)
+  function createHologramPin(text, pos, color, sectionKey) {
     const pinGroup = new THREE.Group();
     pinGroup.position.copy(pos);
 
     const canvas = document.createElement('canvas');
-    canvas.width = 320;
-    canvas.height = 90;
+    canvas.width = 460;
+    canvas.height = 110;
     const pctx = canvas.getContext('2d');
 
-    pctx.fillStyle = 'rgba(6, 12, 24, 0.88)';
+    // Outer cyber container
+    pctx.fillStyle = 'rgba(7, 14, 28, 0.94)';
     pctx.strokeStyle = color;
     pctx.lineWidth = 4;
     pctx.beginPath();
-    pctx.roundRect(4, 4, 312, 82, 16);
+    pctx.roundRect(6, 6, 448, 98, 22);
     pctx.fill();
     pctx.stroke();
 
+    // Glowing status indicator dot
     pctx.fillStyle = color;
-    pctx.font = 'bold 24px Space Grotesk, sans-serif';
-    pctx.textAlign = 'center';
-    pctx.fillText(text, 160, 52);
+    pctx.shadowColor = color;
+    pctx.shadowBlur = 12;
+    pctx.beginPath();
+    pctx.arc(42, 55, 11, 0, Math.PI * 2);
+    pctx.fill();
+    pctx.shadowBlur = 0; // reset
+
+    // Text label
+    pctx.fillStyle = '#f8fafc';
+    pctx.font = '700 28px "Space Grotesk", sans-serif';
+    pctx.textAlign = 'left';
+    pctx.textBaseline = 'middle';
+    pctx.fillText(text, 70, 55);
 
     const texture = new THREE.CanvasTexture(canvas);
-    const spriteMat = new THREE.SpriteMaterial({ map: texture, transparent: true });
+    texture.minFilter = THREE.LinearFilter;
+    const spriteMat = new THREE.SpriteMaterial({
+      map: texture,
+      transparent: true,
+      depthTest: false,
+      depthWrite: false
+    });
     const sprite = new THREE.Sprite(spriteMat);
-    sprite.scale.set(0.9, 0.26, 1);
+    sprite.scale.set(1.0, 0.24, 1);
+    sprite.userData = { section: sectionKey };
+    interactiveObjects.push(sprite);
     pinGroup.add(sprite);
 
     roomGroup.add(pinGroup);
     return pinGroup;
   }
 
-  const pinProjects = createHologramPin('[ 💻 PROJECTS ]', new THREE.Vector3(0, 2.1, -0.3), '#00f0ff');
-  const pinSkills = createHologramPin('[ 🗄️ BACKEND & DB ]', new THREE.Vector3(1.7, 1.8, -0.1), '#a855f7');
-  const pinExp = createHologramPin('[ 🎓 BIO & VIT ]', new THREE.Vector3(-1.6, 1.8, -0.15), '#00ff9f');
-  const pinContact = createHologramPin('[ 📱 CONTACT / CV ]', new THREE.Vector3(0.65, 1.15, 0.45), '#ffb800');
+  const pinProjects = createHologramPin('PROJECTS', new THREE.Vector3(0, 2.25, -0.2), '#00f0ff', 'projects');
+  const pinSkills = createHologramPin('BACKEND & DB', new THREE.Vector3(2.1, 2.3, 0.1), '#a855f7', 'skills');
+  const pinExp = createHologramPin('BIO & VIT', new THREE.Vector3(-2.0, 2.25, 0.1), '#00ff9f', 'experience');
+  const pinContact = createHologramPin('CONTACT / CV', new THREE.Vector3(0.5, 1.35, 0.45), '#ffb800', 'contact');
 
   // ==========================================
   // CAMERA ANIMATION & INTERACTION SYSTEM
@@ -581,12 +601,26 @@
 
   function transitionToStation(stationKey) {
     const view = CAMERA_VIEWS[stationKey];
-    if (!view || isTransitioning) return;
+    if (!view) return;
+    if (currentStation === stationKey && !isTransitioning) return;
 
     currentStation = stationKey;
     isTransitioning = true;
 
-    // Hide pins when zoomed in, show only in overview
+    // Immediately update HUD active buttons
+    document.querySelectorAll('.hud-nav-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.view === stationKey);
+    });
+
+    const resetBtn = document.getElementById('hud-reset-view');
+    if (resetBtn) {
+      resetBtn.style.display = stationKey === 'overview' ? 'none' : 'inline-flex';
+    }
+
+    // Immediately signal flyouts to hide while camera moves
+    window.dispatchEvent(new CustomEvent('stationTransitionStart', { detail: { station: stationKey } }));
+
+    // Show pins only in overview
     const showPins = (stationKey === 'overview');
     pinProjects.visible = showPins;
     pinSkills.visible = showPins;
@@ -595,11 +629,14 @@
 
     // Use GSAP if available, or fall back to native smooth lerp
     if (typeof gsap !== 'undefined') {
+      gsap.killTweensOf(camera.position);
+      gsap.killTweensOf(currentTarget);
+
       gsap.to(camera.position, {
         x: view.pos.x,
         y: view.pos.y,
         z: view.pos.z,
-        duration: 1.4,
+        duration: 1.15,
         ease: 'power3.inOut'
       });
 
@@ -607,12 +644,11 @@
         x: view.target.x,
         y: view.target.y,
         z: view.target.z,
-        duration: 1.4,
+        duration: 1.15,
         ease: 'power3.inOut',
         onUpdate: () => camera.lookAt(currentTarget),
         onComplete: () => {
           isTransitioning = false;
-          // Trigger overlay HUD updates
           window.dispatchEvent(new CustomEvent('stationChanged', { detail: { station: stationKey } }));
         }
       });
@@ -621,12 +657,12 @@
       const startPos = camera.position.clone();
       const startTarget = currentTarget.clone();
       const startTime = performance.now();
-      const duration = 1200;
+      const duration = 1000;
 
       function step() {
         const elapsed = performance.now() - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        const ease = 0.5 - Math.cos(progress * Math.PI) / 2; // Smooth sine ease
+        const ease = 0.5 - Math.cos(progress * Math.PI) / 2;
 
         camera.position.lerpVectors(startPos, view.pos, ease);
         currentTarget.lerpVectors(startTarget, view.target, ease);
@@ -641,16 +677,6 @@
       }
       step();
     }
-
-    // Update HUD active indicators
-    document.querySelectorAll('.hud-nav-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.view === stationKey);
-    });
-
-    const resetBtn = document.getElementById('hud-reset-view');
-    if (resetBtn) {
-      resetBtn.style.display = stationKey === 'overview' ? 'none' : 'inline-flex';
-    }
   }
 
   // Expose global controller
@@ -660,13 +686,13 @@
     updateMonitor: renderMonitorTexture
   };
 
-  // Raycasting for Mouse Clicks on 3D Objects
+  // Raycasting for Mouse Clicks on 3D Objects ONLY (attached to renderer canvas)
   const raycaster = new THREE.Raycaster();
   const mouseCoords = new THREE.Vector2();
 
-  window.addEventListener('click', (e) => {
-    // Ignore clicks on HUD buttons or modals
-    if (e.target.closest('.hud-overlay, .modal-overlay, #hud-nav, .project-flyout')) return;
+  renderer.domElement.addEventListener('click', (e) => {
+    // Only process clicks on the WebGL canvas
+    if (e.target !== renderer.domElement) return;
 
     mouseCoords.x = (e.clientX / window.innerWidth) * 2 - 1;
     mouseCoords.y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -675,10 +701,16 @@
     const intersects = raycaster.intersectObjects(interactiveObjects, true);
 
     if (intersects.length > 0) {
-      const hit = intersects[0].object;
-      const section = hit.userData.section;
-      if (section) {
-        transitionToStation(section);
+      let targetSection = null;
+      for (let i = 0; i < intersects.length; i++) {
+        const obj = intersects[i].object;
+        if (obj.userData && obj.userData.section) {
+          targetSection = obj.userData.section;
+          break;
+        }
+      }
+      if (targetSection && targetSection !== currentStation) {
+        transitionToStation(targetSection);
       }
     }
   });

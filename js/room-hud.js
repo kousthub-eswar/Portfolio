@@ -13,8 +13,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const hudButtons = document.querySelectorAll('.hud-nav-btn');
   const resetBtn = document.getElementById('hud-reset-view');
 
+  // Prevent UI container clicks from propagating to canvas
+  const uiOverlays = document.querySelectorAll('.hud-topbar, .hud-bottom-bar, .station-flyout, #project-modal, #cmd-overlay');
+  uiOverlays.forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  });
+
   hudButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       const targetView = btn.dataset.view;
       if (window.cyberRoom && targetView) {
         window.cyberRoom.transitionTo(targetView);
@@ -23,7 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (resetBtn) {
-    resetBtn.addEventListener('click', () => {
+    resetBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       if (window.cyberRoom) window.cyberRoom.transitionTo('overview');
     });
   }
@@ -37,6 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const flyoutContact = document.getElementById('flyout-contact');
   const allFlyouts = [flyoutProjects, flyoutSkills, flyoutExp, flyoutContact];
 
+  // Immediately hide panels when camera begins moving
+  window.addEventListener('stationTransitionStart', () => {
+    allFlyouts.forEach(f => f && f.classList.remove('active'));
+  });
+
+  // Reveal corresponding panel when camera arrives at target station
   window.addEventListener('stationChanged', (e) => {
     const station = e.detail.station;
     allFlyouts.forEach(f => f && f.classList.remove('active'));
@@ -51,6 +69,26 @@ document.addEventListener('DOMContentLoaded', () => {
       flyoutContact.classList.add('active');
     }
   });
+
+  // Dedicated Flyout Close Buttons
+  document.querySelectorAll('.flyout-close-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (window.cyberRoom) window.cyberRoom.transitionTo('overview');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    const closeBtn = e.target.closest('[data-action="close-flyout"]');
+    if (closeBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (window.cyberRoom) {
+        window.cyberRoom.transitionTo('overview');
+      }
+    }
+  }, true);
 
   // ==========================================
   // 3. Project Selector in Projects Flyout

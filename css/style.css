@@ -124,120 +124,218 @@ html, body {
 .hud-stations-menu {
   display: flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(8, 13, 24, 0.8);
-  border: 1px solid var(--border-cyan);
-  padding: 6px 12px;
-  border-radius: 9999px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  gap: 4px;
+  background: rgba(8, 14, 26, 0.9);
+  border: 1px solid rgba(0, 240, 255, 0.22);
+  padding: 4px;
+  border-radius: 12px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   pointer-events: auto;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 240, 255, 0.08);
 }
 
 .hud-nav-btn {
   background: transparent;
-  border: none;
-  color: var(--text-muted);
+  border: 1px solid transparent;
+  color: #94a3b8;
   font-family: var(--font-display);
   font-size: 0.82rem;
   font-weight: 600;
+  letter-spacing: 0.2px;
   padding: 8px 14px;
-  border-radius: 9999px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.25s var(--ease-expo);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
+  position: relative;
+  user-select: none;
+}
+
+.hud-nav-btn .nav-icon {
+  stroke: #64748b;
+  transition: stroke 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
 }
 
 .hud-nav-btn:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.hud-nav-btn:hover .nav-icon {
+  stroke: var(--accent-cyan);
+  transform: translateY(-1px);
 }
 
 .hud-nav-btn.active {
-  background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(168, 85, 247, 0.25));
-  border: 1px solid var(--accent-cyan);
-  color: #fff;
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+  background: rgba(0, 240, 255, 0.12);
+  border-color: rgba(0, 240, 255, 0.55);
+  color: #00f0ff;
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.25), inset 0 0 12px rgba(0, 240, 255, 0.1);
+}
+
+.hud-nav-btn.active .nav-icon {
+  stroke: #00f0ff;
 }
 
 /* Right HUD Action Controls */
 .hud-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   pointer-events: auto;
 }
 
 .btn-hud-cmd {
-  background: rgba(8, 13, 24, 0.8);
-  border: 1px solid var(--border-cyan);
-  color: #fff;
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  padding: 9px 14px;
-  border-radius: 9999px;
+  background: rgba(8, 14, 26, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 8px 14px;
+  border-radius: 10px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  backdrop-filter: blur(16px);
-  transition: all 0.25s var(--ease-expo);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.btn-hud-cmd svg {
+  stroke: #94a3b8;
+  transition: stroke 0.2s ease;
 }
 
 .btn-hud-cmd:hover {
   border-color: var(--accent-cyan);
-  background: rgba(0, 240, 255, 0.15);
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+  color: #fff;
+  background: rgba(0, 240, 255, 0.1);
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.25);
+}
+
+.btn-hud-cmd:hover svg {
+  stroke: var(--accent-cyan);
 }
 
 .btn-hud-cmd kbd {
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(0, 240, 255, 0.3);
   padding: 2px 6px;
   border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
   color: var(--accent-cyan);
 }
 
 .btn-hud-resume {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-  color: #030508;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid var(--accent-cyan);
+  color: #00f0ff;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.82rem;
+  letter-spacing: 0.3px;
   text-decoration: none;
-  padding: 9px 18px;
-  border-radius: 9999px;
+  padding: 8px 16px;
+  border-radius: 10px;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  box-shadow: 0 4px 20px rgba(0, 240, 255, 0.4);
-  transition: all 0.25s var(--ease-expo);
+  gap: 7px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.22);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-hud-resume svg {
+  stroke: #00f0ff;
+  transition: transform 0.2s ease;
 }
 
 .btn-hud-resume:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 240, 255, 0.6);
+  background: #00f0ff;
+  color: #05070f;
+  transform: translateY(-1px);
+  box-shadow: 0 0 28px rgba(0, 240, 255, 0.6);
+}
+
+.btn-hud-resume:hover svg {
+  stroke: #05070f;
+  transform: translateY(1px);
 }
 
 .btn-hud-reset {
   display: none;
-  background: rgba(255, 59, 48, 0.15);
-  border: 1px solid rgba(255, 59, 48, 0.4);
-  color: #ff5f56;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  padding: 8px 14px;
-  border-radius: 9999px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.78rem;
+  padding: 8px 12px;
+  border-radius: 10px;
   cursor: pointer;
+  align-items: center;
+  gap: 6px;
   transition: all 0.2s ease;
 }
 
+.btn-hud-reset svg {
+  stroke: #fca5a5;
+  transition: transform 0.2s ease;
+}
+
 .btn-hud-reset:hover {
-  background: rgba(255, 59, 48, 0.3);
+  background: rgba(239, 68, 68, 0.25);
+  border-color: #ef4444;
   color: #fff;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.35);
+}
+
+.btn-hud-reset:hover svg {
+  stroke: #fff;
+  transform: rotate(-30deg);
+}
+
+/* Flyout Close / Back Button */
+.flyout-close-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 5px 11px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.flyout-close-btn svg {
+  stroke: #94a3b8;
+  transition: stroke 0.2s ease;
+}
+
+.flyout-close-btn:hover {
+  background: rgba(0, 240, 255, 0.12);
+  border-color: var(--accent-cyan);
+  color: #00f0ff;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+}
+
+.flyout-close-btn:hover svg {
+  stroke: #00f0ff;
 }
 
 /* ============================================================
