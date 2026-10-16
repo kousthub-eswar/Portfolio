@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio UI/UX Redesign — Visual Concept Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07090e;
+      --card-bg: rgba(15, 23, 42, 0.7);
+      --border: rgba(0, 240, 255, 0.2);
+      --accent: #00f0ff;
+      --accent-purple: #a855f7;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      padding: 30px 20px 80px;
+      min-height: 100vh;
+    }
+    .header {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 40px;
+    }
+    .badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      padding: 5px 14px;
+      border-radius: 9999px;
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p.lead {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+    .concepts-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .concept-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      transition: all 0.3s ease;
+    }
+    .concept-card.featured {
+      border-color: rgba(0, 240, 255, 0.6);
+      box-shadow: 0 20px 60px rgba(0, 240, 255, 0.15);
+    }
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      background: #020408;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+    .image-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .image-wrapper:hover img {
+      transform: scale(1.015);
+    }
+    .card-body {
+      padding: 30px;
+    }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .option-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--accent);
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 4px 12px;
+      border-radius: 6px;
+    }
+    .vibe-pill {
+      font-size: 0.8rem;
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 4px 12px;
+      border-radius: 9999px;
+    }
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+    .description {
+      color: var(--text-muted);
+      line-height: 1.65;
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+    .features-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.02);
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .feature-icon {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="badge">PROPOSED REDESIGN THEMES</span>
+    <h1>Pick Your Preferred Design</h1>
+    <p class="lead">Compare the 3 visual directions generated specifically for your portfolio rebuild. Let us know which one you like best, and we will build it completely from scratch!</p>
+  </div>
+
+  <div class="concepts-grid">
+    <!-- CONCEPT A -->
+    <div class="concept-card featured" id="concept-a">
+      <div class="image-wrapper">
+        <img src="assets/images/concept-a-bento.jpg" alt="Option A: Spatial 3D Glass Bento Studio" />
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="option-tag">OPTION A • RECOMMENDED</span>
+          <span class="vibe-pill">Apple & Linear Bento Studio</span>
+        </div>
+        <h2>Spatial 3D Glass Bento Studio</h2>
+        <p class="description">
+          A hyper-polished, modern dark theme built around an asymmetric <strong>Bento Grid</strong> layout. Features floating 3D layered glass elements with mouse tilt dynamics, frosted glass cards with rim lighting, live metric pills for your projects, and clean, high-density recruiter scannability.
+        </p>
+        <div class="features-list">
+          <div class="feature-item"><span class="feature-icon">✦</span> <strong>3D Glass Cards:</strong> Mouse-tracking spatial perspective</div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <strong>Modular Bento:</strong> Highlight BillMate, TuneSense, ClubHub & Audit with live stats</div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <strong>Interactive Stack:</strong> Glowing pill filters with smooth transitions</div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <strong>Zero Clutter:</strong> Elegant, ultra-clean, Apple Keynote feel</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONCEPT B -->
+    <div class="concept-card" id="concept-b">
+      <div class="image-wrapper">
+        <img src="assets/images/concept-b-isometric.jpg" alt="Option B: 3D Isometric Developer Room" />
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="option-tag">OPTION B</span>
+          <span class="vibe-pill">Gamified Bruno Simon 3D Room</span>
+        </div>
+        <h2>3D Isometric Developer Workstation</h2>
+        <p class="description">
+          An interactive 3D low-poly miniature tech room right in the browser. Visitors can orbit the 3D room and click on interactive desk items: clicking monitors opens project specs, clicking the server rack shows backend architecture, and clicking the phone triggers contact/resume.
+        </p>
+        <div class="features-list">
+          <div class="feature-item"><span class="feature-icon">✦</span> <strong>Interactive 3D Room:</strong> Orbit, pan, and zoom around the workstation</div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <strong>Clickable 3D Objects:</strong> Dual monitors, mechanical keyboard & server racks</div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <strong>High Engagement:</strong> Distinctive, playful, and instantly memorable</div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <strong>WebGL Three.js:</strong> Custom shaders with smooth 60 FPS physics</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONCEPT C -->
+    <div class="concept-card" id="concept-c">
+      <div class="image-wrapper">
+        <img src="assets/images/concept-c-linear.jpg" alt="Option C: Linear Dark Horizon" />
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="option-tag">OPTION C</span>
+          <span class="vibe-pill">Minimalist Luxury Tech & Iridescent 3D</span>
+        </div>
+        <h2>Linear-Style Dark Horizon</h2>
+        <p class="description">
+          An ultra-clean, minimalist luxury aesthetic favored by top Silicon Valley tech leads and high-end design agencies. Pure matte black canvas, spacious editorial typography, a central floating iridescent 3D glass sculpture that refracts light, and a sleek horizontal project carousel with metrics.
+        </p>
+        <div class="features-list">
+          <div class="feature-item"><span class="feature-icon">✦</span> <strong>Iridescent 3D Toroid:</strong> Real-time refractive glass dispersion in WebGL</div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <strong>Spacious Typography:</strong> Big-tech minimalist aesthetic (Syne + Inter)</div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <strong>Horizontal Showcase:</strong> Smooth drag & snap project showcase</div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <strong>Lightweight & Blazing Fast:</strong> Zero visual clutter, pure sophistication</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
