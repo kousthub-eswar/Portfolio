@@ -6,523 +6,267 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Primary Meta Tags -->
-  <title>Kousthub Gadikota | Full-Stack &amp; Software Development Engineer</title>
-  <meta name="title" content="Kousthub Gadikota | Full-Stack &amp; Software Development Engineer">
+  <title>Kousthub Gadikota | 3D Interactive Cyber Workstation</title>
+  <meta name="title" content="Kousthub Gadikota | 3D Interactive Cyber Workstation">
   <meta name="description"
-    content="Personal portfolio of Kousthub Eswar Reddy Gadikota — Computer Science undergraduate at VIT Vellore. Building high-throughput full-stack systems with React 19, TypeScript, Node.js, PostgreSQL RPCs, and MongoDB.">
-  <meta name="keywords"
-    content="Kousthub Gadikota, Kousthub Eswar, Full Stack Developer, Software Engineer, React 19, TypeScript, Node.js, PostgreSQL, MongoDB, VIT Vellore">
+    content="An immersive 3D developer workstation in WebGL Three.js. Explore production full-stack systems, PostgreSQL RPCs, MongoDB pipelines, and VIT academics by interacting with the 3D cyber cockpit.">
   <meta name="author" content="Kousthub Eswar Reddy Gadikota">
-  <meta name="theme-color" content="#060913">
+  <meta name="theme-color" content="#05070f">
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://kousthubportfolio.vercel.app/">
-  <meta property="og:title" content="Kousthub Gadikota | Full-Stack &amp; Software Development Engineer">
-  <meta property="og:description"
-    content="Building reliable, high-throughput full-stack applications with React 19, TypeScript, Node.js, Express, PostgreSQL RPCs, and MongoDB.">
-  <meta property="og:image" content="https://kousthubportfolio.vercel.app/assets/images/billmate-mockup.png">
-
-  <!-- Google Fonts: Space Grotesk, Inter, JetBrains Mono -->
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap"
     rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-  <!-- Ambient Atmospheric Glowing Orbs -->
-  <div class="ambient-orb ambient-orb-1"></div>
-  <div class="ambient-orb ambient-orb-2"></div>
+  <!-- ============================================================
+       1. FULL-SCREEN 3D WEBGL WORKSTATION CANVAS
+       ============================================================ -->
+  <div id="webgl-canvas-container"></div>
 
-  <!-- ========== NAVIGATION ========== -->
-  <nav class="navbar" id="navbar">
-    <div class="container">
-      <div class="nav-wrapper">
-        <a href="#hero" class="nav-logo">
-          <span>&lt;</span>KG<span>/&gt;</span>
-        </a>
+  <!-- ============================================================
+       2. TOP GLASS HUD NAVIGATION
+       ============================================================ -->
+  <header class="hud-topbar">
+    <!-- Brand & Status -->
+    <div class="hud-brand">
+      <span class="hud-logo">&lt;<span>KG</span> /&gt;</span>
+      <span class="hud-status-dot"></span>
+      <span class="hud-role-tag">Kousthub Gadikota // SDE &amp; Full-Stack</span>
+    </div>
 
-        <div class="nav-menu" id="nav-menu">
-          <a href="#hero" class="nav-link">Home</a>
-          <a href="#projects" class="nav-link">Projects</a>
-          <a href="#stack" class="nav-link">Stack</a>
-          <a href="#experience" class="nav-link">Experience</a>
-          <a href="#education" class="nav-link">Education</a>
-          <a href="#contact" class="nav-link">Contact</a>
+    <!-- Center Station Navigation -->
+    <nav class="hud-stations-menu" id="hud-nav">
+      <button class="hud-nav-btn active" data-view="overview" title="Full Room Overview">
+        <span>🌐</span> Overview
+      </button>
+      <button class="hud-nav-btn" data-view="projects" title="Zoom to Curved Code Monitor">
+        <span>💻</span> Projects
+      </button>
+      <button class="hud-nav-btn" data-view="skills" title="Zoom to Server Rack">
+        <span>🗄️</span> Backend &amp; DB
+      </button>
+      <button class="hud-nav-btn" data-view="experience" title="Zoom to Secondary Vertical Screen">
+        <span>🎓</span> Bio &amp; VIT
+      </button>
+      <button class="hud-nav-btn" data-view="contact" title="Zoom to Desk Phone">
+        <span>📱</span> Contact / CV
+      </button>
+    </nav>
+
+    <!-- Right Controls -->
+    <div class="hud-actions">
+      <button class="btn-hud-reset" id="hud-reset-view" title="Reset Camera to Wide Overview (ESC)">
+        ✕ Overview (ESC)
+      </button>
+      <button class="btn-hud-cmd cmd-trigger-btn" title="Quick Command Palette (Ctrl+K)">
+        <span>⌘ Cmds</span> <kbd>Ctrl+K</kbd>
+      </button>
+      <a href="assets/resume.pdf" class="btn-hud-resume" download="Kousthub_Resume.pdf">
+        Resume ↓
+      </a>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       3. BOTTOM INTERACTION HINT BAR
+       ============================================================ -->
+  <div class="hud-bottom-bar">
+    <span>💡 <strong>Click 3D Objects</strong> (Monitor, Server Rack, Phone) to zoom in</span>
+    <span>•</span>
+    <span><strong>Drag</strong> mouse to pan view</span>
+    <span>•</span>
+    <span>Press <strong>ESC</strong> to return to overview</span>
+  </div>
+
+  <!-- ============================================================
+       4. INTERACTIVE 3D STATION FLYOUT OVERLAYS
+       ============================================================ -->
+  <!-- Projects Flyout (Triggered on Monitor Zoom) -->
+  <div class="station-flyout" id="flyout-projects">
+    <div class="flyout-header">
+      <span class="flyout-badge">STATION: CURVED CODE MONITOR</span>
+      <button class="btn-hud-reset" onclick="window.cyberRoom.transitionTo('overview')" style="display:inline-block; padding:3px 8px;">✕</button>
+    </div>
+
+    <div class="project-selector">
+      <button class="project-selector-tab active" data-project="billmate">BillMate POS</button>
+      <button class="project-selector-tab" data-project="tunesense">TuneSense AI</button>
+      <button class="project-selector-tab" data-project="clubhub">Campus ClubHub</button>
+      <button class="project-selector-tab" data-project="auditanalytics">Audit Analytics</button>
+    </div>
+
+    <h3 class="flyout-title" id="flyout-project-title">BillMate — Point-of-Sale &amp; Retail PWA</h3>
+    <p class="flyout-desc" id="flyout-project-desc">
+      A production-grade Progressive Web App engineered for high-throughput retail checkout, instant barcode scanning, and multi-channel receipt generation.
+    </p>
+
+    <div class="flyout-metrics-grid" id="flyout-project-metrics">
+      <div class="flyout-metric-chip">
+        <strong>Atomic RPCs</strong>
+        <span>Data Integrity</span>
+      </div>
+      <div class="flyout-metric-chip">
+        <strong>ESC/POS 80mm</strong>
+        <span>Hardware Engine</span>
+      </div>
+      <div class="flyout-metric-chip">
+        <strong>Vitest Passed</strong>
+        <span>Test Coverage</span>
+      </div>
+      <div class="flyout-metric-chip">
+        <strong>React 19 / TS</strong>
+        <span>Architecture</span>
+      </div>
+    </div>
+
+    <div class="flyout-actions">
+      <button class="btn-flyout-primary open-spec-btn" id="flyout-project-spec-btn" data-project="billmate">
+        Inspect System Specs &rarr;
+      </button>
+      <a href="https://bill-mate.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 7px 14px; font-size: 0.8rem;">
+        Live Demo &rarr;
+      </a>
+    </div>
+  </div>
+
+  <!-- Skills Flyout (Triggered on Server Rack Zoom) -->
+  <div class="station-flyout" id="flyout-skills">
+    <div class="flyout-header">
+      <span class="flyout-badge" style="color: var(--accent-purple); border-color: var(--border-purple);">STATION: HIGH-AVAILABILITY SERVER RACK</span>
+      <button class="btn-hud-reset" onclick="window.cyberRoom.transitionTo('overview')" style="display:inline-block; padding:3px 8px;">✕</button>
+    </div>
+    <h3 class="flyout-title">Backend Architecture &amp; Data Stores</h3>
+    <p class="flyout-desc">
+      Engineered for high data integrity, sub-second query performance, and concurrent transactional safety.
+    </p>
+
+    <div class="skills-pills-wrap">
+      <span class="skill-tag">☕ Java 21</span>
+      <span class="skill-tag">🐘 PostgreSQL 15 (Atomic RPCs)</span>
+      <span class="skill-tag">🍃 MongoDB (Mongoose)</span>
+      <span class="skill-tag">🟢 Node.js</span>
+      <span class="skill-tag">🚂 Express.js</span>
+      <span class="skill-tag">⚡ Supabase</span>
+      <span class="skill-tag">🔷 TypeScript</span>
+      <span class="skill-tag">🧪 Vitest</span>
+      <span class="skill-tag">🛡️ Zod Schema Validation</span>
+      <span class="skill-tag">🐍 Python</span>
+      <span class="skill-tag">🗄️ SQL</span>
+      <span class="skill-tag">🐙 Git &amp; CI/CD</span>
+    </div>
+
+    <div class="flyout-actions">
+      <button class="btn-flyout-primary" onclick="window.cyberRoom.transitionTo('projects')">
+        See Implemented in Projects &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- Experience & Bio Flyout (Triggered on Left Vertical Screen Zoom) -->
+  <div class="station-flyout" id="flyout-experience">
+    <div class="flyout-header">
+      <span class="flyout-badge" style="color: var(--accent-green); border-color: rgba(0, 255, 159, 0.3);">STATION: VERTICAL TELEMETRY MONITOR</span>
+      <button class="btn-hud-reset" onclick="window.cyberRoom.transitionTo('overview')" style="display:inline-block; padding:3px 8px;">✕</button>
+    </div>
+    <h3 class="flyout-title">Leadership &amp; Academic Foundation</h3>
+    <p class="flyout-desc">
+      Computer Science Undergraduate (Class of 2027) at <strong>Vellore Institute of Technology (VIT), Vellore</strong>. CGPA: <strong>8.7 / 10.0</strong>.
+    </p>
+
+    <div class="contact-links-list">
+      <div class="contact-link-row">
+        <span>⚡</span>
+        <div>
+          <strong>Senior Core Member • CodeChef VIT</strong>
+          <div style="font-size:0.75rem; color:var(--text-muted);">Organized events for 1,500+ attendees, hackathons, and technical mentorship.</div>
         </div>
-
-        <div class="nav-actions">
-          <button class="btn-cmd cmd-trigger-btn" title="Open Quick Command Palette (Ctrl+K)" aria-label="Open Command Palette">
-            <span>⌘ Cmds</span> <kbd>Ctrl+K</kbd>
-          </button>
-          <a href="assets/resume.pdf" class="btn-resume" id="nav-resume" download="Kousthub_Resume.pdf">
-            Resume ↓
-          </a>
-          <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
-            <span></span><span></span><span></span>
-          </button>
+      </div>
+      <div class="contact-link-row">
+        <span>🎓</span>
+        <div>
+          <strong>Core CS Disciplines</strong>
+          <div style="font-size:0.75rem; color:var(--text-muted);">Data Structures, Algorithms, Object-Oriented Programming (Java), Operating Systems, DBMS.</div>
         </div>
       </div>
     </div>
-  </nav>
 
-  <!-- ========== HERO SECTION ========== -->
-  <section class="hero-section" id="hero">
-    <div class="container">
-      <div class="hero-grid">
-        <!-- Left: Developer Identity & Quick CTAs -->
-        <div class="hero-left">
-          <div class="status-pill">
-            <span class="status-dot"></span>
-            <span>Open to opportunities • SDE &amp; Full-Stack</span>
-          </div>
-
-          <h1 class="hero-title">
-            Kousthub Eswar <br />
-            <span class="gradient-text">Reddy Gadikota</span>
-          </h1>
-
-          <div class="hero-tagline">
-            I'm a <span id="bento-typed-text" style="color: var(--accent-cyan); font-weight: 600; margin-left: 6px;"></span><span class="typed-cursor"></span>
-          </div>
-
-          <p class="hero-bio">
-            Computer Science undergraduate at VIT Vellore ('27) engineering resilient full-stack systems. Specialized in React 19, TypeScript, atomic PostgreSQL RPCs, MongoDB pipelines, and Java Object-Oriented Architecture.
-          </p>
-
-          <div class="hero-cta-group">
-            <a href="#projects" class="btn btn-primary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-              </svg>
-              Explore Bento Projects
-            </a>
-            <a href="assets/resume.pdf" class="btn btn-secondary" id="hero-resume" download="Kousthub_Resume.pdf">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-              </svg>
-              Download Resume
-            </a>
-          </div>
-
-          <div class="hero-socials">
-            <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub" title="GitHub">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-            </a>
-            <a href="https://linkedin.com/in/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn" title="LinkedIn">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-            </a>
-            <a href="mailto:kousthubeswar@gmail.com" class="social-icon-btn" aria-label="Email" title="Email">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-              </svg>
-            </a>
-            <a href="tel:+917204048727" class="social-icon-btn" aria-label="Phone" title="+91 7204048727">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-              </svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- Right: 3D Spatial Glass Core Centerpiece -->
-        <div class="hero-right">
-          <div id="spatial-3d-canvas">
-            <div class="spatial-glow-halo"></div>
-            <!-- Three.js Canvas mounts here -->
-            <div class="spatial-badge">
-              <span class="status-dot"></span>
-              <span>Spatial 3D Studio • Active 60 FPS</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="flyout-actions">
+      <a href="assets/resume.pdf" class="btn-flyout-primary" download="Kousthub_Resume.pdf">
+        Download PDF Resume &rarr;
+      </a>
     </div>
-  </section>
+  </div>
 
-  <!-- ========== BENTO STUDIO GRID SECTION ========== -->
-  <section class="section-bento" id="projects">
-    <div class="container">
-      <div class="bento-header">
-        <span class="section-label">CURATED WORK</span>
-        <h2 class="section-title">Production Systems &amp; Engineering</h2>
-      </div>
-
-      <div class="bento-grid">
-        <!-- CELL 1: BillMate (Span 7) -->
-        <div class="bento-card span-7">
-          <div class="card-top">
-            <span class="card-category">RETAIL ENGINE • FULL-STACK</span>
-            <span class="live-badge">● LIVE PWA</span>
-          </div>
-          <h3 class="card-title">BillMate — Point-of-Sale &amp; Retail PWA</h3>
-          <p class="card-desc">
-            Production progressive web application engineered for zero-loss retail transactions. Features atomic PostgreSQL RPCs with row-level locks to eliminate inventory race conditions, integrated thermal 80mm ESC/POS receipt generation, barcode scanner camera pipelines, and full offline caching.
-          </p>
-
-          <div class="metric-pills">
-            <div class="metric-pill">⚡ Atomic PostgreSQL RPCs</div>
-            <div class="metric-pill">🖨️ 80mm ESC/POS Printing</div>
-            <div class="metric-pill">🛡️ Vitest Rigorous Suite</div>
-          </div>
-
-          <div class="project-preview">
-            <img src="assets/images/billmate-mockup.png" alt="BillMate POS Interface Preview" loading="lazy" />
-          </div>
-
-          <div class="tag-pills">
-            <span class="tag-pill">React 19</span>
-            <span class="tag-pill">TypeScript</span>
-            <span class="tag-pill">Supabase (PostgreSQL)</span>
-            <span class="tag-pill">PWA</span>
-            <span class="tag-pill">Vitest</span>
-          </div>
-
-          <div class="card-actions">
-            <a href="https://bill-mate.vercel.app/" target="_blank" rel="noopener noreferrer" class="card-btn primary">
-              Live Demo &rarr;
-            </a>
-            <button class="card-btn open-spec-btn" data-project="billmate">
-              Technical Specs
-            </button>
-            <a href="https://github.com/kousthub-eswar/BillMate" target="_blank" rel="noopener noreferrer" class="card-btn">
-              GitHub
-            </a>
-          </div>
-        </div>
-
-        <!-- CELL 2: TuneSense (Span 5) -->
-        <div class="bento-card span-5">
-          <div class="card-top">
-            <span class="card-category">INTELLIGENCE • MERN</span>
-            <span class="live-badge">6 ENGINES</span>
-          </div>
-          <h3 class="card-title">TuneSense — Music Recommender</h3>
-          <p class="card-desc">
-            Explainable music recommendation engine combining Content-Based Filtering, Vector Distance, and Hybrid blends across 11 structured Mongoose schemas. Features interactive acoustic radar charts (energy, valence, danceability) explaining why each track is recommended.
-          </p>
-
-          <div class="metric-pills">
-            <div class="metric-pill">🎧 6 Vector Pipelines</div>
-            <div class="metric-pill">🗄️ 11 Mongoose Models</div>
-            <div class="metric-pill">🔒 JWT + Zod Strict</div>
-          </div>
-
-          <div class="project-preview">
-            <img src="assets/images/tunesense-mockup.png" alt="TuneSense Recommender UI Preview" loading="lazy" />
-          </div>
-
-          <div class="tag-pills">
-            <span class="tag-pill">React 19</span>
-            <span class="tag-pill">Node.js</span>
-            <span class="tag-pill">Express</span>
-            <span class="tag-pill">MongoDB</span>
-            <span class="tag-pill">Zod</span>
-          </div>
-
-          <div class="card-actions">
-            <button class="card-btn primary open-spec-btn" data-project="tunesense">
-              Technical Specs &rarr;
-            </button>
-            <a href="https://github.com/kousthub-eswar/TuneSense" target="_blank" rel="noopener noreferrer" class="card-btn">
-              GitHub
-            </a>
-          </div>
-        </div>
-
-        <!-- CELL 3: Campus ClubHub (Span 5) -->
-        <div class="bento-card span-5">
-          <div class="card-top">
-            <span class="card-category">CAMPUS ARCHITECTURE</span>
-            <span class="live-badge">QR PASSES</span>
-          </div>
-          <h3 class="card-title">Campus ClubHub — Event Management</h3>
-          <p class="card-desc">
-            Role-segregated university portal for student event discovery, multi-tier permissions (Admins, Leads, Attendees), and real-time ticket scanning with dynamic cryptographic SVG QR codes.
-          </p>
-
-          <div class="metric-pills">
-            <div class="metric-pill">🎟️ Cryptographic SVG QRs</div>
-            <div class="metric-pill">👥 Role-Based RBAC</div>
-          </div>
-
-          <div class="project-preview">
-            <img src="assets/images/clubhub-mockup.png" alt="Campus ClubHub Interface Preview" loading="lazy" />
-          </div>
-
-          <div class="tag-pills">
-            <span class="tag-pill">React</span>
-            <span class="tag-pill">Node.js</span>
-            <span class="tag-pill">Express</span>
-            <span class="tag-pill">MongoDB</span>
-            <span class="tag-pill">SVG QR</span>
-          </div>
-
-          <div class="card-actions">
-            <button class="card-btn primary open-spec-btn" data-project="clubhub">
-              Technical Specs &rarr;
-            </button>
-            <a href="https://github.com/kousthub-eswar/Campus-ClubHub" target="_blank" rel="noopener noreferrer" class="card-btn">
-              GitHub
-            </a>
-          </div>
-        </div>
-
-        <!-- CELL 4: Audit Analytics System (Span 7) -->
-        <div class="bento-card span-7">
-          <div class="card-top">
-            <span class="card-category">FORENSIC DATA SCIENCE</span>
-            <span class="live-badge">$13.7M AUDITED</span>
-          </div>
-          <h3 class="card-title">Audit Analytics — Ledger Anomaly Detection</h3>
-          <p class="card-desc">
-            Forensic transaction intelligence system executing statistical fraud analysis over 8,000 journal entries ($13.7M). Built Benford’s Law digit-distribution tests (Chi-Square goodness-of-fit), circular invoice round-tripping detection, and automated threshold alerts with zero false-negative escapes.
-          </p>
-
-          <div class="metric-pills">
-            <div class="metric-pill">📊 8,000 Transactions</div>
-            <div class="metric-pill">⚖️ Benford's Law (Chi-Sq)</div>
-            <div class="metric-pill">⚡ Vectorized Pandas</div>
-          </div>
-
-          <div class="project-preview">
-            <img src="assets/images/audit-mockup.png" alt="Audit Analytics Forensic Charts" loading="lazy" />
-          </div>
-
-          <div class="tag-pills">
-            <span class="tag-pill">Python</span>
-            <span class="tag-pill">Pandas</span>
-            <span class="tag-pill">NumPy</span>
-            <span class="tag-pill">Plotly</span>
-            <span class="tag-pill">Streamlit</span>
-          </div>
-
-          <div class="card-actions">
-            <button class="card-btn primary open-spec-btn" data-project="auditanalytics">
-              Technical Specs &rarr;
-            </button>
-            <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="card-btn">
-              GitHub
-            </a>
-          </div>
-        </div>
-
-        <!-- CELL 5: Interactive Tech Stack Pod (Span 12) -->
-        <div class="bento-card span-12" id="stack">
-          <div class="card-top">
-            <span class="card-category">CORE COMPETENCIES</span>
-            <span class="live-badge">INTERACTIVE FILTER</span>
-          </div>
-          <h3 class="card-title">Technical Skills &amp; Architecture</h3>
-          <p class="card-desc">
-            A comprehensive spectrum of modern development, distributed data stores, testing frameworks, and systems engineering.
-          </p>
-
-          <div class="stack-tabs">
-            <button class="stack-tab active" data-category="all">All Skills</button>
-            <button class="stack-tab" data-category="languages">Languages</button>
-            <button class="stack-tab" data-category="frontend">Frontend &amp; UI</button>
-            <button class="stack-tab" data-category="backend">Backend &amp; DB</button>
-            <button class="stack-tab" data-category="tools">Tools &amp; Testing</button>
-          </div>
-
-          <div class="tech-pills-container">
-            <div class="tech-pill" data-category="languages"><span class="icon">☕</span> Java 21</div>
-            <div class="tech-pill" data-category="languages"><span class="icon">🔷</span> TypeScript</div>
-            <div class="tech-pill" data-category="languages"><span class="icon">🟨</span> JavaScript (ES2024)</div>
-            <div class="tech-pill" data-category="languages"><span class="icon">🐍</span> Python</div>
-            <div class="tech-pill" data-category="languages"><span class="icon">⚡</span> C / C++</div>
-            <div class="tech-pill" data-category="languages"><span class="icon">🗄️</span> SQL</div>
-
-            <div class="tech-pill" data-category="frontend"><span class="icon">⚛️</span> React 19</div>
-            <div class="tech-pill" data-category="frontend"><span class="icon">⚡</span> Vite</div>
-            <div class="tech-pill" data-category="frontend"><span class="icon">🎨</span> Tailwind CSS</div>
-            <div class="tech-pill" data-category="frontend"><span class="icon">📱</span> Progressive Web Apps (PWA)</div>
-            <div class="tech-pill" data-category="frontend"><span class="icon">🌐</span> HTML5 &amp; Modern CSS3</div>
-
-            <div class="tech-pill" data-category="backend"><span class="icon">🟢</span> Node.js</div>
-            <div class="tech-pill" data-category="backend"><span class="icon">🚂</span> Express.js</div>
-            <div class="tech-pill" data-category="backend"><span class="icon">🐘</span> PostgreSQL 15 (Atomic RPCs)</div>
-            <div class="tech-pill" data-category="backend"><span class="icon">🍃</span> MongoDB (Mongoose)</div>
-            <div class="tech-pill" data-category="backend"><span class="icon">⚡</span> Supabase</div>
-            <div class="tech-pill" data-category="backend"><span class="icon">📦</span> SQLite</div>
-            <div class="tech-pill" data-category="backend"><span class="icon">🔒</span> JWT &amp; Auth Flow</div>
-
-            <div class="tech-pill" data-category="tools"><span class="icon">🧪</span> Vitest</div>
-            <div class="tech-pill" data-category="tools"><span class="icon">🛡️</span> Zod Schema Validation</div>
-            <div class="tech-pill" data-category="tools"><span class="icon">🐙</span> Git &amp; GitHub</div>
-            <div class="tech-pill" data-category="tools"><span class="icon">▲</span> Vercel</div>
-            <div class="tech-pill" data-category="tools"><span class="icon">☁️</span> Render</div>
-            <div class="tech-pill" data-category="tools"><span class="icon">🧩</span> Postman &amp; REST APIs</div>
-          </div>
-        </div>
-
-        <!-- CELL 6: Leadership & Experience (Span 6) -->
-        <div class="bento-card span-6" id="experience">
-          <div class="card-top">
-            <span class="card-category">LEADERSHIP &amp; COMMUNITY</span>
-            <span class="live-badge">1,500+ AUDIENCE</span>
-          </div>
-          <h3 class="card-title">Experience &amp; Responsibility</h3>
-
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-role">Senior Core Committee Member</div>
-            <div class="timeline-org">CodeChef VIT Student Chapter</div>
-            <div class="timeline-date">Nov 2023 – Present • Vellore, India</div>
-            <p class="timeline-desc">
-              Organized flagship competitive programming events and multi-track hackathons engaging 1,500+ participants. Mentored junior engineering students in Data Structures, Algorithms, and production MERN architectures.
-            </p>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-role">Full-Stack Software Engineering</div>
-            <div class="timeline-org">Autonomous Production Apps</div>
-            <div class="timeline-date">2023 – Present</div>
-            <p class="timeline-desc">
-              Engineered and maintained four deployed client/academic web applications. Formulated schema isolation, atomic PostgreSQL database procedures, and automated unit test pipelines.
-            </p>
-          </div>
-        </div>
-
-        <!-- CELL 7: Education & Academics (Span 6) -->
-        <div class="bento-card span-6" id="education">
-          <div class="card-top">
-            <span class="card-category">ACADEMIC FOUNDATION</span>
-            <span class="live-badge">CGPA 8.7 / 10.0</span>
-          </div>
-          <h3 class="card-title">Education &amp; Core Fundamentals</h3>
-
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-role">B.Tech in Computer Science and Engineering</div>
-            <div class="timeline-org">Vellore Institute of Technology (VIT), Vellore</div>
-            <div class="timeline-date">July 2023 – June 2027</div>
-            <p class="timeline-desc">
-              Rigorous core engineering curriculum including Object-Oriented Programming (Java), Data Structures &amp; Algorithms, Database Management Systems (SQL), Operating Systems, and Computer Networks.
-            </p>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-role">Senior Secondary Education (Class XII)</div>
-            <div class="timeline-org">Bhashyam IIT Junior College • 93.6%</div>
-            <div class="timeline-date">2021 – 2023 • Hyderabad, India</div>
-            <p class="timeline-desc">
-              Specialized in Mathematics, Physics, and Chemistry (MPC) with advanced foundational analytical problem-solving.
-            </p>
-          </div>
-        </div>
-
-        <!-- CELL 8: Direct Contact & Launchpad (Span 12) -->
-        <div class="bento-card span-12" id="contact">
-          <div class="card-top">
-            <span class="card-category">GET IN TOUCH</span>
-            <span class="live-badge">OPEN TO WORK</span>
-          </div>
-          <h3 class="card-title">Let's Build Something Exceptional Together</h3>
-          <p class="card-desc">
-            Whether you have a software development role, full-stack opening, or an ambitious engineering project, my inbox is always open.
-          </p>
-
-          <div class="contact-grid">
-            <div class="contact-info-list">
-              <a href="mailto:kousthubeswar@gmail.com" class="contact-item">
-                <span class="icon">✉️</span>
-                <div>
-                  <strong>Email Directly</strong>
-                  <div style="font-size: 0.84rem; color: var(--accent-cyan);">kousthubeswar@gmail.com</div>
-                </div>
-              </a>
-              <a href="tel:+917204048727" class="contact-item">
-                <span class="icon">📞</span>
-                <div>
-                  <strong>Phone / WhatsApp</strong>
-                  <div style="font-size: 0.84rem; color: var(--accent-cyan);">+91 7204048727</div>
-                </div>
-              </a>
-              <a href="https://linkedin.com/in/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="contact-item">
-                <span class="icon">💼</span>
-                <div>
-                  <strong>LinkedIn Network</strong>
-                  <div style="font-size: 0.84rem; color: var(--accent-cyan);">linkedin.com/in/kousthub-eswar</div>
-                </div>
-              </a>
-              <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="contact-item">
-                <span class="icon">🐙</span>
-                <div>
-                  <strong>GitHub Profile</strong>
-                  <div style="font-size: 0.84rem; color: var(--accent-cyan);">github.com/kousthub-eswar</div>
-                </div>
-              </a>
-            </div>
-
-            <form class="contact-form" action="https://formspree.io/f/mdaekqqn" method="POST">
-              <div class="form-group">
-                <label for="contact-name">Your Name</label>
-                <input type="text" id="contact-name" name="name" class="form-input" placeholder="e.g. Alex Morgan" required />
-              </div>
-              <div class="form-group">
-                <label for="contact-email">Your Email</label>
-                <input type="email" id="contact-email" name="email" class="form-input" placeholder="alex@company.com" required />
-              </div>
-              <div class="form-group">
-                <label for="contact-message">Message</label>
-                <textarea id="contact-message" name="message" class="form-textarea" placeholder="Hi Kousthub, I would like to discuss a software engineering opportunity..." required></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary" style="justify-content: center; margin-top: 6px;">
-                Send Message &rarr;
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
+  <!-- Contact Flyout (Triggered on Smartphone Zoom) -->
+  <div class="station-flyout" id="flyout-contact">
+    <div class="flyout-header">
+      <span class="flyout-badge" style="color: var(--accent-amber); border-color: rgba(255, 184, 0, 0.3);">STATION: DESK SMARTPHONE</span>
+      <button class="btn-hud-reset" onclick="window.cyberRoom.transitionTo('overview')" style="display:inline-block; padding:3px 8px;">✕</button>
     </div>
-  </section>
+    <h3 class="flyout-title">Direct Contact Channels</h3>
+    <p class="flyout-desc">
+      Available for software engineering roles, full-stack openings, and technical collaborations.
+    </p>
 
-  <!-- ========== FOOTER ========== -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <a href="#hero" class="nav-logo">
-          <span>&lt;</span>KG<span>/&gt;</span>
-        </a>
-        <p>&copy; 2026 Kousthub Eswar Reddy Gadikota. All rights reserved.</p>
-        <div class="footer-links">
-          <a href="#hero">Home</a>
-          <a href="#projects">Projects</a>
-          <a href="#stack">Stack</a>
-          <a href="#contact">Contact</a>
-          <a href="assets/resume.pdf" download="Kousthub_Resume.pdf">Resume</a>
+    <div class="contact-links-list">
+      <a href="mailto:kousthubeswar@gmail.com" class="contact-link-row">
+        <span>✉️</span>
+        <div>
+          <strong>Email</strong>
+          <div style="font-size: 0.78rem; color: var(--accent-cyan);">kousthubeswar@gmail.com</div>
         </div>
-      </div>
+      </a>
+      <a href="tel:+917204048727" class="contact-link-row">
+        <span>📞</span>
+        <div>
+          <strong>Phone / WhatsApp</strong>
+          <div style="font-size: 0.78rem; color: var(--accent-cyan);">+91 7204048727</div>
+        </div>
+      </a>
+      <a href="https://linkedin.com/in/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="contact-link-row">
+        <span>💼</span>
+        <div>
+          <strong>LinkedIn</strong>
+          <div style="font-size: 0.78rem; color: var(--accent-cyan);">linkedin.com/in/kousthub-eswar</div>
+        </div>
+      </a>
+      <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="contact-link-row">
+        <span>🐙</span>
+        <div>
+          <strong>GitHub</strong>
+          <div style="font-size: 0.78rem; color: var(--accent-cyan);">github.com/kousthub-eswar</div>
+        </div>
+      </a>
     </div>
-  </footer>
 
-  <!-- ========== TECHNICAL SPECIFICATIONS MODAL ========== -->
+    <div class="flyout-actions">
+      <a href="assets/resume.pdf" class="btn-flyout-primary" download="Kousthub_Resume.pdf">
+        Download Verified Resume &rarr;
+      </a>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       5. TECHNICAL SPECIFICATIONS MODAL
+       ============================================================ -->
   <div class="modal-overlay" id="project-modal">
     <div class="modal-container">
       <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
       <div id="modal-body-content">
-        <!-- Injected dynamically by js/spatial-bento.js -->
+        <!-- Rendered dynamically by js/room-hud.js -->
       </div>
     </div>
   </div>
 
-  <!-- ========== COMMAND PALETTE MODAL (CTRL + K) ========== -->
+  <!-- ============================================================
+       6. COMMAND PALETTE MODAL (CTRL + K)
+       ============================================================ -->
   <div class="cmd-overlay" id="cmd-overlay">
     <div class="cmd-modal">
       <div class="cmd-header">
@@ -530,27 +274,24 @@
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <input type="text" class="cmd-input" id="cmd-input" placeholder="Jump to section or inspect projects..." autocomplete="off" />
+        <input type="text" class="cmd-input" id="cmd-input" placeholder="Type station name or project..." autocomplete="off" />
         <span class="cmd-badge">ESC</span>
       </div>
       <div class="cmd-list" id="cmd-list">
-        <div class="cmd-item" data-action="navigate" data-target="#hero">
-          <span>⚡ Home / Overview</span> <kbd>Section</kbd>
+        <div class="cmd-item" data-action="view" data-view="overview">
+          <span>🌐 Overview • Wide 3D Workstation</span> <kbd>Camera</kbd>
         </div>
-        <div class="cmd-item" data-action="navigate" data-target="#projects">
-          <span>🚀 Featured Bento Projects</span> <kbd>Section</kbd>
+        <div class="cmd-item" data-action="view" data-view="projects">
+          <span>💻 Projects • Zoom to Curved Monitor</span> <kbd>Camera</kbd>
         </div>
-        <div class="cmd-item" data-action="navigate" data-target="#stack">
-          <span>🛠️ Technical Stack &amp; Skills</span> <kbd>Section</kbd>
+        <div class="cmd-item" data-action="view" data-view="skills">
+          <span>🗄️ Skills • Zoom to Server Rack</span> <kbd>Camera</kbd>
         </div>
-        <div class="cmd-item" data-action="navigate" data-target="#experience">
-          <span>💼 Work &amp; Leadership Experience</span> <kbd>Section</kbd>
+        <div class="cmd-item" data-action="view" data-view="experience">
+          <span>🎓 Bio • Zoom to Vertical Telemetry Screen</span> <kbd>Camera</kbd>
         </div>
-        <div class="cmd-item" data-action="navigate" data-target="#education">
-          <span>🎓 Education &amp; VIT Academics</span> <kbd>Section</kbd>
-        </div>
-        <div class="cmd-item" data-action="navigate" data-target="#contact">
-          <span>✉️ Contact Message Form</span> <kbd>Section</kbd>
+        <div class="cmd-item" data-action="view" data-view="contact">
+          <span>📱 Contact • Zoom to Smartphone</span> <kbd>Camera</kbd>
         </div>
         <div class="cmd-item" data-action="project" data-project="billmate">
           <span>📦 BillMate POS Specs (PostgreSQL RPCs)</span> <kbd>Modal</kbd>
@@ -571,15 +312,16 @@
       <div class="cmd-footer">
         <span><kbd>Type</kbd> to search</span>
         <span><kbd>Click</kbd> to jump</span>
-        <span><kbd>ESC</kbd> to dismiss</span>
+        <span><kbd>ESC</kbd> to close</span>
       </div>
     </div>
   </div>
 
-  <!-- Scripts -->
+  <!-- CDN Scripts: GSAP & Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="js/spatial-core.js"></script>
-  <script src="js/spatial-bento.js"></script>
+  <script src="js/cyber-room.js"></script>
+  <script src="js/room-hud.js"></script>
 </body>
 
 </html>

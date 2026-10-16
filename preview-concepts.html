@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio UI/UX Redesign — Visual Concept Gallery</title>
+  <title>Full 3D Website Concepts — Visual Gallery</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #07090e;
-      --card-bg: rgba(15, 23, 42, 0.7);
-      --border: rgba(0, 240, 255, 0.2);
+      --bg: #04060b;
+      --card-bg: rgba(11, 17, 32, 0.85);
+      --border: rgba(0, 240, 255, 0.25);
       --accent: #00f0ff;
       --accent-purple: #a855f7;
-      --text: #f1f5f9;
+      --text: #f8fafc;
       --text-muted: #94a3b8;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,57 +22,60 @@
       background: var(--bg);
       color: var(--text);
       font-family: 'Inter', sans-serif;
-      padding: 30px 20px 80px;
+      padding: 40px 20px 100px;
       min-height: 100vh;
+      background-image: radial-gradient(rgba(0, 240, 255, 0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
     }
     .header {
       text-align: center;
-      max-width: 800px;
-      margin: 0 auto 40px;
+      max-width: 860px;
+      margin: 0 auto 50px;
     }
     .badge {
       display: inline-block;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      padding: 5px 14px;
+      font-size: 0.8rem;
+      padding: 6px 16px;
       border-radius: 9999px;
-      background: rgba(0, 240, 255, 0.1);
+      background: rgba(0, 240, 255, 0.12);
       border: 1px solid var(--accent);
       color: var(--accent);
-      margin-bottom: 14px;
+      margin-bottom: 16px;
+      letter-spacing: 1px;
     }
     h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, #fff 0%, #00f0ff 50%, #a855f7 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
     p.lead {
       color: var(--text-muted);
-      font-size: 1.05rem;
-      line-height: 1.6;
+      font-size: 1.1rem;
+      line-height: 1.7;
     }
     .concepts-grid {
       display: flex;
       flex-direction: column;
-      gap: 50px;
+      gap: 60px;
       max-width: 1200px;
       margin: 0 auto;
     }
     .concept-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
       transition: all 0.3s ease;
     }
     .concept-card.featured {
       border-color: rgba(0, 240, 255, 0.6);
-      box-shadow: 0 20px 60px rgba(0, 240, 255, 0.15);
+      box-shadow: 0 25px 70px rgba(0, 240, 255, 0.18);
     }
     .image-wrapper {
       position: relative;
@@ -91,139 +94,141 @@
       transform: scale(1.015);
     }
     .card-body {
-      padding: 30px;
+      padding: 36px;
     }
     .card-meta {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 15px;
+      margin-bottom: 16px;
       flex-wrap: wrap;
       gap: 10px;
     }
     .option-tag {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.82rem;
+      font-size: 0.84rem;
+      font-weight: 600;
       color: var(--accent);
       background: rgba(0, 240, 255, 0.08);
       border: 1px solid rgba(0, 240, 255, 0.3);
-      padding: 4px 12px;
+      padding: 5px 14px;
       border-radius: 6px;
     }
     .vibe-pill {
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: #e2e8f0;
       background: rgba(255, 255, 255, 0.06);
-      padding: 4px 12px;
+      padding: 5px 14px;
       border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
     h2 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.8rem;
-      margin-bottom: 12px;
+      font-size: 2rem;
+      margin-bottom: 14px;
       color: #fff;
     }
     .description {
       color: var(--text-muted);
-      line-height: 1.65;
-      font-size: 1rem;
-      margin-bottom: 20px;
+      line-height: 1.7;
+      font-size: 1.05rem;
+      margin-bottom: 24px;
     }
     .features-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 12px;
-      margin-bottom: 25px;
+      gap: 14px;
     }
     .feature-item {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
-      font-size: 0.9rem;
+      gap: 12px;
+      font-size: 0.94rem;
       color: #cbd5e1;
-      background: rgba(255, 255, 255, 0.02);
-      padding: 10px 14px;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
     .feature-icon {
       color: var(--accent);
+      font-size: 1.1rem;
     }
   </style>
 </head>
 <body>
   <div class="header">
-    <span class="badge">PROPOSED REDESIGN THEMES</span>
-    <h1>Pick Your Preferred Design</h1>
-    <p class="lead">Compare the 3 visual directions generated specifically for your portfolio rebuild. Let us know which one you like best, and we will build it completely from scratch!</p>
+    <span class="badge">IMMERSIVE FULL 3D WEBSITES</span>
+    <h1>The Entire Website as a 3D Universe</h1>
+    <p class="lead">Here are 3 true full-screen 3D website architectures where the browser canvas <strong>IS</strong> the 3D environment. Pick the one you want us to build!</p>
   </div>
 
   <div class="concepts-grid">
-    <!-- CONCEPT A -->
-    <div class="concept-card featured" id="concept-a">
+    <!-- CONCEPT 1 -->
+    <div class="concept-card featured">
       <div class="image-wrapper">
-        <img src="assets/images/concept-a-bento.jpg" alt="Option A: Spatial 3D Glass Bento Studio" />
+        <img src="assets/images/3d-option1-journey.jpg" alt="Option 1: 3D Spatial Fly-Through Camera Journey" />
       </div>
       <div class="card-body">
         <div class="card-meta">
-          <span class="option-tag">OPTION A • RECOMMENDED</span>
-          <span class="vibe-pill">Apple & Linear Bento Studio</span>
+          <span class="option-tag">OPTION 1 • RECOMMENDED</span>
+          <span class="vibe-pill">Full-Screen 3D Fly-Through Universe</span>
         </div>
-        <h2>Spatial 3D Glass Bento Studio</h2>
+        <h2>3D Spatial Camera Journey (Scroll-Driven Universe)</h2>
         <p class="description">
-          A hyper-polished, modern dark theme built around an asymmetric <strong>Bento Grid</strong> layout. Features floating 3D layered glass elements with mouse tilt dynamics, frosted glass cards with rim lighting, live metric pills for your projects, and clean, high-density recruiter scannability.
+          The entire website is a 100% full-screen Three.js WebGL spatial cosmos. As you scroll or click the HUD navigation, the 3D camera physically flies forward through a glowing cyber tunnel, traveling smoothly between floating 3D holographic monoliths and pedestals: Station 1 (Hero Identity) &rarr; Station 2 (Floating Project Portals: BillMate, TuneSense) &rarr; Station 3 (3D Skill Nodes) &rarr; Station 4 (Experience Matrix) &rarr; Station 5 (Contact &amp; Resume Vault).
         </p>
         <div class="features-list">
-          <div class="feature-item"><span class="feature-icon">✦</span> <strong>3D Glass Cards:</strong> Mouse-tracking spatial perspective</div>
-          <div class="feature-item"><span class="feature-icon">✦</span> <strong>Modular Bento:</strong> Highlight BillMate, TuneSense, ClubHub & Audit with live stats</div>
-          <div class="feature-item"><span class="feature-icon">✦</span> <strong>Interactive Stack:</strong> Glowing pill filters with smooth transitions</div>
-          <div class="feature-item"><span class="feature-icon">✦</span> <strong>Zero Clutter:</strong> Elegant, ultra-clean, Apple Keynote feel</div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <div><strong>100% 3D Viewport:</strong> No standard 2D scrolling; the whole site is a live 3D world</div></div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <div><strong>Kinetic Camera Travel:</strong> Scroll flies through 3D spatial stations with inertia</div></div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <div><strong>Interactive Holographic Portals:</strong> Click 3D project cubes to launch live demos</div></div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <div><strong>Cinematic HUD:</strong> Floating glass telemetry, section teleport buttons &amp; audio</div></div>
         </div>
       </div>
     </div>
 
-    <!-- CONCEPT B -->
-    <div class="concept-card" id="concept-b">
+    <!-- CONCEPT 2 -->
+    <div class="concept-card">
       <div class="image-wrapper">
-        <img src="assets/images/concept-b-isometric.jpg" alt="Option B: 3D Isometric Developer Room" />
+        <img src="assets/images/3d-option2-room.jpg" alt="Option 2: Full-Screen 3D Interactive Cyber Workstation" />
       </div>
       <div class="card-body">
         <div class="card-meta">
-          <span class="option-tag">OPTION B</span>
-          <span class="vibe-pill">Gamified Bruno Simon 3D Room</span>
+          <span class="option-tag">OPTION 2</span>
+          <span class="vibe-pill">Full-Screen 3D Cyber Workstation</span>
         </div>
-        <h2>3D Isometric Developer Workstation</h2>
+        <h2>Full-Screen 3D Developer Room &amp; Cyber Desk</h2>
         <p class="description">
-          An interactive 3D low-poly miniature tech room right in the browser. Visitors can orbit the 3D room and click on interactive desk items: clicking monitors opens project specs, clicking the server rack shows backend architecture, and clicking the phone triggers contact/resume.
+          The entire website is an interactive, full-screen 3D developer office in WebGL. A futuristic desk setup with multi-monitor code displays, server racks with blinking LEDs, mechanical keyboard, and interactive 3D items. Clicking anywhere smoothly animates the 3D camera to zoom directly into that station (zoom to monitor for BillMate/TuneSense, zoom to server rack for backend SQL/Mongo specs, zoom to smartphone for contact &amp; resume).
         </p>
         <div class="features-list">
-          <div class="feature-item"><span class="feature-icon">✦</span> <strong>Interactive 3D Room:</strong> Orbit, pan, and zoom around the workstation</div>
-          <div class="feature-item"><span class="feature-icon">✦</span> <strong>Clickable 3D Objects:</strong> Dual monitors, mechanical keyboard & server racks</div>
-          <div class="feature-item"><span class="feature-icon">✦</span> <strong>High Engagement:</strong> Distinctive, playful, and instantly memorable</div>
-          <div class="feature-item"><span class="feature-icon">✦</span> <strong>WebGL Three.js:</strong> Custom shaders with smooth 60 FPS physics</div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <div><strong>Full-Bleed 3D Scene:</strong> 100vw &times; 100vh rendered 3D developer room</div></div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <div><strong>Camera Zoom to Objects:</strong> Click monitors or server rack to zoom camera in</div></div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <div><strong>On-Screen Interactive Demos:</strong> Project code and previews run on the 3D monitors</div></div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <div><strong>Cyberpunk Lighting:</strong> Dynamic point lights, screen reflections &amp; shadows</div></div>
         </div>
       </div>
     </div>
 
-    <!-- CONCEPT C -->
-    <div class="concept-card" id="concept-c">
+    <!-- CONCEPT 3 -->
+    <div class="concept-card">
       <div class="image-wrapper">
-        <img src="assets/images/concept-c-linear.jpg" alt="Option C: Linear Dark Horizon" />
+        <img src="assets/images/3d-option3-isometric.jpg" alt="Option 3: 3D Isometric Studio" />
       </div>
       <div class="card-body">
         <div class="card-meta">
-          <span class="option-tag">OPTION C</span>
-          <span class="vibe-pill">Minimalist Luxury Tech & Iridescent 3D</span>
+          <span class="option-tag">OPTION 3</span>
+          <span class="vibe-pill">Stylized Bruno Simon 3D Studio</span>
         </div>
-        <h2>Linear-Style Dark Horizon</h2>
+        <h2>3D Isometric Miniature World (Bruno Simon Style)</h2>
         <p class="description">
-          An ultra-clean, minimalist luxury aesthetic favored by top Silicon Valley tech leads and high-end design agencies. Pure matte black canvas, spacious editorial typography, a central floating iridescent 3D glass sculpture that refracts light, and a sleek horizontal project carousel with metrics.
+          A stylized 3D low-poly miniature tech world in WebGL Three.js. You can freely orbit 360&deg; around the floating 3D island, inspect the developer's desk, and trigger interactive holographic popouts for projects, skills, and resume downloads by clicking 3D props.
         </p>
         <div class="features-list">
-          <div class="feature-item"><span class="feature-icon">✦</span> <strong>Iridescent 3D Toroid:</strong> Real-time refractive glass dispersion in WebGL</div>
-          <div class="feature-item"><span class="feature-icon">✦</span> <strong>Spacious Typography:</strong> Big-tech minimalist aesthetic (Syne + Inter)</div>
-          <div class="feature-item"><span class="feature-icon">✦</span> <strong>Horizontal Showcase:</strong> Smooth drag & snap project showcase</div>
-          <div class="feature-item"><span class="feature-icon">✦</span> <strong>Lightweight & Blazing Fast:</strong> Zero visual clutter, pure sophistication</div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <div><strong>360&deg; Orbit &amp; Pan:</strong> Freely rotate and inspect the 3D model</div></div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <div><strong>Gamified Props:</strong> Clickable 3D spaceship, monitors, server towers</div></div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <div><strong>Playful &amp; Memorable:</strong> Highest user engagement on Awwwards</div></div>
+          <div class="feature-item"><span class="feature-icon">✦</span> <div><strong>Fast WebGL Physics:</strong> Lightweight low-poly geometry running at 60 FPS</div></div>
         </div>
       </div>
     </div>
