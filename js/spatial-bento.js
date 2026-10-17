@@ -88,20 +88,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const projectSpecs = {
     billmate: {
-      title: "BillMate — POS & Retail Management PWA",
-      badge: "LIVE PWA • VITEST AUDITED",
+      title: "BillMate — Point-of-Sale & Retail Management System",
+      badge: "REACT 19 • SUPABASE • POSTGRESQL RPCs • PWA • VITEST",
       metrics: [
-        { label: "Data Integrity", value: "Atomic RPCs" },
-        { label: "Hardware Support", value: "Thermal 80mm & Esc/POS" },
-        { label: "Test Coverage", value: "Vitest Passed" },
-        { label: "Stack", value: "React 19 / TS / Supabase" }
+        { label: "Data Integrity", value: "Atomic PostgreSQL RPCs" },
+        { label: "Hardware & Scanning", value: "Camera Barcode & 80mm ESC/POS" },
+        { label: "Multi-User Security", value: "Supabase Auth & RLS" },
+        { label: "Testing & Deploy", value: "Vitest Tests • Vercel" }
       ],
-      description: "A production-grade Progressive Web App engineered for high-throughput retail checkout, instant barcode scanning, and multi-channel receipt generation.",
+      description: "A mobile-first Progressive Web App covering billing with camera barcode scanning, inventory, customer credit ledger, supplier and expense tracking, with offline caching.",
       highlights: [
-        "Eliminated inventory race conditions using atomic PostgreSQL RPC stored procedures with row-level locks.",
-        "Integrated camera and USB barcode scanner pipeline with sub-100ms product lookup across thousands of SKUs.",
-        "Engineered browser-native 80mm ESC/POS thermal printing and dynamic SVG QR invoice rendering.",
-        "Offline-capable service worker architecture guaranteeing continuous checkout during store connectivity drops."
+        "Developed a mobile-first PWA covering billing with camera barcode scanning, inventory, customer credit ledger, supplier and expense tracking, with offline caching.",
+        "Engineered atomic sales and inventory updates using PostgreSQL RPC functions, preventing stock and sales desync, and secured multi-user data with Supabase Auth and Row-Level Security.",
+        "Structured data access into reusable service modules with Vitest unit tests; auto-deployed on Vercel."
       ],
       links: [
         { text: "Live Demo", url: "https://bill-mate-one.vercel.app/", primary: true },
@@ -110,19 +109,19 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     tunesense: {
       title: "TuneSense — Explainable Music Recommendation System",
-      badge: "6 ALGORITHMS • 11 MONGOOSE SCHEMAS",
+      badge: "6 STRATEGIES • 11 MONGOOSE SCHEMAS • EVALUATION SUITE",
       metrics: [
-        { label: "Algorithms", value: "6 Recommendation Engines" },
-        { label: "Schema Models", value: "11 Mongoose Schemas" },
-        { label: "Vector Math", value: "Cosine Similarity" },
-        { label: "Security", value: "JWT + Zod Strict" }
+        { label: "Recommendation API", value: "6 Composable Strategies" },
+        { label: "Database Modeling", value: "11 Mongoose Schemas" },
+        { label: "Authentication & Security", value: "JWT in HttpOnly + Zod" },
+        { label: "Evaluation Suite", value: "Precision@K, Recall@K, NDCG" }
       ],
-      description: "An end-to-end full-stack music intelligence platform delivering transparent, explainable recommendations based on acoustic feature extraction and user taste profiles.",
+      description: "An explainable music recommendation system with six composable algorithmic strategies that return a transparent human-readable reason for each suggested song.",
       highlights: [
-        "Built 6 distinct recommendation pipelines including Content-Based Filtering, Hybrid Weighted Blend, Cosine Vector Distance, and Acoustic Attribute Matching.",
-        "Architected 11 strict Mongoose schemas with compound indexes to optimize millisecond-level similarity scoring.",
-        "Developed an interactive radar chart visualizer explaining exactly WHY each song was recommended (energy, valence, danceability, acousticness).",
-        "Enforced end-to-end type validation using Zod schemas and cryptographically signed JWT auth tokens."
+        "Implemented a music recommendation REST API with six composable strategies (popularity, content, behavioral, contextual, hybrid/mood, and collaborative filtering) that return human-readable reasons for each song.",
+        "Designed 11 Mongoose schemas using materialized views, append-only event logs, compound indexes, and aggregation pipelines for listening telemetry and cosine-similarity peer matching.",
+        "Secured the API with JWT sessions in HttpOnly cookies, bcrypt hashing, Zod schema validation, and ownership checks; deployed the client on Vercel and the API on Render.",
+        "Authored staged verification suites and an offline evaluation framework (Precision@K, Recall@K, NDCG)."
       ],
       links: [
         { text: "Live Demo", url: "https://tunesense-sepia.vercel.app/", primary: true },
@@ -130,19 +129,19 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     clubhub: {
-      title: "Campus ClubHub — Role-Segregated Event Portal",
-      badge: "PRODUCTION CAMPUS SYSTEM",
+      title: "Campus ClubHub — Student Club & Event Portal",
+      badge: "REACT 19 • TYPESCRIPT • VITE • TAILWIND CSS",
       metrics: [
-        { label: "Access Control", value: "Role-Segregated" },
-        { label: "Passes", value: "Cryptographic SVG QRs" },
-        { label: "Architecture", value: "MERN Stack" },
-        { label: "Real-time", value: "Sub-Second Ticket Check" }
+        { label: "Authentication Flow", value: "Domain-Segregated Auth" },
+        { label: "Digital Passes", value: "Real-Time SVG QR Codes" },
+        { label: "Calendar Sync", value: "Google Calendar & .ics" },
+        { label: "Organizer Dashboard", value: "Live KPIs & CSV Export" }
       ],
-      description: "A comprehensive university event management platform streamlining registrations, ticket validations, and club administrative operations across academic bodies.",
+      description: "A student club and event portal streamlining role-segregated student and organizer authentication, digital ticketing passes, and administrative capacity tracking.",
       highlights: [
-        "Implemented secure role-based access control (Admins, Club Leads, Student Attendees).",
-        "Generated tamper-evident SVG QR code event passes with cryptographic verification payloads.",
-        "Integrated an administrative dashboard with live registration capacity tracking and CSV export.",
+        "Developed role-segregated student and organizer authentication flows based on institutional email domains, with digital event passes using real-time SVG QR codes and Google Calendar/.ics sync.",
+        "Created an organizer console with live registration KPIs, real-time attendee rosters and CSV export.",
+        "Architected with React 19, TypeScript, Vite, and Tailwind CSS for rapid interaction and responsive mobile views."
       ],
       links: [
         { text: "Live Demo", url: "https://campusclubhub.vercel.app/", primary: true },
@@ -150,19 +149,19 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     auditanalytics: {
-      title: "Audit Analytics System — Forensic Ledger Anomaly Detection",
-      badge: "8,000 TXNS • $13.7M AUDITED",
+      title: "Audit Analytics — Forensic Financial Anomaly Detection",
+      badge: "8,000 TXNS • SYNTHETIC DATASET • BENFORD'S LAW • SQLITE",
       metrics: [
-        { label: "Sample Size", value: "8,000 Transactions" },
-        { label: "Capital Audited", value: "$13.7M Vol" },
-        { label: "Algorithm", value: "Benford's Law (Chi-Sq)" },
-        { label: "Stack", value: "Python / Pandas / Streamlit" }
+        { label: "Sample Size", value: "8,000 Transactions (Synthetic)" },
+        { label: "Volume Simulated", value: "$13.7M Simulated Volume" },
+        { label: "Threshold Flags", value: "206 Avoidance Flags" },
+        { label: "Duplicate Checks", value: "168 Duplicate Invoices" }
       ],
-      description: "A forensic financial data analytics platform engineered to detect balance sheet fraud, suspicious invoice round-tripping, and duplicate disbursements.",
+      description: "A forensic financial data analytics platform analyzing an 8,000-transaction synthetic dataset to detect accounting anomalies and threshold avoidance.",
       highlights: [
-        "Executed digit-distribution goodness-of-fit testing using Benford's Law and first-digit divergence across an 8,000-transaction synthetic dataset totaling $13.7M simulated volume.",
+        "Analyzed an 8,000-transaction synthetic ledger ($13.7M simulated volume) using a SQLite schema, SQL data-quality checks, and Benford's Law distribution testing to flag 206 threshold-avoidance transactions, 168 duplicate invoices and 122 weekend postings.",
         "Detected split-invoicing under compliance thresholds and duplicate billing timestamps across synthetic test sets.",
-        "Rendered high-density interactive audit risk dashboards using Streamlit, Plotly, and vectorized Pandas calculations."
+        "Rendered interactive audit risk dashboards using Streamlit, Plotly, and vectorized Pandas calculations."
       ],
       links: [
         { text: "GitHub Source", url: "https://github.com/kousthub-eswar/audit-analytics", primary: true }
