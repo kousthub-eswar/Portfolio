@@ -160,8 +160,8 @@ document.addEventListener('DOMContentLoaded', () => {
       ],
       description: "A forensic financial data analytics platform engineered to detect balance sheet fraud, suspicious invoice round-tripping, and duplicate disbursements.",
       highlights: [
-        "Executed digit-distribution goodness-of-fit testing using Benford's Law and Chi-Square divergence across 8,000 transactions totaling $13.7M.",
-        "Detected split-invoicing under compliance thresholds and duplicate billing timestamps with zero false-negative escapes on synthetic test sets.",
+        "Executed digit-distribution goodness-of-fit testing using Benford's Law and first-digit divergence across an 8,000-transaction synthetic dataset totaling $13.7M simulated volume.",
+        "Detected split-invoicing under compliance thresholds and duplicate billing timestamps across synthetic test sets.",
         "Rendered high-density interactive audit risk dashboards using Streamlit, Plotly, and vectorized Pandas calculations."
       ],
       links: [

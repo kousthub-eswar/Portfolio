@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="kg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="100%" stop-color="#00ff9f"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#05070f"/>
+  <rect x="1.5" y="1.5" width="61" height="61" rx="12.5" fill="none" stroke="url(#kg-grad)" stroke-width="2" stroke-opacity="0.6"/>
+  <text x="32" y="40" font-family="'Space Grotesk', -apple-system, sans-serif" font-weight="800" font-size="22" fill="#ffffff" text-anchor="middle" letter-spacing="-1">
+    &lt;<tspan fill="url(#kg-grad)">KG</tspan>/&gt;
+  </text>
+</svg>

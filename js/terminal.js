@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
       help: () => `
 <span class="term-cyan">Available commands:</span>
   <span class="term-yellow">skills</span>     - View technical stack & languages
-  <span class="term-yellow">projects</span>   - List featured production projects
+  <span class="term-yellow">projects</span>   - List featured deployed projects
   <span class="term-yellow">resume</span>     - Download Kousthub's latest PDF resume
   <span class="term-yellow">contact</span>    - Show direct email, phone & social handles
   <span class="term-yellow">whoami</span>     - Inspect current terminal session
@@ -28,17 +28,16 @@ document.addEventListener('DOMContentLoaded', () => {
 `,
       skills: () => `
 <span class="term-cyan">Technical Stack & Competencies:</span>
-  <span class="term-green">Languages:</span> Java 21, TypeScript, JavaScript, SQL, C++, Python
-  <span class="term-green">Full-Stack:</span> React 19, Node.js, Express, Vite, Tailwind CSS, PWA
-  <span class="term-green">Databases:</span> PostgreSQL 15 (RPCs), MongoDB (Mongoose), Supabase, SQLite
-  <span class="term-green">Testing & Tools:</span> Vitest, Zod, Git, GitHub, Vercel, Render
+  <span class="term-green">Strong:</span> Java, SQL, React 19, TypeScript, Node.js, OOP, DSA
+  <span class="term-green">Comfortable:</span> PostgreSQL, Express, MongoDB, Supabase, Tailwind, Git
+  <span class="term-green">Familiar:</span> Python, C++, Vitest, SQLite, Docker, Linux CLI
 `,
       projects: () => `
-<span class="term-cyan">Featured Production Projects:</span>
+<span class="term-cyan">Featured Deployed Projects:</span>
   <span class="term-magenta">[01] BillMate:</span> POS & Retail PWA with Atomic PostgreSQL RPCs
   <span class="term-magenta">[02] TuneSense:</span> Explainable Music Recommendation System (6 Engines)
   <span class="term-magenta">[03] Campus ClubHub:</span> Role-Segregated Event Portal with SVG QR Passes
-  <span class="term-magenta">[04] Audit Analytics:</span> Forensic Anomaly Detection for 8,000 Transactions ($13.7M)
+  <span class="term-magenta">[04] Audit Analytics:</span> Forensic Anomaly Detection on 8,000 Synthetic Txns ($13.7M)
   <span class="term-muted">Type 'view &lt;number&gt;' or click below to inspect.</span>
 `,
       resume: () => {

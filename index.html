@@ -6,18 +6,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Primary Meta Tags -->
-  <title>Kousthub Gadikota | 3D Interactive Cyber Workstation</title>
-  <meta name="title" content="Kousthub Gadikota | 3D Interactive Cyber Workstation">
+  <title>Kousthub Gadikota | Full-Stack Developer, VIT Vellore</title>
+  <meta name="title" content="Kousthub Gadikota | Full-Stack Developer, VIT Vellore">
   <meta name="description"
-    content="An immersive 3D developer workstation in WebGL Three.js. Explore production full-stack systems, PostgreSQL RPCs, MongoDB pipelines, and VIT academics by interacting with the 3D cyber cockpit.">
+    content="Full-Stack Software Engineer &amp; CSE Undergrad at VIT Vellore (Class of 2027 • CGPA: 8.48). Building deployed, production-minded full-stack projects with Java, SQL, React 19, TypeScript, and Node.js.">
+  <meta name="keywords"
+    content="Kousthub Gadikota, Kousthub Eswar, Full-Stack Developer, Software Engineer, VIT Vellore, Java, SQL, React 19, TypeScript, PostgreSQL, Node.js, BillMate, TuneSense">
   <meta name="author" content="Kousthub Eswar Reddy Gadikota">
   <meta name="theme-color" content="#05070f">
+
+  <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kousthubportfolio.vercel.app/">
+  <meta property="og:title" content="Kousthub Gadikota | Full-Stack Developer, VIT Vellore">
+  <meta property="og:description"
+    content="B.Tech CSE at VIT Vellore (Class of 2027 • CGPA: 8.48). Building deployed, production-minded full-stack projects with Java, SQL, React 19, TypeScript, and Node.js.">
+  <meta property="og:image" content="assets/images/billmate-mockup.png">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kousthub Gadikota | Full-Stack Developer, VIT Vellore">
+  <meta name="twitter:description"
+    content="B.Tech CSE at VIT Vellore (Class of 2027 • CGPA: 8.48). Building deployed, production-minded full-stack projects with Java, SQL, React 19, TypeScript, and Node.js.">
+  <meta name="twitter:image" content="assets/images/billmate-mockup.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 
   <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap"
     rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
@@ -25,41 +45,72 @@
 
 <body>
   <!-- ============================================================
-       0. CYBER BOOTLOADER / INITIALIZATION SCREEN
+       0. FULL-SCREEN 3D WEBGL WORKSTATION CANVAS (Atmospheric in 2D, Interactive in Cockpit)
        ============================================================ -->
-  <div id="cyber-loader" class="cyber-loader">
-    <div class="loader-content">
-      <div class="loader-hex-wrap">
-        <div class="loader-hex-ring"></div>
-        <div class="loader-core">&lt;<span>KG</span> /&gt;</div>
+  <div id="webgl-canvas-container" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       1. STICKY TOP NAVIGATION BAR (Clean 2D Default View)
+       ============================================================ -->
+  <header class="site-navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="#" class="site-logo" aria-label="Kousthub Gadikota Homepage">
+          &lt;<span>KG</span> /&gt;
+        </a>
+        <div class="nav-status-badge">
+          <span class="status-pulse-dot"></span>
+          <span>Open to 2027 SDE / Analyst / Product roles</span>
+        </div>
       </div>
-      <div class="loader-title">INITIALIZING CYBER COCKPIT</div>
-      <div class="loader-subtitle">Kousthub Gadikota</div>
-      <div class="loader-bar-wrap">
-        <div class="loader-bar-fill" id="loader-bar-fill"></div>
+
+      <nav class="nav-links" aria-label="Page Sections">
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- 3D Cockpit Opt-In Button -->
+        <button class="btn-cockpit-optin btn-enter-cockpit" id="nav-enter-3d" title="Launch Interactive 3D Cyber Workstation">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+          <span>Enter 3D Cockpit</span>
+        </button>
+
+        <!-- Download Resume Button -->
+        <a href="assets/resume.pdf" class="btn btn-primary" download="Kousthub_Resume.pdf" target="_blank" rel="noopener noreferrer" title="Download Official Resume (PDF)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>Resume</span>
+        </a>
       </div>
-      <div class="loader-telemetry" id="loader-telemetry">CONNECTING_WEBGL_PIPELINE [100%]</div>
     </div>
-  </div>
+  </header>
 
   <!-- ============================================================
-       1. FULL-SCREEN 3D WEBGL WORKSTATION CANVAS
+       2. TOP GLASS HUD NAVIGATION (Visible only when in 3D Cockpit Mode)
        ============================================================ -->
-  <div id="webgl-canvas-container"></div>
-
-  <!-- ============================================================
-       2. TOP GLASS HUD NAVIGATION
-       ============================================================ -->
-  <header class="hud-topbar">
-    <!-- Brand & Status -->
+  <header class="hud-topbar" id="hud-topbar">
+    <!-- Brand & Return to 2D Button -->
     <div class="hud-brand">
       <span class="hud-logo">&lt;<span>KG</span> /&gt;</span>
-      <span class="hud-status-dot" title="Open to Software Engineering & Full-Stack roles"></span>
-      <span class="hud-role-tag">Kousthub Gadikota</span>
+      <span class="hud-role-tag">3D Cockpit</span>
+      <button class="btn-hud-exit" id="hud-exit-cockpit" title="Exit 3D View and return to clean portfolio (ESC)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        <span>Standard View</span>
+      </button>
     </div>
 
-    <!-- Center Station Navigation with Multi-Color Thematic Badges -->
-    <nav class="hud-stations-menu" id="hud-nav" aria-label="Station Navigation">
+    <!-- Center Station Navigation -->
+    <nav class="hud-stations-menu" id="hud-nav" aria-label="3D Station Navigation">
       <button class="hud-nav-btn active nav-station-overview" data-view="overview" title="Full Cockpit Overview">
         <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
         <span>Overview</span>
@@ -92,25 +143,17 @@
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         <span>Resume</span>
       </a>
-
-      <!-- Mobile View Mode Toggle -->
-      <button class="btn-mobile-toggle" id="btn-mobile-view-toggle" title="Toggle 3D View / Card View">
-        <span class="mobile-toggle-icon">📱</span>
-        <span class="mobile-toggle-label">Cards</span>
-      </button>
     </div>
   </header>
 
   <!-- ============================================================
-       3. BOTTOM INTERACTION HINT BAR
+       3. BOTTOM INTERACTION HINT BAR (Cockpit Mode Only)
        ============================================================ -->
-  <div class="hud-bottom-bar">
+  <div class="hud-bottom-bar" id="hud-bottom-bar">
     <span class="hud-hint-pill">💡 <strong>Interactive Cockpit</strong></span>
     <span>Click any 3D prop (Monitor, Server Rack, Phone) to zoom in</span>
     <span>•</span>
-    <span>Drag to pan</span>
-    <span>•</span>
-    <span>Press <kbd>ESC</kbd> to reset view</span>
+    <span>Press <kbd>ESC</kbd> to reset view / return to 2D</span>
   </div>
 
   <!-- ============================================================
@@ -135,26 +178,11 @@
 
     <h3 class="flyout-title" id="flyout-project-title">BillMate — Point-of-Sale &amp; Retail Management System</h3>
     <p class="flyout-desc" id="flyout-project-desc">
-      A mobile-first PWA covering billing with camera barcode scanning, inventory, customer credit ledger, supplier and expense tracking, with offline caching.
+      A deployed mobile-first Progressive Web App engineered for retail checkout, instant camera barcode scanning, customer credit ledger, and offline caching.
     </p>
 
     <div class="flyout-metrics-grid" id="flyout-project-metrics">
-      <div class="flyout-metric-chip">
-        <strong>Atomic PostgreSQL RPCs</strong>
-        <span>Data Integrity</span>
-      </div>
-      <div class="flyout-metric-chip">
-        <strong>Camera &amp; 80mm ESC/POS</strong>
-        <span>Hardware &amp; Scanning</span>
-      </div>
-      <div class="flyout-metric-chip">
-        <strong>Supabase Auth &amp; RLS</strong>
-        <span>Multi-User Security</span>
-      </div>
-      <div class="flyout-metric-chip">
-        <strong>Vitest Tests • Vercel</strong>
-        <span>Testing &amp; Deploy</span>
-      </div>
+      <!-- Injected by room-hud.js -->
     </div>
 
     <div class="flyout-actions" id="flyout-project-actions">
@@ -181,47 +209,47 @@
     </div>
     <h3 class="flyout-title">Technical Skills &amp; Architecture</h3>
     <p class="flyout-desc">
-      Building reliable, secure full-stack applications with strong object-oriented design and relational/NoSQL data modeling.
+      Structured by engineering confidence and proven master resume competencies.
     </p>
 
     <div class="skills-category-group" style="margin-bottom: 12px;">
-      <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px;">Languages &amp; Core</span>
+      <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px;">Strong: Daily Drivers</span>
       <div class="skills-pills-wrap">
-        <span class="skill-tag">☕ Java</span>
-        <span class="skill-tag">🔷 TypeScript</span>
-        <span class="skill-tag">🟨 JavaScript</span>
-        <span class="skill-tag">⚡ C++</span>
-        <span class="skill-tag">🗄️ SQL</span>
-        <span class="skill-tag">🐍 Python (basic)</span>
-        <span class="skill-tag">🧱 OOP &amp; DSA</span>
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">SQL</span>
       </div>
     </div>
 
     <div class="skills-category-group" style="margin-bottom: 12px;">
-      <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-purple); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px;">Backend &amp; Databases</span>
+      <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-purple); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px;">Comfortable: Full-Stack &amp; DBs</span>
       <div class="skills-pills-wrap">
-        <span class="skill-tag">🟢 Node.js</span>
-        <span class="skill-tag">🚂 Express.js</span>
-        <span class="skill-tag">🍃 MongoDB (Mongoose)</span>
-        <span class="skill-tag">🐘 PostgreSQL</span>
-        <span class="skill-tag">⚡ Supabase (Atomic RPCs, RLS)</span>
-        <span class="skill-tag">🗃️ SQLite</span>
-        <span class="skill-tag">🔒 JWT Auth &amp; Zod</span>
-        <span class="skill-tag">🌐 REST APIs</span>
+        <span class="skill-tag">React 19</span>
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">Express.js</span>
+        <span class="skill-tag">MongoDB (Mongoose)</span>
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">Supabase</span>
+        <span class="skill-tag">REST APIs</span>
+        <span class="skill-tag">DSA</span>
+        <span class="skill-tag">OOP</span>
+        <span class="skill-tag">Tailwind CSS</span>
+        <span class="skill-tag">Vite</span>
+        <span class="skill-tag">PWA</span>
       </div>
     </div>
 
     <div class="skills-category-group">
-      <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-green); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px;">Frontend, Testing &amp; DevOps</span>
+      <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-green); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px;">Familiar &amp; Tools</span>
       <div class="skills-pills-wrap">
-        <span class="skill-tag">⚛️ React 19</span>
-        <span class="skill-tag">⚡ Vite</span>
-        <span class="skill-tag">🎨 Tailwind CSS</span>
-        <span class="skill-tag">📱 PWA (Service Workers)</span>
-        <span class="skill-tag">🧪 Vitest Unit Testing</span>
-        <span class="skill-tag">🐙 Git &amp; GitHub</span>
-        <span class="skill-tag">▲ Vercel</span>
-        <span class="skill-tag">🚀 Render</span>
+        <span class="skill-tag">Python (basic)</span>
+        <span class="skill-tag">C++</span>
+        <span class="skill-tag">Vitest</span>
+        <span class="skill-tag">SQLite</span>
+        <span class="skill-tag">Git &amp; GitHub</span>
+        <span class="skill-tag">Vercel</span>
+        <span class="skill-tag">Render</span>
       </div>
     </div>
 
@@ -232,7 +260,7 @@
     </div>
   </div>
 
-  <!-- Experience & Bio Flyout (Triggered on Left Vertical Screen Zoom) -->
+  <!-- Experience Flyout (Triggered on Vertical Screen Zoom) -->
   <div class="station-flyout" id="flyout-experience">
     <div class="flyout-header">
       <span class="flyout-badge" style="color: var(--accent-green); border-color: rgba(0, 255, 159, 0.3);">STATION: VERTICAL TELEMETRY MONITOR</span>
@@ -241,9 +269,9 @@
         <span>Overview</span>
       </button>
     </div>
-    <h3 class="flyout-title">Experience, Leadership &amp; Education</h3>
+    <h3 class="flyout-title">Experience &amp; Leadership</h3>
     <p class="flyout-desc">
-      Computer Science Undergraduate (Class of 2027) building reliable, secure full-stack applications with React, TypeScript, Node.js, Express, MongoDB and PostgreSQL.
+      Computer Science Undergraduate at VIT Vellore (Class of 2027 • CGPA: 8.48).
     </p>
 
     <div class="contact-links-list">
@@ -258,7 +286,7 @@
       <div class="contact-link-row">
         <span>⚡</span>
         <div>
-          <strong>Co-Secretary • Matrix — The Multimedia Club</strong>
+          <strong>Co-Secretary • Matrix — The Multimedia Club, VIT</strong>
           <span style="display:inline-block; font-size:0.7rem; color:var(--accent-purple); margin-left:6px;">Jan 2025 – Jan 2026</span>
           <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Led 10+ members across 10+ events and workshops reaching 100+ participants.</div>
         </div>
@@ -268,7 +296,7 @@
         <div>
           <strong>Organizing Committee Member • Riviera / GraVITas, VIT</strong>
           <span style="display:inline-block; font-size:0.7rem; color:var(--accent-green); margin-left:6px;">Sep 2024 – Present</span>
-          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Coordinated international cultural and technical fest logistics and cross-team operations.</div>
+          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Coordinated fest logistics and cross-team operations.</div>
         </div>
       </div>
       <div class="contact-link-row">
@@ -276,7 +304,7 @@
         <div>
           <strong>Vellore Institute of Technology, Vellore</strong>
           <span style="display:inline-block; font-size:0.7rem; color:var(--accent-amber); margin-left:6px;">2023 – 2027</span>
-          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">B.Tech, Computer Science Engineering • <strong>CGPA: 8.48</strong></div>
+          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">B.Tech, Computer Science Engineering • <strong>CGPA: 8.48 / 10.0</strong></div>
           <div style="font-size:0.72rem; color:var(--text-muted); margin-top:1px;">Narayana CO Campus, Bangalore — Class XII (Karnataka State Board), 88% (2023)</div>
         </div>
       </div>
@@ -284,7 +312,7 @@
 
     <div class="flyout-actions">
       <a href="assets/resume.pdf" class="btn-flyout-primary" download="Kousthub_Resume.pdf" target="_blank" rel="noopener noreferrer">
-        Download PDF Resume &rarr;
+        Download Resume &rarr;
       </a>
     </div>
   </div>
@@ -300,7 +328,7 @@
     </div>
     <h3 class="flyout-title">Direct Contact Channels</h3>
     <p class="flyout-desc">
-      Available for software engineering roles, full-stack openings, and technical collaborations.
+      Available for 2027 software engineering, analyst, and product roles as well as summer 2026 internships.
     </p>
 
     <div class="contact-links-list">
@@ -311,11 +339,11 @@
           <div style="font-size: 0.78rem; color: var(--accent-cyan);">kousthubeswar@gmail.com</div>
         </div>
       </a>
-      <a href="tel:+917204048727" class="contact-link-row">
-        <span>📞</span>
+      <a href="https://wa.me/917204048727" target="_blank" rel="noopener noreferrer" class="contact-link-row">
+        <span>💬</span>
         <div>
-          <strong>Phone / WhatsApp</strong>
-          <div style="font-size: 0.78rem; color: var(--accent-cyan);">+91 7204048727</div>
+          <strong>WhatsApp / Phone</strong>
+          <div style="font-size: 0.78rem; color: var(--accent-cyan);">+91 7204048727 (Direct Chat / On Request)</div>
         </div>
       </a>
       <a href="https://www.linkedin.com/in/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="contact-link-row">
@@ -336,7 +364,7 @@
 
     <div class="flyout-actions">
       <a href="assets/resume.pdf" class="btn-flyout-primary" download="Kousthub_Resume.pdf" target="_blank" rel="noopener noreferrer">
-        Download Verified Resume &rarr;
+        Download Resume &rarr;
       </a>
     </div>
   </div>
@@ -392,10 +420,10 @@
           <span>🎟️ Campus ClubHub Specs (SVG QRs)</span> <kbd>Modal</kbd>
         </div>
         <div class="cmd-item" data-action="project" data-project="auditanalytics">
-          <span>📊 Audit Analytics Specs (Benford's Law)</span> <kbd>Modal</kbd>
+          <span>📊 Audit Analytics Specs (Synthetic Dataset)</span> <kbd>Modal</kbd>
         </div>
         <div class="cmd-item" data-action="resume">
-          <span>📄 Download PDF Resume</span> <kbd>Download</kbd>
+          <span>📄 Download Resume (PDF)</span> <kbd>Download</kbd>
         </div>
       </div>
       <div class="cmd-footer">
@@ -407,285 +435,538 @@
   </div>
 
   <!-- ============================================================
-       7. DEDICATED RESPONSIVE MOBILE PORTFOLIO VIEW
-       Activated on mobile devices (<850px) or toggled manually
+       7. PRIMARY CLEAN 2D PORTFOLIO VIEW (Default Experience)
        ============================================================ -->
-  <main class="mobile-portfolio-container" id="mobile-portfolio-container">
-    <!-- Mobile Hero Header -->
-    <header class="mobile-hero-card">
-      <div class="mobile-avatar-wrap">
-        <div class="mobile-avatar-ring"></div>
-        <div class="mobile-avatar-core">&lt;<span>KG</span> /&gt;</div>
-      </div>
-      <div class="mobile-avail-badge">
-        <span class="status-pulse-dot"></span>
-        <span>Open to SDE &amp; Full-Stack Roles '25-'26</span>
-      </div>
-      <h1 class="mobile-hero-name">Kousthub Gadikota</h1>
-      <p class="mobile-hero-tagline">
-        Full-Stack Software Engineer &amp; CSE Undergrad at <strong>VIT Vellore</strong> (CGPA: 8.48). Building production-grade systems with React 19, TypeScript, PostgreSQL, and Node.js.
-      </p>
+  <main class="clean-portfolio-view" id="portfolio-container">
 
-      <div class="mobile-hero-ctas">
-        <a href="assets/resume.pdf" class="btn btn-primary" download="Kousthub_Resume.pdf" target="_blank" rel="noopener noreferrer">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span>Download Resume</span>
-        </a>
-        <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-          <span>GitHub</span>
-        </a>
-        <a href="https://www.linkedin.com/in/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          <span>LinkedIn</span>
-        </a>
-      </div>
-    </header>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="hero-card">
+        <div class="hero-header-row">
+          <div>
+            <div class="nav-status-badge" style="margin-bottom: 14px;">
+              <span class="status-pulse-dot"></span>
+              <span>Open to 2027 SDE / Analyst / Product roles</span>
+            </div>
+            <h1 class="hero-headline">Kousthub Gadikota</h1>
+            <div class="hero-subheadline">
+              Full-Stack Software Engineer &amp; CSE Undergrad at <strong>VIT Vellore</strong> (CGPA: 8.48)
+            </div>
+          </div>
+          <div class="hero-avatar-wrap">
+            <div class="hero-avatar-ring"></div>
+            <div class="hero-avatar-core">&lt;<span>KG</span> /&gt;</div>
+          </div>
+        </div>
 
-    <!-- Mobile Section Quick Tabs -->
-    <nav class="mobile-section-nav" aria-label="Mobile Sections">
-      <a href="#m-projects" class="m-nav-pill active">💻 Projects</a>
-      <a href="#m-skills" class="m-nav-pill">🗄️ Tech Stack</a>
-      <a href="#m-experience" class="m-nav-pill">🎓 Bio &amp; VIT</a>
-      <a href="#m-contact" class="m-nav-pill">📱 Contact</a>
-    </nav>
-
-    <!-- Section 1: Mobile Projects -->
-    <section class="m-section" id="m-projects">
-      <div class="m-section-header">
-        <span class="m-section-tag" style="color: var(--accent-cyan); border-color: rgba(0,240,255,0.3);">FEATURED PRODUCTION WORK</span>
-        <h2>Engineering Projects</h2>
-      </div>
-
-      <!-- Project 1: BillMate -->
-      <article class="m-project-card">
-        <div class="m-card-badge">REACT 19 • SUPABASE • POSTGRESQL RPCs • VITEST</div>
-        <h3>BillMate — POS &amp; Retail Management System</h3>
-        <p class="m-card-desc">
-          A mobile-first PWA covering billing with camera barcode scanning, inventory, customer credit ledger, supplier and expense tracking, with offline caching.
+        <p class="hero-tagline">
+          Building production-minded full-stack projects with <strong>Java</strong>, <strong>SQL</strong>, React 19, TypeScript, and Node.js. Focused on backend concurrency, clean relational architectures, atomic database transactions, and responsive user interfaces.
         </p>
-        <div class="m-metrics-row">
-          <div class="m-metric-tag"><strong>Atomic PostgreSQL RPCs</strong> Data Integrity</div>
-          <div class="m-metric-tag"><strong>Camera &amp; 80mm ESC/POS</strong> Hardware Scanning</div>
-          <div class="m-metric-tag"><strong>Supabase Auth &amp; RLS</strong> Multi-User</div>
-          <div class="m-metric-tag"><strong>Vitest Tests</strong> 100% Core Logic</div>
-        </div>
-        <div class="m-card-actions">
-          <button class="btn btn-primary open-spec-btn" data-project="billmate">System Specs &rarr;</button>
-          <a href="https://bill-mate-one.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Live Demo &rarr;</a>
-          <a href="https://github.com/kousthub-eswar/BillMate" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub</a>
-        </div>
-      </article>
 
-      <!-- Project 2: TuneSense -->
-      <article class="m-project-card">
-        <div class="m-card-badge" style="color: var(--accent-purple); border-color: rgba(168,85,247,0.3);">6 STRATEGIES • 11 MONGOOSE SCHEMAS • EVALUATION SUITE</div>
-        <h3>TuneSense — Explainable Music Recommendation System</h3>
-        <p class="m-card-desc">
-          An explainable music recommendation REST API with six composable algorithmic strategies returning human-readable reasons, backed by 11 Mongoose schemas and offline evaluation suites (NDCG, Precision@K).
-        </p>
-        <div class="m-metrics-row">
-          <div class="m-metric-tag"><strong>6 Composable Strategies</strong> Recommendation Engine</div>
-          <div class="m-metric-tag"><strong>11 Mongoose Schemas</strong> Cosine Similarity Matching</div>
-          <div class="m-metric-tag"><strong>JWT + Zod</strong> HttpOnly Cookies</div>
-          <div class="m-metric-tag"><strong>NDCG &amp; Precision@K</strong> Evaluation Framework</div>
+        <div class="hero-chips-row">
+          <div class="hero-stat-pill">🎓 <strong>VIT Vellore</strong> Class of 2027 • CGPA: <strong>8.48</strong></div>
+          <div class="hero-stat-pill">⚡ Core Focus: <strong>Java &amp; SQL</strong></div>
+          <div class="hero-stat-pill">🚀 <strong>4 Deployed</strong> Full-Stack Projects</div>
+          <div class="hero-stat-pill">💼 Ex-<strong>Edvensoft</strong> Marketing Intern</div>
         </div>
-        <div class="m-card-actions">
-          <button class="btn btn-primary open-spec-btn" data-project="tunesense">System Specs &rarr;</button>
-          <a href="https://tunesense-sepia.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Live Demo &rarr;</a>
-          <a href="https://github.com/kousthub-eswar/tunesense" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub Source &rarr;</a>
-        </div>
-      </article>
 
-      <!-- Project 3: Campus ClubHub -->
-      <article class="m-project-card">
-        <div class="m-card-badge" style="color: var(--accent-green); border-color: rgba(0,255,159,0.3);">REACT 19 • TYPESCRIPT • VITE • TAILWIND CSS</div>
-        <h3>Campus ClubHub — Student Club &amp; Event Portal</h3>
-        <p class="m-card-desc">
-          Role-segregated institutional student and organizer authentication portal with digital event passes using real-time SVG QR codes, Google Calendar sync, and organizer KPI dashboards.
-        </p>
-        <div class="m-metrics-row">
-          <div class="m-metric-tag"><strong>Domain Auth</strong> Segregated Roles</div>
-          <div class="m-metric-tag"><strong>Real-Time SVG QRs</strong> Digital Passes</div>
-          <div class="m-metric-tag"><strong>Live KPI Console</strong> CSV Attendee Export</div>
-        </div>
-        <div class="m-card-actions">
-          <button class="btn btn-primary open-spec-btn" data-project="clubhub">System Specs &rarr;</button>
-          <a href="https://campusclubhub.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Live Demo &rarr;</a>
-          <a href="https://github.com/kousthub-eswar/college-event-hub" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub Source &rarr;</a>
-        </div>
-      </article>
-
-      <!-- Project 4: Audit Analytics -->
-      <article class="m-project-card">
-        <div class="m-card-badge" style="color: var(--accent-amber); border-color: rgba(255,184,0,0.3);">8,000 TXNS • $13.7M VOLUME • BENFORD'S LAW</div>
-        <h3>Audit Analytics &amp; Anomaly Detection System</h3>
-        <p class="m-card-desc">
-          Forensic financial data analytics platform analyzing 8,000 ledger transactions ($13.7M) with Benford's Law, Chi-Square goodness-of-fit, and threshold avoidance tests to catch fraud.
-        </p>
-        <div class="m-metrics-row">
-          <div class="m-metric-tag"><strong>$13.7M Audited</strong> 8,000 Transactions</div>
-          <div class="m-metric-tag"><strong>206 Flags</strong> Threshold Avoidance</div>
-          <div class="m-metric-tag"><strong>168 Duplicates</strong> Zero False-Negatives</div>
-        </div>
-        <div class="m-card-actions">
-          <button class="btn btn-primary open-spec-btn" data-project="auditanalytics">System Specs &rarr;</button>
-          <a href="https://github.com/kousthub-eswar/audit-analytics" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub Source &rarr;</a>
-        </div>
-      </article>
-    </section>
-
-    <!-- Section 2: Mobile Skills & Tech Stack -->
-    <section class="m-section" id="m-skills">
-      <div class="m-section-header">
-        <span class="m-section-tag" style="color: var(--accent-purple); border-color: rgba(168,85,247,0.3);">TECHNICAL PROFICIENCY</span>
-        <h2>Skills &amp; Architecture</h2>
-      </div>
-
-      <div class="m-skill-block">
-        <h4 style="color: var(--accent-cyan);">Languages &amp; Core Computer Science</h4>
-        <div class="skills-pills-wrap">
-          <span class="skill-tag">☕ Java</span>
-          <span class="skill-tag">🔷 TypeScript</span>
-          <span class="skill-tag">🟨 JavaScript</span>
-          <span class="skill-tag">⚡ C++</span>
-          <span class="skill-tag">🗄️ SQL</span>
-          <span class="skill-tag">🐍 Python (basic)</span>
-          <span class="skill-tag">🧱 OOP &amp; DSA</span>
-        </div>
-      </div>
-
-      <div class="m-skill-block">
-        <h4 style="color: var(--accent-purple);">Backend &amp; Databases</h4>
-        <div class="skills-pills-wrap">
-          <span class="skill-tag">🟢 Node.js</span>
-          <span class="skill-tag">🚂 Express.js</span>
-          <span class="skill-tag">🍃 MongoDB (Mongoose)</span>
-          <span class="skill-tag">🐘 PostgreSQL</span>
-          <span class="skill-tag">⚡ Supabase (Atomic RPCs, RLS)</span>
-          <span class="skill-tag">🗃️ SQLite</span>
-          <span class="skill-tag">🔒 JWT Auth &amp; Zod</span>
-          <span class="skill-tag">🌐 RESTful APIs</span>
-        </div>
-      </div>
-
-      <div class="m-skill-block">
-        <h4 style="color: var(--accent-green);">Frontend, Testing &amp; Cloud DevOps</h4>
-        <div class="skills-pills-wrap">
-          <span class="skill-tag">⚛️ React 19</span>
-          <span class="skill-tag">⚡ Vite</span>
-          <span class="skill-tag">🎨 Tailwind CSS</span>
-          <span class="skill-tag">📱 PWA (Service Workers)</span>
-          <span class="skill-tag">🧪 Vitest Unit Testing</span>
-          <span class="skill-tag">🐙 Git &amp; GitHub</span>
-          <span class="skill-tag">▲ Vercel</span>
-          <span class="skill-tag">🚀 Render</span>
+        <div class="hero-ctas-row">
+          <a href="assets/resume.pdf" class="btn btn-primary" download="Kousthub_Resume.pdf" target="_blank" rel="noopener noreferrer">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Download Resume</span>
+          </a>
+          <a href="#projects" class="btn btn-secondary">
+            <span>View Projects &darr;</span>
+          </a>
+          <button class="btn btn-secondary btn-enter-cockpit" id="hero-enter-3d" title="Switch to 3D Cyber Workstation">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+              <line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+            <span>Explore 3D Cockpit</span>
+          </button>
+          <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" aria-label="GitHub Profile">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            <span>GitHub</span>
+          </a>
+          <a href="https://www.linkedin.com/in/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" aria-label="LinkedIn Profile">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            <span>LinkedIn</span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- Section 3: Experience, Leadership & Education -->
-    <section class="m-section" id="m-experience">
-      <div class="m-section-header">
-        <span class="m-section-tag" style="color: var(--accent-amber); border-color: rgba(255,184,0,0.3);">BACKGROUND &amp; CREDENTIALS</span>
-        <h2>Experience &amp; Education</h2>
+    <!-- Projects Section -->
+    <section class="portfolio-section" id="projects">
+      <div class="section-head">
+        <span class="section-tag" style="color: var(--accent-cyan); border-color: rgba(0, 240, 255, 0.35);">FEATURED FULL-STACK PROJECTS</span>
+        <h2 class="section-title">Engineering Projects</h2>
+        <p class="section-subtitle">
+          Deployed web applications and analytical platforms built with production-minded architectures, atomic transactions, and automated testing suites.
+        </p>
       </div>
 
-      <div class="m-timeline">
-        <div class="m-timeline-item">
-          <div class="m-timeline-dot" style="background: var(--accent-cyan);"></div>
-          <div class="m-timeline-content">
-            <span class="m-timeline-date">May 2025 – June 2025</span>
-            <h4>Marketing Intern • Edvensoft Solutions</h4>
-            <p>Analyzed 10+ competitors and marketing performance data to support data-driven strategy and campaign execution.</p>
-          </div>
-        </div>
+      <div class="projects-grid">
 
-        <div class="m-timeline-item">
-          <div class="m-timeline-dot" style="background: var(--accent-purple);"></div>
-          <div class="m-timeline-content">
-            <span class="m-timeline-date">Jan 2025 – Jan 2026</span>
-            <h4>Co-Secretary • Matrix — The Multimedia Club</h4>
-            <p>Led 10+ members across 10+ technical and creative workshops reaching 100+ active student participants.</p>
+        <!-- Project 1: BillMate POS (Lead Project) -->
+        <article class="project-card">
+          <div class="project-mockup-wrap">
+            <span class="mockup-preview-badge">Interface Preview</span>
+            <img src="assets/images/billmate-mockup.png" alt="BillMate Retail Point of Sale and Inventory Dashboard Interface Preview" loading="lazy">
           </div>
-        </div>
+          <div class="project-badge-bar">
+            <span class="project-stack-tag">REACT 19 • SUPABASE • POSTGRESQL RPCs • VITEST</span>
+            <span class="project-status-pill">Deployed on Vercel</span>
+          </div>
+          <h3 class="project-title">BillMate — POS &amp; Retail Management System</h3>
+          <p class="project-desc">
+            A deployed mobile-first Progressive Web App covering billing with camera barcode scanning, inventory, customer credit ledger, supplier and expense tracking, with offline caching.
+          </p>
 
-        <div class="m-timeline-item">
-          <div class="m-timeline-dot" style="background: var(--accent-green);"></div>
-          <div class="m-timeline-content">
-            <span class="m-timeline-date">Sep 2024 – Present</span>
-            <h4>Organizing Committee Member • Riviera &amp; GraVITas, VIT</h4>
-            <p>Coordinated logistics, stage tech operations, and cross-team coordination for university-wide international fests.</p>
+          <div class="hard-problem-box">
+            <div class="hp-label">⚡ Hard Problem Solved</div>
+            <p><strong>Preventing Concurrent Stock &amp; Sales Desync:</strong> Engineered atomic sales and inventory updates using PostgreSQL RPC functions within database transactions, preventing stock desync during simultaneous checkouts, and secured multi-user data with Supabase Auth and Row-Level Security.</p>
           </div>
-        </div>
 
-        <div class="m-timeline-item">
-          <div class="m-timeline-dot" style="background: var(--accent-amber);"></div>
-          <div class="m-timeline-content">
-            <span class="m-timeline-date">2023 – 2027</span>
-            <h4>Vellore Institute of Technology, Vellore</h4>
-            <p><strong>B.Tech, Computer Science and Engineering</strong></p>
-            <p style="color: var(--accent-amber); font-weight: 700; margin-top: 4px;">CGPA: 8.48 / 10.0</p>
-            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">Narayana CO Campus, Bangalore — Class XII (Karnataka State Board), 88% (2023)</p>
+          <div class="project-metrics-grid">
+            <div class="metric-chip">
+              <strong>Atomic PostgreSQL RPCs</strong>
+              <span>Data Integrity &amp; Transactions</span>
+            </div>
+            <div class="metric-chip">
+              <strong>Camera &amp; 80mm ESC/POS</strong>
+              <span>Barcode &amp; Thermal Receipts</span>
+            </div>
+            <div class="metric-chip">
+              <strong>Supabase Auth &amp; RLS</strong>
+              <span>Multi-User Security</span>
+            </div>
+            <div class="metric-chip">
+              <strong>Tested Core Logic (Vitest)</strong>
+              <span>Modular Unit Test Suite</span>
+            </div>
           </div>
-        </div>
+
+          <div class="project-actions">
+            <button class="btn btn-primary open-spec-btn" data-project="billmate">System Specs &rarr;</button>
+            <a href="https://bill-mate-one.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Live Demo &rarr;</a>
+            <a href="https://github.com/kousthub-eswar/BillMate" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub</a>
+          </div>
+        </article>
+
+        <!-- Project 2: TuneSense AI (Lead Project 2) -->
+        <article class="project-card">
+          <div class="project-mockup-wrap">
+            <span class="mockup-preview-badge">Interface Preview</span>
+            <img src="assets/images/tunesense-mockup.png" alt="TuneSense Explainable Music Recommendation System Interface Preview" loading="lazy">
+          </div>
+          <div class="project-badge-bar">
+            <span class="project-stack-tag" style="color: var(--accent-purple);">REACT • NODE.JS • MONGOOSE • 6 ENGINES</span>
+            <span class="project-status-pill" style="color: var(--accent-purple); border-color: rgba(168, 85, 247, 0.4); background: rgba(168, 85, 247, 0.08);">Deployed on Vercel &amp; Render</span>
+          </div>
+          <h3 class="project-title">TuneSense — Explainable Music Recommendation System</h3>
+          <p class="project-desc">
+            An explainable music recommendation system with six composable algorithmic strategies that return a transparent human-readable reason for each suggested song.
+          </p>
+
+          <div class="hard-problem-box" style="border-left-color: var(--accent-purple); background: rgba(168, 85, 247, 0.04);">
+            <div class="hp-label" style="color: var(--accent-purple);">⚡ Hard Problem Solved</div>
+            <p><strong>Explainable Recommendations Across 6 Engines:</strong> Implemented a recommendation REST API with six composable strategies (popularity, content, behavioral, contextual, hybrid/mood, and collaborative filtering) that return human-readable reasons (e.g., <em>'Matches high danceability &amp; tempo of your favorites'</em>) for each song.</p>
+          </div>
+
+          <div class="project-metrics-grid">
+            <div class="metric-chip">
+              <strong style="color: var(--accent-purple);">6 Composable Strategies</strong>
+              <span>Hybrid Recommendation Engine</span>
+            </div>
+            <div class="metric-chip">
+              <strong style="color: var(--accent-purple);">11 Mongoose Schemas</strong>
+              <span>Materialized Views &amp; Logs</span>
+            </div>
+            <div class="metric-chip">
+              <strong style="color: var(--accent-purple);">JWT in HttpOnly + Zod</strong>
+              <span>Session Security &amp; Validation</span>
+            </div>
+            <div class="metric-chip">
+              <strong style="color: var(--accent-purple);">NDCG &amp; Precision@K</strong>
+              <span>Offline Evaluation Framework</span>
+            </div>
+          </div>
+
+          <div class="project-actions">
+            <button class="btn btn-primary open-spec-btn" data-project="tunesense" style="background: linear-gradient(135deg, #a855f7, #9333ea);">System Specs &rarr;</button>
+            <a href="https://tunesense-sepia.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Live Demo &rarr;</a>
+            <a href="https://github.com/kousthub-eswar/tunesense" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub</a>
+          </div>
+        </article>
+
+        <!-- Project 3: Campus ClubHub -->
+        <article class="project-card">
+          <div class="project-mockup-wrap">
+            <span class="mockup-preview-badge">Interface Preview</span>
+            <img src="assets/images/clubhub-mockup.png" alt="Campus ClubHub Student Club and Event Portal Dashboard Preview" loading="lazy">
+          </div>
+          <div class="project-badge-bar">
+            <span class="project-stack-tag" style="color: var(--accent-green);">REACT 19 • TYPESCRIPT • VITE • TAILWIND CSS</span>
+            <span class="project-status-pill">Deployed on Vercel</span>
+          </div>
+          <h3 class="project-title">Campus ClubHub — Student Club &amp; Event Portal</h3>
+          <p class="project-desc">
+            A student club and event portal streamlining role-segregated student and organizer authentication, digital ticketing passes, and administrative capacity tracking.
+          </p>
+
+          <div class="hard-problem-box" style="border-left-color: var(--accent-green); background: rgba(0, 255, 159, 0.04);">
+            <div class="hp-label" style="color: var(--accent-green);">⚡ Hard Problem Solved</div>
+            <p><strong>Role-Segregated Digital Ticketing:</strong> Developed role-segregated student and organizer authentication flows based on institutional email domains, with digital event passes using real-time SVG QR codes, Google Calendar/.ics sync, and live organizer KPI dashboards with CSV export.</p>
+          </div>
+
+          <div class="project-metrics-grid">
+            <div class="metric-chip">
+              <strong style="color: var(--accent-green);">Institutional Domain Auth</strong>
+              <span>Role-Segregated Access</span>
+            </div>
+            <div class="metric-chip">
+              <strong style="color: var(--accent-green);">Real-Time SVG QRs</strong>
+              <span>Digital Event Ticket Passes</span>
+            </div>
+            <div class="metric-chip">
+              <strong style="color: var(--accent-green);">Live KPI Console</strong>
+              <span>CSV Attendee Roster Export</span>
+            </div>
+            <div class="metric-chip">
+              <strong style="color: var(--accent-green);">Sub-Second Vite UI</strong>
+              <span>Responsive Tailwind Architecture</span>
+            </div>
+          </div>
+
+          <div class="project-actions">
+            <button class="btn btn-primary open-spec-btn" data-project="clubhub" style="background: linear-gradient(135deg, #00ff9f, #10b981); color: #05070f;">System Specs &rarr;</button>
+            <a href="https://campusclubhub.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Live Demo &rarr;</a>
+            <a href="https://github.com/kousthub-eswar/college-event-hub" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub</a>
+          </div>
+        </article>
+
+        <!-- Project 4: Audit Analytics (Shortened, Synthetic Dataset) -->
+        <article class="project-card">
+          <div class="project-mockup-wrap">
+            <span class="mockup-preview-badge">Interface Preview</span>
+            <img src="assets/images/audit-mockup.png" alt="Audit Analytics Financial Anomaly Detection Dashboard Preview" loading="lazy">
+          </div>
+          <div class="project-badge-bar">
+            <span class="project-stack-tag" style="color: var(--accent-amber);">PYTHON • SQL (SQLITE) • STREAMLIT • SYNTHETIC DATASET</span>
+            <span class="project-status-pill" style="color: var(--accent-amber); border-color: rgba(255, 184, 0, 0.35); background: rgba(255, 184, 0, 0.08);">Open Source Platform</span>
+          </div>
+          <h3 class="project-title">Audit Analytics — Forensic Financial Anomaly Detection</h3>
+          <p class="project-desc">
+            A forensic financial data analytics platform analyzing an 8,000-transaction synthetic dataset to detect accounting anomalies and threshold avoidance.
+          </p>
+
+          <div class="hard-problem-box" style="border-left-color: var(--accent-amber); background: rgba(255, 184, 0, 0.04);">
+            <div class="hp-label" style="color: var(--accent-amber);">⚡ Hard Problem Solved</div>
+            <p><strong>First-Digit Distribution &amp; Rule Auditing:</strong> Analyzed an 8,000-transaction synthetic ledger ($13.7M simulated volume) using a SQLite schema, SQL data-quality checks, and Benford's Law distribution testing to flag 206 threshold-avoidance transactions, 168 duplicate invoices and 122 weekend postings.</p>
+          </div>
+
+          <div class="project-metrics-grid">
+            <div class="metric-chip">
+              <strong style="color: var(--accent-amber);">8,000 Transactions</strong>
+              <span>Synthetic Ledger Dataset</span>
+            </div>
+            <div class="metric-chip">
+              <strong style="color: var(--accent-amber);">206 Threshold Flags</strong>
+              <span>Rule-Based Avoidance Analysis</span>
+            </div>
+            <div class="metric-chip">
+              <strong style="color: var(--accent-amber);">168 Duplicate Invoices</strong>
+              <span>SQL Pattern Verification</span>
+            </div>
+            <div class="metric-chip">
+              <strong style="color: var(--accent-amber);">Python &amp; SQLite</strong>
+              <span>Forensic Pipeline &amp; Streamlit</span>
+            </div>
+          </div>
+
+          <div class="project-actions">
+            <button class="btn btn-primary open-spec-btn" data-project="auditanalytics" style="background: linear-gradient(135deg, #ffb800, #f59e0b); color: #05070f;">System Specs &rarr;</button>
+            <a href="https://github.com/kousthub-eswar/audit-analytics" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub Source &rarr;</a>
+          </div>
+        </article>
+
       </div>
     </section>
 
-    <!-- Section 4: Direct Contact -->
-    <section class="m-section" id="m-contact">
-      <div class="m-section-header">
-        <span class="m-section-tag" style="color: var(--accent-green); border-color: rgba(0,255,159,0.3);">LET'S CONNECT</span>
-        <h2>Contact &amp; Inquiries</h2>
+    <!-- Skills Section (Restructured by Confidence Tiers) -->
+    <section class="portfolio-section" id="skills">
+      <div class="section-head">
+        <span class="section-tag" style="color: var(--accent-purple); border-color: rgba(168, 85, 247, 0.35);">TECHNICAL PROFICIENCY</span>
+        <h2 class="section-title">Skills &amp; Architecture</h2>
+        <p class="section-subtitle">
+          Structured strictly by engineering confidence and daily interview-ready proficiency. Java and SQL lead as primary core strengths.
+        </p>
       </div>
 
-      <div class="contact-links-list">
-        <a href="mailto:kousthubeswar@gmail.com" class="contact-link-row">
-          <span>✉️</span>
-          <div>
-            <strong>Email</strong>
-            <div style="font-size: 0.8rem; color: var(--accent-cyan);">kousthubeswar@gmail.com</div>
-          </div>
-        </a>
-        <a href="tel:+917204048727" class="contact-link-row">
-          <span>📞</span>
-          <div>
-            <strong>Phone / WhatsApp</strong>
-            <div style="font-size: 0.8rem; color: var(--accent-cyan);">+91 7204048727</div>
-          </div>
-        </a>
-        <a href="https://www.linkedin.com/in/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="contact-link-row">
-          <span>💼</span>
-          <div>
-            <strong>LinkedIn</strong>
-            <div style="font-size: 0.8rem; color: var(--accent-cyan);">linkedin.com/in/kousthub-eswar</div>
-          </div>
-        </a>
-        <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="contact-link-row">
-          <span>🐙</span>
-          <div>
-            <strong>GitHub</strong>
-            <div style="font-size: 0.8rem; color: var(--accent-cyan);">github.com/kousthub-eswar</div>
-          </div>
-        </a>
-      </div>
+      <div class="skills-tiers-grid">
 
-      <div style="margin-top: 24px; text-align: center;">
-        <a href="assets/resume.pdf" class="btn btn-primary" download="Kousthub_Resume.pdf" target="_blank" rel="noopener noreferrer" style="width: 100%; justify-content: center; padding: 14px;">
-          Download Verified Resume (PDF) &rarr;
-        </a>
+        <!-- Tier 1: Strong (Daily Drivers & Core Strengths) -->
+        <div class="skill-tier-card">
+          <div class="skill-tier-header">
+            <div class="skill-tier-title">
+              <span>Strong (Daily Drivers &amp; Core Strengths)</span>
+            </div>
+            <span class="tier-badge tier-badge-strong">TIER 1 • INTERVIEW READY</span>
+          </div>
+          <div class="skill-pills-list">
+            <span class="skill-pill highlight">Java</span>
+            <span class="skill-pill highlight">SQL</span>
+          </div>
+        </div>
+
+        <!-- Tier 2: Comfortable (Full-Stack & Systems Architecture) -->
+        <div class="skill-tier-card">
+          <div class="skill-tier-header">
+            <div class="skill-tier-title">
+              <span>Comfortable (Full-Stack &amp; Systems Architecture)</span>
+            </div>
+            <span class="tier-badge tier-badge-comfortable">TIER 2 • PRODUCTION-MINDED</span>
+          </div>
+          <div class="skill-pills-list">
+            <span class="skill-pill">React 19</span>
+            <span class="skill-pill">TypeScript</span>
+            <span class="skill-pill">JavaScript</span>
+            <span class="skill-pill">Node.js</span>
+            <span class="skill-pill">Express.js</span>
+            <span class="skill-pill">MongoDB (Mongoose)</span>
+            <span class="skill-pill">PostgreSQL</span>
+            <span class="skill-pill">Supabase (Atomic RPCs, RLS)</span>
+            <span class="skill-pill">RESTful APIs</span>
+            <span class="skill-pill">Data Structures &amp; Algorithms</span>
+            <span class="skill-pill">Object-Oriented Programming (OOP)</span>
+            <span class="skill-pill">Tailwind CSS</span>
+            <span class="skill-pill">Vite</span>
+            <span class="skill-pill">PWA (Service Workers)</span>
+          </div>
+        </div>
+
+        <!-- Tier 3: Familiar & Supporting Tools -->
+        <div class="skill-tier-card">
+          <div class="skill-tier-header">
+            <div class="skill-tier-title">
+              <span>Familiar &amp; Supporting Tools</span>
+            </div>
+            <span class="tier-badge tier-badge-familiar">TIER 3 • ACADEMIC &amp; TOOLING</span>
+          </div>
+          <div class="skill-pills-list">
+            <span class="skill-pill">Python (basic)</span>
+            <span class="skill-pill">C++</span>
+            <span class="skill-pill">Vitest Unit Testing</span>
+            <span class="skill-pill">SQLite</span>
+            <span class="skill-pill">Git &amp; GitHub</span>
+            <span class="skill-pill">Vercel</span>
+            <span class="skill-pill">Render</span>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- Mobile Footer -->
-    <footer class="m-footer">
-      <p>&copy; 2026 Kousthub Gadikota • Built with WebGL Three.js &amp; Modern Vanilla CSS</p>
+    <!-- Experience & Education Section -->
+    <section class="portfolio-section" id="experience">
+      <div class="section-head">
+        <span class="section-tag" style="color: var(--accent-green); border-color: rgba(0, 255, 159, 0.35);">BACKGROUND &amp; CREDENTIALS</span>
+        <h2 class="section-title">Experience &amp; Education</h2>
+        <p class="section-subtitle">
+          Leadership, operational coordination, and undergraduate computer science education at VIT Vellore.
+        </p>
+      </div>
+
+      <div class="exp-timeline">
+
+        <!-- Experience 1: Marketing Intern -->
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background: var(--accent-cyan);"></div>
+          <div class="timeline-card">
+            <div class="timeline-meta-row">
+              <span class="timeline-date">May 2025 – June 2025</span>
+              <span class="tier-badge" style="color: var(--accent-cyan); border-color: rgba(0, 240, 255, 0.3);">INTERNSHIP</span>
+            </div>
+            <h3 class="timeline-role-title">Marketing Intern • Edvensoft Solutions</h3>
+            <p class="timeline-desc">
+              Analyzed 10+ competitors and campaign performance data to support campaign strategy and decision-making.
+            </p>
+          </div>
+        </div>
+
+        <!-- Experience 2: Matrix Club Co-Secretary -->
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background: var(--accent-purple);"></div>
+          <div class="timeline-card">
+            <div class="timeline-meta-row">
+              <span class="timeline-date">Jan 2025 – Jan 2026</span>
+              <span class="tier-badge" style="color: var(--accent-purple); border-color: rgba(168, 85, 247, 0.3);">LEADERSHIP</span>
+            </div>
+            <h3 class="timeline-role-title">Co-Secretary • Matrix — The Multimedia Club, VIT</h3>
+            <p class="timeline-desc">
+              Led 10+ members across 10+ events and workshops reaching 100+ participants.
+            </p>
+          </div>
+        </div>
+
+        <!-- Experience 3: Fest Organizing Committee -->
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background: var(--accent-green);"></div>
+          <div class="timeline-card">
+            <div class="timeline-meta-row">
+              <span class="timeline-date">Sep 2024 – Present</span>
+              <span class="tier-badge" style="color: var(--accent-green); border-color: rgba(0, 255, 159, 0.3);">OPERATIONS</span>
+            </div>
+            <h3 class="timeline-role-title">Organizing Committee Member • Riviera / GraVITas, VIT</h3>
+            <p class="timeline-desc">
+              Coordinated fest logistics and cross-team operations for university fests.
+            </p>
+          </div>
+        </div>
+
+        <!-- Education: VIT Vellore -->
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background: var(--accent-amber);"></div>
+          <div class="timeline-card">
+            <div class="timeline-meta-row">
+              <span class="timeline-date">2023 – 2027</span>
+              <span class="tier-badge" style="color: var(--accent-amber); border-color: rgba(255, 184, 0, 0.3);">DEGREE</span>
+            </div>
+            <h3 class="timeline-role-title">B.Tech, Computer Science Engineering • VIT Vellore</h3>
+            <p class="timeline-desc">
+              Vellore Institute of Technology, Vellore • Class of 2027 • <strong>CGPA: 8.48 / 10.0</strong><br>
+              <span style="font-size: 0.82rem; color: #94a3b8; display: inline-block; margin-top: 4px;">
+                Coursework: Data Structures &amp; Algorithms, Object-Oriented Programming (Java), Database Management Systems, Operating Systems, Computer Networks.
+              </span><br>
+              <span style="font-size: 0.8rem; color: #94a3b8; display: inline-block; margin-top: 4px;">
+                Narayana CO Campus, Bangalore — Class XII (Karnataka State Board), 88% (2023).
+              </span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="portfolio-section" id="contact">
+      <div class="section-head">
+        <span class="section-tag" style="color: var(--accent-green); border-color: rgba(0, 255, 159, 0.35);">LET'S CONNECT</span>
+        <h2 class="section-title">Contact &amp; Inquiries</h2>
+        <p class="section-subtitle">
+          Open to 2027 SDE, Analyst, and Product roles as well as summer 2026 technical internships.
+        </p>
+      </div>
+
+      <div class="contact-container-grid">
+
+        <!-- Direct Channels Card -->
+        <div class="contact-channels-card">
+          <h3 style="font-family: var(--font-display); font-size: 1.15rem; color: #fff; margin-bottom: 4px;">Direct Channels</h3>
+          <p style="font-size: 0.84rem; color: #94a3b8; margin-bottom: 10px;">Connect directly via email, LinkedIn, or messaging.</p>
+
+          <!-- Email Channel with 1-Click Copy -->
+          <div class="contact-channel-row">
+            <div class="channel-info">
+              <strong>Email</strong>
+              <span>kousthubeswar@gmail.com</span>
+            </div>
+            <div style="display: flex; gap: 6px;">
+              <button class="btn-copy-email" type="button" title="Copy email address to clipboard">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>Copy</span>
+              </button>
+              <a href="mailto:kousthubeswar@gmail.com?subject=Opportunity%20Inquiry%20-%20Kousthub%20Gadikota" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.72rem;">
+                Open Mail &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- WhatsApp / Messaging Channel -->
+          <a href="https://wa.me/917204048727" target="_blank" rel="noopener noreferrer" class="contact-channel-row">
+            <div class="channel-info">
+              <strong>WhatsApp / Direct Messaging</strong>
+              <span>+91 7204048727 (Direct Chat / On Request)</span>
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--accent-cyan);">Message &rarr;</span>
+          </a>
+
+          <!-- LinkedIn Channel -->
+          <a href="https://www.linkedin.com/in/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="contact-channel-row">
+            <div class="channel-info">
+              <strong>LinkedIn</strong>
+              <span>linkedin.com/in/kousthub-eswar</span>
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--accent-cyan);">Connect &rarr;</span>
+          </a>
+
+          <!-- GitHub Channel -->
+          <a href="https://github.com/kousthub-eswar" target="_blank" rel="noopener noreferrer" class="contact-channel-row">
+            <div class="channel-info">
+              <strong>GitHub</strong>
+              <span>github.com/kousthub-eswar</span>
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--accent-cyan);">Repositories &rarr;</span>
+          </a>
+
+          <div style="margin-top: 10px;">
+            <a href="assets/resume.pdf" class="btn btn-primary" download="Kousthub_Resume.pdf" target="_blank" rel="noopener noreferrer" style="width: 100%; justify-content: center; padding: 12px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Download Resume (PDF)</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Email Composer Card (Reliable Static Action) -->
+        <div class="contact-form-card">
+          <h3 style="font-family: var(--font-display); font-size: 1.15rem; color: #fff; margin-bottom: 4px;">Quick Inquiries</h3>
+          <p style="font-size: 0.84rem; color: #94a3b8; margin-bottom: 16px;">Click a topic to compose a pre-filled email directly to my inbox:</p>
+
+          <div class="contact-presets-wrap">
+            <a href="mailto:kousthubeswar@gmail.com?subject=SDE%20Role%20Inquiry%20(2027)%20-%20Kousthub%20Gadikota&body=Hi%20Kousthub,%0A%0AWe%20came%20across%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20Software%20Development%20Engineer%20opportunity%20at%20...%0A" class="preset-email-btn">
+              <span>💼 Software Engineering Role (2027 / Intern)</span>
+              <span>Open Email &rarr;</span>
+            </a>
+
+            <a href="mailto:kousthubeswar@gmail.com?subject=Analyst/Product%20Role%20Inquiry%20-%20Kousthub%20Gadikota&body=Hi%20Kousthub,%0A%0AWe%20came%20across%20your%20portfolio%20and%20would%20like%20to%20discuss%20an%20Analyst%20or%20Product%20opportunity%20at%20...%0A" class="preset-email-btn">
+              <span>📊 Data / Business / Product Analyst Role</span>
+              <span>Open Email &rarr;</span>
+            </a>
+
+            <a href="mailto:kousthubeswar@gmail.com?subject=General%20Collaboration%20-%20Kousthub%20Gadikota&body=Hi%20Kousthub,%0A%0AI%20wanted%20to%20connect%20with%20you%20regarding%20...%0A" class="preset-email-btn">
+              <span>🤝 Technical Collaboration or General Chat</span>
+              <span>Open Email &rarr;</span>
+            </a>
+          </div>
+
+          <div style="margin-top: 24px; padding: 14px; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px;">
+            <span style="display: block; font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-cyan); margin-bottom: 4px;">Direct Inbox:</span>
+            <span style="font-family: var(--font-mono); font-size: 0.84rem; color: #fff;">kousthubeswar@gmail.com</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <p>&copy; 2026 Kousthub Gadikota • Full-Stack Software Engineer • Class of 2027, VIT Vellore</p>
+      <p style="margin-top: 6px; color: #475569;">Built with WebGL Three.js &amp; Modern Vanilla CSS • Zero Framework Bloat</p>
     </footer>
   </main>
 
-  <!-- Floating Switch to 3D View Button (Visible on mobile when in card mode) -->
-  <button class="m-float-3d-btn" id="m-float-3d-btn" title="Switch to 3D Cyber Cockpit">
-    <span>🌐</span>
+  <!-- ============================================================
+       8. FLOATING 3D COCKPIT SWITCHER (Fixed bottom-right in 2D mode)
+       ============================================================ -->
+  <button class="float-cockpit-btn btn-enter-cockpit" id="float-enter-3d" title="Enter Interactive 3D Cyber Cockpit">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+      <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+      <line x1="12" y1="22.08" x2="12" y2="12"/>
+    </svg>
     <span>Enter 3D Cockpit</span>
   </button>
 

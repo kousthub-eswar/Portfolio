@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { label: "Multi-User Security", value: "Supabase Auth & RLS" },
         { label: "Testing & Deploy", value: "Vitest Tests • Vercel" }
       ],
-      description: "A mobile-first PWA covering billing with camera barcode scanning, inventory, customer credit ledger, supplier and expense tracking, with offline caching.",
+      description: "A deployed mobile-first Progressive Web App engineered for high-throughput retail checkout, instant camera barcode scanning, customer credit ledger, and offline caching.",
       highlights: [
         "Developed a mobile-first PWA covering billing with camera barcode scanning, inventory, customer credit ledger, supplier and expense tracking, with offline caching.",
         "Engineered atomic sales and inventory updates using PostgreSQL RPC functions, preventing stock and sales desync, and secured multi-user data with Supabase Auth and Row-Level Security.",
@@ -123,11 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
         { label: "Authentication & Security", value: "JWT in HttpOnly + Zod" },
         { label: "Evaluation Suite", value: "Precision@K, Recall@K, NDCG" }
       ],
-      description: "An explainable music recommendation system with six composable algorithmic strategies that return a human-readable reason for each song.",
+      description: "An explainable music recommendation system with six composable algorithmic strategies that return a transparent human-readable reason for each suggested song.",
       highlights: [
-        "Implemented a music recommendation REST API with six composable strategies (popularity, content, behavioural, contextual, hybrid/mood and collaborative filtering) that return a human-readable reason for each song.",
-        "Designed 11 Mongoose schemas using materialized views, append-only event logs, compound indexes and aggregation pipelines for listening telemetry and cosine-similarity peer matching.",
-        "Secured the API with JWT sessions in HttpOnly cookies, bcrypt hashing, Zod validation and ownership checks; deployed the client on Vercel and the API on Render.",
+        "Implemented a music recommendation REST API with six composable strategies (popularity, content, behavioral, contextual, hybrid/mood, and collaborative filtering) that return human-readable reasons (e.g., 'Matches high danceability & tempo of your favorites').",
+        "Designed 11 Mongoose schemas using materialized views, append-only event logs, compound indexes, and aggregation pipelines for listening telemetry and cosine-similarity peer matching.",
+        "Secured the API with JWT sessions in HttpOnly cookies, bcrypt hashing, Zod schema validation, and ownership checks; deployed the client on Vercel and the API on Render.",
         "Authored staged verification suites and an offline evaluation framework (Precision@K, Recall@K, NDCG)."
       ],
       links: [
@@ -156,19 +156,18 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     auditanalytics: {
-      title: "Audit Analytics & Anomaly Detection System",
-      badge: "8,000 TXNS • $13.7M VOLUME • BENFORD'S LAW",
+      title: "Audit Analytics — Forensic Financial Anomaly Detection",
+      badge: "8,000 TXNS • SYNTHETIC DATASET • BENFORD'S LAW • SQLITE",
       metrics: [
-        { label: "Sample Size", value: "8,000 Transactions" },
-        { label: "Volume Audited", value: "$13.7M Volume" },
+        { label: "Sample Size", value: "8,000 Transactions (Synthetic)" },
+        { label: "Volume Simulated", value: "$13.7M Simulated Volume" },
         { label: "Threshold Flags", value: "206 Avoidance Flags" },
-        { label: "Duplicates & Weekends", value: "168 Invoices & 122 Postings" }
+        { label: "Duplicate Checks", value: "168 Duplicate Invoices" }
       ],
-      description: "A forensic financial data analytics platform engineered to detect balance sheet fraud, suspicious round-tripping, and duplicate invoice disbursements.",
+      description: "A forensic financial data analytics platform analyzing an 8,000-transaction synthetic dataset to detect accounting anomalies and threshold avoidance.",
       highlights: [
-        "Analyzed 8,000 ledger transactions ($13.7M) using a SQLite schema, SQL data-quality checks, Benford's Law and rule tests to flag 206 threshold-avoidance transactions, 168 duplicate invoices and 122 weekend postings.",
-        "Detected split-invoicing under compliance thresholds and duplicate billing timestamps with zero false-negative escapes.",
-        "Engineered high-density forensic analytics dashboards with Python, SQL (SQLite), and Streamlit."
+        "Analyzed an 8,000-transaction synthetic ledger ($13.7M simulated volume) using a SQLite schema, SQL data-quality checks, Benford's Law and rule tests to flag 206 threshold-avoidance transactions, 168 duplicate invoices and 122 weekend postings.",
+        "Engineered interactive forensic analytics dashboards with Python, SQL (SQLite), and Streamlit."
       ],
       links: [
         { text: "GitHub Source", url: "https://github.com/kousthub-eswar/audit-analytics", primary: true }
@@ -380,83 +379,95 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // 6. Cyber Bootloader Progress & Fade
+  // 6. 3D Cockpit Mode Toggle (Clean 2D <-> 3D Workstation)
   // ==========================================
-  const loader = document.getElementById('cyber-loader');
-  const loaderBar = document.getElementById('loader-bar-fill');
-  const loaderTelemetry = document.getElementById('loader-telemetry');
-  
-  if (loader && loaderBar) {
-    let progress = 25;
-    const interval = setInterval(() => {
-      progress += Math.floor(Math.random() * 25) + 20;
-      if (progress >= 100) {
-        progress = 100;
-        clearInterval(interval);
-        if (loaderBar) loaderBar.style.width = '100%';
-        if (loaderTelemetry) loaderTelemetry.textContent = 'SYSTEM_READY // ALL_CHANNELS_ACTIVE [100%]';
-        setTimeout(() => {
-          loader.classList.add('loaded');
-        }, 320);
-      } else {
-        if (loaderBar) loaderBar.style.width = progress + '%';
-        if (loaderTelemetry) loaderTelemetry.textContent = `ALLOCATING_SHADERS [${progress}%]`;
-      }
-    }, 80);
-  }
+  const enterCockpitButtons = document.querySelectorAll('.btn-enter-cockpit, #nav-enter-3d, #hero-enter-3d, #float-enter-3d');
+  const exitCockpitBtn = document.getElementById('hud-exit-cockpit');
 
-  // ==========================================
-  // 7. Mobile View Mode Toggle (Cards <-> 3D Cockpit)
-  // ==========================================
-  const mobileToggleBtn = document.getElementById('btn-mobile-view-toggle');
-  const float3dBtn = document.getElementById('m-float-3d-btn');
-
-  function toggleMobile3D(active) {
-    if (active) {
-      document.body.classList.add('mobile-3d-mode');
-      if (mobileToggleBtn) {
-        const icon = mobileToggleBtn.querySelector('.mobile-toggle-icon');
-        const label = mobileToggleBtn.querySelector('.mobile-toggle-label');
-        if (icon) icon.textContent = '📄';
-        if (label) label.textContent = 'Cards';
-      }
-      if (float3dBtn) float3dBtn.style.display = 'none';
-      if (window.cyberRoom) window.cyberRoom.transitionTo('overview');
-    } else {
-      document.body.classList.remove('mobile-3d-mode');
-      if (mobileToggleBtn) {
-        const icon = mobileToggleBtn.querySelector('.mobile-toggle-icon');
-        const label = mobileToggleBtn.querySelector('.mobile-toggle-label');
-        if (icon) icon.textContent = '🌐';
-        if (label) label.textContent = '3D';
-      }
-      if (float3dBtn) float3dBtn.style.display = 'inline-flex';
+  function enterCockpit() {
+    document.body.classList.add('cockpit-mode');
+    if (window.cyberRoom) {
+      window.cyberRoom.transitionTo('overview');
     }
   }
 
-  if (mobileToggleBtn) {
-    mobileToggleBtn.addEventListener('click', (e) => {
+  function exitCockpit() {
+    document.body.classList.remove('cockpit-mode');
+    allFlyouts.forEach(f => f && f.classList.remove('active'));
+  }
+
+  enterCockpitButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
       e.stopPropagation();
-      const is3D = document.body.classList.contains('mobile-3d-mode');
-      toggleMobile3D(!is3D);
+      enterCockpit();
+    });
+  });
+
+  if (exitCockpitBtn) {
+    exitCockpitBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      exitCockpit();
     });
   }
 
-  if (float3dBtn) {
-    float3dBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleMobile3D(true);
-    });
-  }
+  // Keyboard navigation & ESC handler
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const isModalOpen = modal && modal.classList.contains('active');
+      const isCmdOpen = cmdOverlay && cmdOverlay.classList.contains('active');
+      if (isModalOpen || isCmdOpen) return;
 
-  // Mobile Nav Pills Active Highlighter on Scroll
-  const mobilePills = document.querySelectorAll('.m-nav-pill');
-  if (mobilePills.length > 0) {
-    mobilePills.forEach(pill => {
-      pill.addEventListener('click', () => {
-        mobilePills.forEach(p => p.classList.remove('active'));
-        pill.classList.add('active');
-      });
+      if (document.body.classList.contains('cockpit-mode')) {
+        const anyFlyoutActive = Array.from(allFlyouts).some(f => f && f.classList.contains('active'));
+        if (anyFlyoutActive) {
+          if (window.cyberRoom) window.cyberRoom.transitionTo('overview');
+        } else {
+          exitCockpit();
+        }
+      }
+    }
+  });
+
+  // ==========================================
+  // 7. Interactive 1-Click Email Copy Helper
+  // ==========================================
+  const copyEmailBtns = document.querySelectorAll('.btn-copy-email');
+  copyEmailBtns.forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const email = 'kousthubeswar@gmail.com';
+      try {
+        await navigator.clipboard.writeText(email);
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2200);
+      } catch (err) {
+        window.location.href = `mailto:${email}`;
+      }
+    });
+  });
+
+  // ==========================================
+  // 8. Contact Quick Form Pre-fill
+  // ==========================================
+  const contactForm = document.getElementById('quick-contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('cf-name')?.value || '';
+      const email = document.getElementById('cf-email')?.value || '';
+      const role = document.getElementById('cf-role')?.value || 'Opportunity';
+      const msg = document.getElementById('cf-message')?.value || '';
+
+      const subject = encodeURIComponent(`[Portfolio Contact] ${role} - ${name}`);
+      const body = encodeURIComponent(`Hi Kousthub,\n\nName: ${name}\nEmail: ${email}\nRole/Topic: ${role}\n\nMessage:\n${msg}\n`);
+      window.location.href = `mailto:kousthubeswar@gmail.com?subject=${subject}&body=${body}`;
     });
   }
 });

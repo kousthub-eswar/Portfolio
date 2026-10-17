@@ -11,6 +11,23 @@
   const container = document.getElementById('webgl-canvas-container');
   if (!container || typeof THREE === 'undefined') return;
 
+  // WebGL Availability Check & Graceful Fallback
+  function isWebGLSupported() {
+    try {
+      const canvas = document.createElement('canvas');
+      return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+    } catch (e) {
+      return false;
+    }
+  }
+
+  if (!isWebGLSupported()) {
+    console.info("WebGL not supported or disabled. Defaulting gracefully to clean 2D portfolio.");
+    container.style.display = 'none';
+    document.querySelectorAll('.btn-enter-cockpit, .float-cockpit-btn').forEach(el => el.style.display = 'none');
+    return;
+  }
+
   // Scene, Camera, Renderer
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x05070f);
@@ -259,8 +276,7 @@
           '  UPDATE inventory SET stock = stock - (item->>\'qty\')::int ...',
           '  INSERT INTO invoices VALUES (...) RETURNING invoice_id;',
           'END; $$ LANGUAGE plpgsql;',
-          '',
-          '>> Status: 100% Vitest coverage • Zero false-negatives • ESC/POS 80mm active',
+          '>> Status: Tested with Vitest • Atomic PostgreSQL RPCs • Deployed on Vercel',
           '>> CLICK TO OPEN LIVE SYSTEM SPECS & DEMO &rarr;'
         ]
       },
@@ -296,10 +312,10 @@
         ]
       },
       auditanalytics: {
-        title: 'FEATURED: Audit Analytics — Anomaly Engine',
-        tags: '[Python] [SQL (SQLite)] [Streamlit] [8,000 Txns / $13.7M Volume]',
+        title: 'Audit Analytics — Forensic Anomaly Detection',
+        tags: '[Python] [SQL (SQLite)] [Streamlit] [8,000 Synthetic Txns / $13.7M Simulated]',
         lines: [
-          '# Forensic First-Digit Benford Distribution & Chi-Square Test',
+          '# Forensic First-Digit Benford Distribution & Chi-Square Goodness-of-Fit',
           'def benford_goodness_of_fit(transactions_df):',
           '  first_digits = transactions_df[\'amount\'].astype(str).str[0].astype(int)',
           '  observed = first_digits.value_counts(normalize=True).sort_index()',
@@ -307,7 +323,7 @@
           '  chi_sq, p_val = scipy.stats.chisquare(f_obs=observed, f_exp=expected)',
           '  return {\'chi_square\': chi_sq, \'p_value\': p_val, \'fraud_flag\': p_val < 0.05}',
           '',
-          '>> Audited: 8,000 Txns ($13.7M) • 206 Threshold Flags • 168 Duplicates'
+          '>> Synthetic Dataset: 8,000 Txns ($13.7M) • Benford First-Digit • 206 Flags'
         ]
       }
     };
@@ -725,7 +741,8 @@
   const mouseCoords = new THREE.Vector2();
 
   renderer.domElement.addEventListener('click', (e) => {
-    // Only process clicks on the WebGL canvas
+    // Only process clicks when 3D cockpit mode is active
+    if (!document.body.classList.contains('cockpit-mode')) return;
     if (e.target !== renderer.domElement) return;
 
     mouseCoords.x = (e.clientX / window.innerWidth) * 2 - 1;
@@ -751,6 +768,7 @@
 
   // Cursor Hover Feedback
   window.addEventListener('mousemove', (e) => {
+    if (!document.body.classList.contains('cockpit-mode')) return;
     if (isTransitioning) return;
 
     mouseCoords.x = (e.clientX / window.innerWidth) * 2 - 1;
@@ -814,9 +832,19 @@
   // RENDER LOOP & BLINKING LEDS
   // ==========================================
   const clock = new THREE.Clock();
+  let initialFrameRendered = false;
 
   function animate() {
     requestAnimationFrame(animate);
+
+    const isCockpit = document.body.classList.contains('cockpit-mode');
+    // If not in cockpit mode and initial atmospheric frame already rendered, idle to conserve CPU/GPU
+    if (!isCockpit && initialFrameRendered) {
+      return;
+    }
+    if (!isCockpit && !initialFrameRendered) {
+      initialFrameRendered = true;
+    }
 
     const time = clock.getElapsedTime();
 
@@ -827,16 +855,19 @@
       led.visible = on;
     });
 
-    // Floating animation on hologram pins
-    const bob = Math.sin(time * 2) * 0.04;
-    pinProjects.position.y = 2.1 + bob;
-    pinSkills.position.y = 1.8 + bob;
-    pinExp.position.y = 1.8 + bob;
-    pinContact.position.y = 1.15 + bob;
+    // Floating animation on hologram pins (skip if user prefers reduced motion)
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReducedMotion) {
+      const bob = Math.sin(time * 2) * 0.04;
+      pinProjects.position.y = 2.1 + bob;
+      pinSkills.position.y = 1.8 + bob;
+      pinExp.position.y = 1.8 + bob;
+      pinContact.position.y = 1.15 + bob;
 
-    // Monitor glow pulsing
-    monitorLight.intensity = 2.4 + Math.sin(time * 3) * 0.35;
-    serverLight.intensity = 2.2 + Math.cos(time * 2.5) * 0.3;
+      // Monitor glow pulsing
+      monitorLight.intensity = 2.4 + Math.sin(time * 3) * 0.35;
+      serverLight.intensity = 2.2 + Math.cos(time * 2.5) * 0.3;
+    }
 
     renderer.render(scene, camera);
   }
