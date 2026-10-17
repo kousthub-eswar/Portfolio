@@ -35,6 +35,8 @@ Personal engineering portfolio of **Kousthub Eswar Reddy Gadikota**, a Computer 
 ## 🚀 Featured Projects
 
 ### 01. BillMate — POS & Retail Management System
+- **Live Demo:** [https://bill-mate-one.vercel.app/](https://bill-mate-one.vercel.app/)
+- **GitHub:** [https://github.com/kousthub-eswar/BillMate](https://github.com/kousthub-eswar/BillMate)
 - **Overview:** Point of Sale system for retail merchants with billing, inventory tracking, and supplier management.
 - **Backend Architecture:** PostgreSQL Stored Procedures (RPCs) to execute atomic inventory deduct + sale transactions to prevent stock desync.
 - **Tech:** React, Vite, Supabase, PostgreSQL, PWA.
