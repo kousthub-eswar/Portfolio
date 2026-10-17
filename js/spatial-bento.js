@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "Offline-capable service worker architecture guaranteeing continuous checkout during store connectivity drops."
       ],
       links: [
-        { text: "Live Demo", url: "https://bill-mate.vercel.app/", primary: true },
+        { text: "Live Demo", url: "https://bill-mate-one.vercel.app/", primary: true },
         { text: "GitHub Source", url: "https://github.com/kousthub-eswar/BillMate", primary: false }
       ]
     },
@@ -125,7 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
         "Enforced end-to-end type validation using Zod schemas and cryptographically signed JWT auth tokens."
       ],
       links: [
-        { text: "GitHub Source", url: "https://github.com/kousthub-eswar/TuneSense", primary: true }
+        { text: "Live Demo", url: "https://tunesense-sepia.vercel.app/", primary: true },
+        { text: "GitHub Source", url: "https://github.com/kousthub-eswar/tunesense", primary: false }
       ]
     },
     clubhub: {
@@ -141,10 +142,11 @@ document.addEventListener('DOMContentLoaded', () => {
       highlights: [
         "Implemented secure role-based access control (Admins, Club Leads, Student Attendees).",
         "Generated tamper-evident SVG QR code event passes with cryptographic verification payloads.",
-        "Integrated an administrative dashboard with live registration capacity tracking and CSV export."
+        "Integrated an administrative dashboard with live registration capacity tracking and CSV export.",
       ],
       links: [
-        { text: "GitHub Source", url: "https://github.com/kousthub-eswar/Campus-ClubHub", primary: true }
+        { text: "Live Demo", url: "https://campusclubhub.vercel.app/", primary: true },
+        { text: "GitHub Source", url: "https://github.com/kousthub-eswar/college-event-hub", primary: false }
       ]
     },
     auditanalytics: {
@@ -163,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "Rendered high-density interactive audit risk dashboards using Streamlit, Plotly, and vectorized Pandas calculations."
       ],
       links: [
-        { text: "GitHub Source", url: "https://github.com/kousthub-eswar", primary: true }
+        { text: "GitHub Source", url: "https://github.com/kousthub-eswar/audit-analytics", primary: true }
       ]
     }
   };

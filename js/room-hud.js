@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "Structured data access into reusable service modules with Vitest unit tests; auto-deployed on Vercel."
       ],
       links: [
-        { text: "Live Demo", url: "https://bill-mate.vercel.app/", primary: true },
+        { text: "Live Demo", url: "https://bill-mate-one.vercel.app/", primary: true },
         { text: "GitHub Source", url: "https://github.com/kousthub-eswar/BillMate", primary: false }
       ]
     },
@@ -131,7 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
         "Authored staged verification suites and an offline evaluation framework (Precision@K, Recall@K, NDCG)."
       ],
       links: [
-        { text: "GitHub Source", url: "https://github.com/kousthub-eswar/TuneSense", primary: true }
+        { text: "Live Demo", url: "https://tunesense-sepia.vercel.app/", primary: true },
+        { text: "GitHub Source", url: "https://github.com/kousthub-eswar/tunesense", primary: false }
       ]
     },
     clubhub: {
@@ -150,7 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
         "Architected with React 19, TypeScript, Vite, and Tailwind CSS for rapid sub-second interaction and responsive mobile views."
       ],
       links: [
-        { text: "GitHub Source", url: "https://github.com/kousthub-eswar/Campus-ClubHub", primary: true }
+        { text: "Live Demo", url: "https://campusclubhub.vercel.app/", primary: true },
+        { text: "GitHub Source", url: "https://github.com/kousthub-eswar/college-event-hub", primary: false }
       ]
     },
     auditanalytics: {
@@ -169,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "Engineered high-density forensic analytics dashboards with Python, SQL (SQLite), and Streamlit."
       ],
       links: [
-        { text: "GitHub Source", url: "https://github.com/kousthub-eswar", primary: true }
+        { text: "GitHub Source", url: "https://github.com/kousthub-eswar/audit-analytics", primary: true }
       ]
     }
   };
@@ -187,6 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (projectTitleEl) projectTitleEl.textContent = data.title;
     if (projectDescEl) projectDescEl.textContent = data.description;
+    if (projectActionBtn) projectActionBtn.dataset.project = key;
     if (projectMetricsEl) {
       projectMetricsEl.innerHTML = data.metrics.map(m => `
         <div class="flyout-metric-chip">
@@ -198,19 +201,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const liveBtn = document.getElementById('flyout-project-live-btn');
     const githubBtn = document.getElementById('flyout-project-github-btn');
     if (liveBtn) {
-      const demoLink = data.links.find(l => l.text.toLowerCase().includes('demo') || l.primary);
+      const demoLink = data.links.find(l => l.text.toLowerCase().includes('demo'));
       if (demoLink) {
         liveBtn.href = demoLink.url;
         liveBtn.style.display = 'inline-flex';
-        liveBtn.textContent = demoLink.text + ' \u2192';
+        liveBtn.textContent = 'Live Demo \u2192';
       } else {
         liveBtn.style.display = 'none';
       }
     }
     if (githubBtn) {
-      const ghLink = data.links.find(l => l.text.toLowerCase().includes('github')) || { url: 'https://github.com/kousthub-eswar' };
-      githubBtn.href = ghLink.url;
-      githubBtn.style.display = 'inline-flex';
+      const ghLink = data.links.find(l => l.text.toLowerCase().includes('github'));
+      if (ghLink) {
+        githubBtn.href = ghLink.url;
+        githubBtn.style.display = 'inline-flex';
+        githubBtn.textContent = 'GitHub \u2192';
+      } else {
+        githubBtn.style.display = 'none';
+      }
     }
   }
 
