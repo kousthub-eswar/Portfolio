@@ -269,14 +269,14 @@
         title: 'FEATURED: BillMate — POS & Retail PWA',
         tags: '[React 19] [TypeScript] [Supabase Atomic RPCs] [Vitest]',
         lines: [
-          '// Atomic PostgreSQL RPC: Eliminate inventory concurrency race conditions',
-          'CREATE OR REPLACE FUNCTION process_retail_sale(payload JSONB) RETURNS VOID AS $$',
+          '// Atomic sale + inventory update in a single PostgreSQL function (create_sale)',
+          'CREATE OR REPLACE FUNCTION create_sale(p_user_id UUID, p_items JSONB, p_total NUMERIC) RETURNS JSONB AS $$',
           'BEGIN',
-          '  PERFORM pg_advisory_xact_lock(payload->>\'store_id\');',
-          '  UPDATE inventory SET stock = stock - (item->>\'qty\')::int ...',
-          '  INSERT INTO invoices VALUES (...) RETURNING invoice_id;',
+          '  -- Atomic deduction of product stock quantities and sale record creation',
+          '  UPDATE products SET stock = stock - (item->>\'qty\')::int ...',
+          '  INSERT INTO sales (user_id, total) VALUES (p_user_id, p_total) RETURNING id;',
           'END; $$ LANGUAGE plpgsql;',
-          '>> Status: Tested with Vitest • Atomic PostgreSQL RPCs • Deployed on Vercel',
+          '>> Status: Tested with Vitest • Atomic PostgreSQL RPCs (create_sale) • Deployed on Vercel',
           '>> CLICK TO OPEN LIVE SYSTEM SPECS & DEMO &rarr;'
         ]
       },
@@ -284,8 +284,8 @@
         title: 'FEATURED: TuneSense — Music Recommender',
         tags: '[React] [TypeScript] [Node.js/Express] [MongoDB] [Zod] [Tailwind]',
         lines: [
-          '// 6 Composable Strategies: Popularity, Content, Behavioral, Context, Hybrid, Collab',
-          '// 11 Mongoose Schemas: Materialized Views, Event Logs, Cosine Similarity Vectors',
+          '// 6+ Composable Strategies: Popularity, Content, Behavioral, Context, Hybrid, Collab',
+          '// 14 Mongoose Models: Materialized Views, Event Logs, Cosine Similarity Vectors',
           'export const computeAcousticDistance = (songA, songB) => {',
           '  const vA = [songA.energy, songA.valence, songA.danceability, songA.acousticness];',
           '  const vB = [songB.energy, songB.valence, songB.danceability, songB.acousticness];',
@@ -298,13 +298,13 @@
       },
       clubhub: {
         title: 'FEATURED: Campus ClubHub — Event Platform',
-        tags: '[React 19] [TypeScript] [Vite] [Tailwind CSS] [Real-Time SVG QRs]',
+        tags: '[React 19] [TypeScript] [Vite] [Tailwind CSS] [QR-Style Passes]',
         lines: [
-          '// Domain-Segregated Institutional Auth with Real-Time SVG QR Event Passes',
-          'const generateSecureTicketPass = async (ticketId, attendeeId, eventId) => {',
-          '  const payload = `${ticketId}:${attendeeId}:${eventId}:${SECRET_KEY}`;',
-          '  const signature = crypto.createHash(\'sha256\').update(payload).digest(\'hex\');',
-          '  return await qrcode.toDataURL(JSON.stringify({ ticketId, signature }));',
+          '// Domain-Segregated Institutional Auth with QR-Style Event Passes',
+          'export function generateQrMatrix(data: string, size = 25): boolean[][] {',
+          '  const matrix = Array.from({ length: size }, () => Array(size).fill(false));',
+          '  drawFinderPatterns(matrix); // 7x7 corner finder & timing patterns',
+          '  return populateDataBits(matrix, hashString(data));',
           '};',
           '',
           '>> Organizer Console: Live Registration KPIs • Attendee Rosters • CSV Export',
@@ -313,7 +313,7 @@
       },
       auditanalytics: {
         title: 'Audit Analytics — Forensic Anomaly Detection',
-        tags: '[Python] [SQL (SQLite)] [Streamlit] [8,000 Synthetic Txns / $13.7M Simulated]',
+        tags: '[Python] [SQL (SQLite)] [Streamlit] [8,000 Synthetic Txns / $13.75M Simulated]',
         lines: [
           '# Forensic First-Digit Benford Distribution & Chi-Square Goodness-of-Fit',
           'def benford_goodness_of_fit(transactions_df):',
@@ -323,7 +323,7 @@
           '  chi_sq, p_val = scipy.stats.chisquare(f_obs=observed, f_exp=expected)',
           '  return {\'chi_square\': chi_sq, \'p_value\': p_val, \'fraud_flag\': p_val < 0.05}',
           '',
-          '>> Synthetic Dataset: 8,000 Txns ($13.7M) • Benford First-Digit • 206 Flags'
+          '>> Synthetic Dataset: 8,000 Txns ($13.75M) • Benford First-Digit • 206 Flags'
         ]
       }
     };

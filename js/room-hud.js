@@ -99,14 +99,14 @@ document.addEventListener('DOMContentLoaded', () => {
       badge: "REACT 19 • SUPABASE • POSTGRESQL RPCs • PWA • VITEST",
       metrics: [
         { label: "Data Integrity", value: "Atomic PostgreSQL RPCs" },
-        { label: "Hardware & Scanning", value: "Camera Barcode & 80mm ESC/POS" },
+        { label: "Hardware & Scanning", value: "Camera Barcode & Print Receipts" },
         { label: "Multi-User Security", value: "Supabase Auth & RLS" },
         { label: "Testing & Deploy", value: "Vitest Tests • Vercel" }
       ],
-      description: "A deployed mobile-first Progressive Web App engineered for high-throughput retail checkout, instant camera barcode scanning, customer credit ledger, and offline caching.",
+      description: "A deployed mobile-first Progressive Web App covering billing with camera barcode scanning, inventory, customer credit ledger, supplier and expense tracking, with offline caching.",
       highlights: [
         "Developed a mobile-first PWA covering billing with camera barcode scanning, inventory, customer credit ledger, supplier and expense tracking, with offline caching.",
-        "Engineered atomic sales and inventory updates using PostgreSQL RPC functions, preventing stock and sales desync, and secured multi-user data with Supabase Auth and Row-Level Security.",
+        "Engineered atomic sales and inventory updates using PostgreSQL RPC functions (create_sale), and secured multi-user data with Supabase Auth and Row-Level Security.",
         "Structured data access into reusable service modules with Vitest unit tests; auto-deployed on Vercel."
       ],
       links: [
@@ -116,17 +116,17 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     tunesense: {
       title: "TuneSense — Explainable Music Recommendation System",
-      badge: "6 STRATEGIES • 11 MONGOOSE SCHEMAS • EVALUATION SUITE",
+      badge: "6+ STRATEGIES • 14 MONGOOSE MODELS • EVALUATION SUITE",
       metrics: [
-        { label: "Recommendation API", value: "6 Composable Strategies" },
-        { label: "Database Modeling", value: "11 Mongoose Schemas" },
+        { label: "Recommendation API", value: "6+ Composable Strategies" },
+        { label: "Database Modeling", value: "14 Mongoose Models" },
         { label: "Authentication & Security", value: "JWT in HttpOnly + Zod" },
         { label: "Evaluation Suite", value: "Precision@K, Recall@K, NDCG" }
       ],
-      description: "An explainable music recommendation system with six composable algorithmic strategies that return a transparent human-readable reason for each suggested song.",
+      description: "An explainable music recommendation system with 6+ composable algorithmic strategies that return a transparent human-readable reason for each suggested song.",
       highlights: [
-        "Implemented a music recommendation REST API with six composable strategies (popularity, content, behavioral, contextual, hybrid/mood, and collaborative filtering) that return human-readable reasons (e.g., 'Matches high danceability & tempo of your favorites').",
-        "Designed 11 Mongoose schemas using materialized views, append-only event logs, compound indexes, and aggregation pipelines for listening telemetry and cosine-similarity peer matching.",
+        "Implemented a music recommendation REST API with 6+ composable strategies (popularity, content, behavioral, contextual, hybrid/mood, and collaborative filtering) that return human-readable reasons (e.g., 'Matches high danceability & tempo of your favorites').",
+        "Designed 14 Mongoose models using materialized views, append-only event logs, compound indexes, and aggregation pipelines for listening telemetry and cosine-similarity peer matching.",
         "Secured the API with JWT sessions in HttpOnly cookies, bcrypt hashing, Zod schema validation, and ownership checks; deployed the client on Vercel and the API on Render.",
         "Authored staged verification suites and an offline evaluation framework (Precision@K, Recall@K, NDCG)."
       ],
@@ -140,13 +140,13 @@ document.addEventListener('DOMContentLoaded', () => {
       badge: "REACT 19 • TYPESCRIPT • VITE • TAILWIND CSS",
       metrics: [
         { label: "Authentication Flow", value: "Domain-Segregated Auth" },
-        { label: "Digital Passes", value: "Real-Time SVG QR Codes" },
+        { label: "Digital Passes", value: "QR-Style Event Passes" },
         { label: "Calendar Sync", value: "Google Calendar & .ics" },
         { label: "Organizer Dashboard", value: "Live KPIs & CSV Export" }
       ],
       description: "A student club and event portal streamlining role-segregated student and organizer authentication, digital ticketing passes, and administrative capacity tracking.",
       highlights: [
-        "Developed role-segregated student and organizer authentication flows based on institutional email domains, with digital event passes using real-time SVG QR codes and Google Calendar/.ics sync.",
+        "Developed role-segregated student and organizer authentication flows based on institutional email domains, with digital event passes using QR-style event passes and Google Calendar/.ics sync.",
         "Created an organizer console with live registration KPIs, real-time attendee rosters and CSV export.",
         "Architected with React 19, TypeScript, Vite, and Tailwind CSS for rapid sub-second interaction and responsive mobile views."
       ],
@@ -160,13 +160,13 @@ document.addEventListener('DOMContentLoaded', () => {
       badge: "8,000 TXNS • SYNTHETIC DATASET • BENFORD'S LAW • SQLITE",
       metrics: [
         { label: "Sample Size", value: "8,000 Transactions (Synthetic)" },
-        { label: "Volume Simulated", value: "$13.7M Simulated Volume" },
+        { label: "Volume Simulated", value: "$13.75M Simulated Volume" },
         { label: "Threshold Flags", value: "206 Avoidance Flags" },
         { label: "Duplicate Checks", value: "168 Duplicate Invoices" }
       ],
       description: "A forensic financial data analytics platform analyzing an 8,000-transaction synthetic dataset to detect accounting anomalies and threshold avoidance.",
       highlights: [
-        "Analyzed an 8,000-transaction synthetic ledger ($13.7M simulated volume) using a SQLite schema, SQL data-quality checks, Benford's Law and rule tests to flag 206 threshold-avoidance transactions, 168 duplicate invoices and 122 weekend postings.",
+        "Analyzed an 8,000-transaction synthetic ledger ($13.75M simulated volume) using a SQLite schema, SQL data-quality checks, Benford's Law and rule tests to flag 206 threshold-avoidance transactions, 168 duplicate invoices and 122 weekend postings.",
         "Engineered interactive forensic analytics dashboards with Python, SQL (SQLite), and Streamlit."
       ],
       links: [
@@ -384,11 +384,40 @@ document.addEventListener('DOMContentLoaded', () => {
   const enterCockpitButtons = document.querySelectorAll('.btn-enter-cockpit, #nav-enter-3d, #hero-enter-3d, #float-enter-3d');
   const exitCockpitBtn = document.getElementById('hud-exit-cockpit');
 
+  let threeLoadingPromise = null;
+  function loadThreeAndCyberRoom() {
+    if (window.cyberRoom) return Promise.resolve(window.cyberRoom);
+    if (threeLoadingPromise) return threeLoadingPromise;
+
+    threeLoadingPromise = new Promise((resolve, reject) => {
+      if (typeof THREE !== 'undefined' && window.cyberRoom) {
+        return resolve(window.cyberRoom);
+      }
+      const scriptThree = document.createElement('script');
+      scriptThree.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+      scriptThree.onload = () => {
+        const scriptRoom = document.createElement('script');
+        scriptRoom.src = 'js/cyber-room.js';
+        scriptRoom.onload = () => resolve(window.cyberRoom);
+        scriptRoom.onerror = reject;
+        document.body.appendChild(scriptRoom);
+      };
+      scriptThree.onerror = reject;
+      document.body.appendChild(scriptThree);
+    });
+    return threeLoadingPromise;
+  }
+
   function enterCockpit() {
     document.body.classList.add('cockpit-mode');
-    if (window.cyberRoom) {
-      window.cyberRoom.transitionTo('overview');
-    }
+    loadThreeAndCyberRoom().then(cyberRoom => {
+      if (cyberRoom && typeof cyberRoom.transitionTo === 'function') {
+        cyberRoom.transitionTo('overview');
+      }
+    }).catch(err => {
+      console.warn('Unable to load 3D assets:', err);
+      exitCockpit();
+    });
   }
 
   function exitCockpit() {

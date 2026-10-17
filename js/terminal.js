@@ -28,16 +28,16 @@ document.addEventListener('DOMContentLoaded', () => {
 `,
       skills: () => `
 <span class="term-cyan">Technical Stack & Competencies:</span>
-  <span class="term-green">Strong:</span> Java, SQL, React 19, TypeScript, Node.js, OOP, DSA
-  <span class="term-green">Comfortable:</span> PostgreSQL, Express, MongoDB, Supabase, Tailwind, Git
-  <span class="term-green">Familiar:</span> Python, C++, Vitest, SQLite, Docker, Linux CLI
+  <span class="term-green">Strong:</span> Java, SQL
+  <span class="term-green">Comfortable:</span> React 19, TypeScript, JavaScript, Node.js, Express, MongoDB, PostgreSQL, Supabase, Tailwind, DSA, OOP
+  <span class="term-green">Familiar:</span> Python (basic), C++, Vitest, SQLite, Git, GitHub
 `,
       projects: () => `
 <span class="term-cyan">Featured Deployed Projects:</span>
-  <span class="term-magenta">[01] BillMate:</span> POS & Retail PWA with Atomic PostgreSQL RPCs
-  <span class="term-magenta">[02] TuneSense:</span> Explainable Music Recommendation System (6 Engines)
-  <span class="term-magenta">[03] Campus ClubHub:</span> Role-Segregated Event Portal with SVG QR Passes
-  <span class="term-magenta">[04] Audit Analytics:</span> Forensic Anomaly Detection on 8,000 Synthetic Txns ($13.7M)
+  <span class="term-magenta">[01] BillMate:</span> POS & Retail PWA with Atomic PostgreSQL RPCs (create_sale)
+  <span class="term-magenta">[02] TuneSense:</span> Explainable Music Recommendation System (6+ Strategies, 14 Models)
+  <span class="term-magenta">[03] Campus ClubHub:</span> Role-Segregated Event Portal with QR-Style Event Passes
+  <span class="term-magenta">[04] Audit Analytics:</span> Forensic Anomaly Detection on 8,000 Synthetic Txns ($13.75M)
   <span class="term-muted">Type 'view &lt;number&gt;' or click below to inspect.</span>
 `,
       resume: () => {
