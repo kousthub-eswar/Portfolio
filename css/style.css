@@ -1630,29 +1630,34 @@ body.cockpit-mode .float-cockpit-btn {
 }
 
 /* ============================================================
-   SKILLS SECTION (Confidence Tiers)
+   SKILLS SECTION (Categories Grid)
    ============================================================ */
-.skills-tiers-grid {
+.skills-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
-.skill-tier-card {
+.skill-category-card {
   background: rgba(11, 17, 32, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   padding: 22px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
-.skill-tier-header {
+.skill-category-card:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.skill-category-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 14px;
 }
 
-.skill-tier-title {
+.skill-category-title {
   font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 700;
@@ -1660,34 +1665,7 @@ body.cockpit-mode .float-cockpit-btn {
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
-.tier-badge {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  padding: 3px 9px;
-  border-radius: 6px;
-  border: 1px solid;
-  letter-spacing: 0.5px;
-  font-weight: 700;
-}
-
-.tier-badge-strong {
-  color: var(--accent-cyan);
-  border-color: rgba(0, 240, 255, 0.35);
-  background: rgba(0, 240, 255, 0.08);
-}
-
-.tier-badge-comfortable {
-  color: var(--accent-purple);
-  border-color: rgba(192, 132, 252, 0.35);
-  background: rgba(192, 132, 252, 0.08);
-}
-
-.tier-badge-familiar {
-  color: var(--accent-green);
-  border-color: rgba(0, 255, 159, 0.35);
-  background: rgba(0, 255, 159, 0.08);
+  margin: 0;
 }
 
 .skill-pills-list {
@@ -1715,10 +1693,14 @@ body.cockpit-mode .float-cockpit-btn {
   transform: translateY(-1px);
 }
 
-.skill-pill.highlight {
-  border-color: rgba(0, 240, 255, 0.35);
-  color: var(--accent-cyan);
-  font-weight: 600;
+.timeline-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 3px 9px;
+  border-radius: 6px;
+  border: 1px solid;
+  letter-spacing: 0.5px;
+  font-weight: 700;
 }
 
 /* ============================================================
@@ -1960,7 +1942,8 @@ body.cockpit-mode .float-cockpit-btn {
    ============================================================ */
 @media (max-width: 900px) {
   .projects-grid,
-  .contact-container-grid {
+  .contact-container-grid,
+  .skills-grid {
     grid-template-columns: 1fr;
   }
 

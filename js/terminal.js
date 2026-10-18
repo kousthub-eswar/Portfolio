@@ -28,9 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
 `,
       skills: () => `
 <span class="term-cyan">Technical Stack & Competencies:</span>
-  <span class="term-green">Strong:</span> Java, SQL
-  <span class="term-green">Comfortable:</span> React 19, TypeScript, JavaScript, Node.js, Express, MongoDB, PostgreSQL, Supabase, Tailwind, DSA, OOP
-  <span class="term-green">Familiar:</span> Python (basic), C++, Vitest, SQLite, Git, GitHub
+  <span class="term-green">Languages:</span> Java, SQL, TypeScript, JavaScript, Python (basic), C++
+  <span class="term-green">Frontend:</span> React 19, Tailwind CSS, Vite, PWA (Service Workers)
+  <span class="term-green">Backend & Databases:</span> Node.js, Express.js, RESTful APIs, PostgreSQL, MongoDB (Mongoose), SQLite, Supabase (Atomic RPCs, RLS)
+  <span class="term-green">Tools & Testing:</span> Git & GitHub, Vitest Unit Testing, Vercel, Render
+  <span class="term-green">Core Concepts:</span> Data Structures & Algorithms, Object-Oriented Programming (OOP)
 `,
       projects: () => `
 <span class="term-cyan">Featured Deployed Projects:</span>
